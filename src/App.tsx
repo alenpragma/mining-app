@@ -20,6 +20,9 @@ import ActiveUser from './pages/Users/ActiveUser';
 import InacticeUser from './pages/Users/InacticeUser';
 import PackageList from './pages/Package/PackageList';
 import PackageSettings from './pages/Package/PackageSettings';
+import AllDeposits from './pages/Deposits/AllDeposits';
+import PendingDeposits from './pages/Deposits/PendingDeposits';
+import SuccessDeposits from './pages/Deposits/SuccessDeposits';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -67,6 +70,16 @@ function App() {
             </>
           }
         />
+        <Route
+          path="/users/inactive-user"
+          element={
+            <>
+              <PageTitle title="inactive Users" />
+              <InacticeUser />
+            </>
+          }
+        />
+
         {/* user end */}
 
         {/* Packages */}
@@ -83,21 +96,54 @@ function App() {
           path="/package/package-settings"
           element={
             <>
-              <PageTitle title="package-settings" />
+              <PageTitle title="Package Settings" />
               <PackageSettings />
             </>
           }
         />
 
+        {/* Packages */}
+
+        {/* Deposits start */}
+
         <Route
-          path="/users/inactive-user"
+          path="/deposits/all-deposit"
           element={
             <>
-              <PageTitle title="inactive Users" />
-              <InacticeUser />
+              <PageTitle title="All Deposit" />
+              <AllDeposits />
             </>
           }
         />
+
+        <Route
+          path="/deposits/pending-deposit"
+          element={
+            <>
+              <PageTitle title="Pending Deposit" />
+              <PendingDeposits />
+            </>
+          }
+        />
+
+        <Route
+          path="/deposits/success-deposit"
+          element={
+            <>
+              <PageTitle title="Success Deposit" />
+              <SuccessDeposits />
+            </>
+          }
+        />
+
+        {/* Deposits  end*/}
+
+
+
+
+
+
+
 
         <Route
           path="/calendar"

@@ -45,9 +45,7 @@ const PackageList = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Package List" />
-      <div>
 
-      </div>
       <div>
         <Link
           to="#"
