@@ -23,6 +23,9 @@ import PackageSettings from './pages/Package/PackageSettings';
 import AllDeposits from './pages/Deposits/AllDeposits';
 import PendingDeposits from './pages/Deposits/PendingDeposits';
 import SuccessDeposits from './pages/Deposits/SuccessDeposits';
+import AllWithdraws from './pages/Withdrawls/AllWithdraws';
+import PendingWithdraws from './pages/Withdrawls/PendingWithdraws';
+import SuccessWithdraws from './pages/Withdrawls/SuccessWithdraws';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -138,10 +141,34 @@ function App() {
 
         {/* Deposits  end*/}
 
-
-
-
-
+        <Route
+          path="/withdraw/all-withdraws"
+          element={
+            <>
+              <PageTitle title="All withdraws" />
+              <AllWithdraws />
+            </>
+          }
+        />
+        <Route
+          path="/withdraw/pending-withdraws"
+          element={
+            <>
+              <PageTitle title="Pending Withdraws" />
+              <PendingWithdraws />
+            </>
+          }
+        />
+        <Route
+          path="/withdraw/success-withdraws"
+          element={
+            <>
+              <PageTitle title="Success Withdraws" />
+              <SuccessWithdraws />
+            </>
+          }
+        />
+        {/* withdrow end */}
 
 
 
