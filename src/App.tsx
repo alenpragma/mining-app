@@ -26,6 +26,8 @@ import SuccessDeposits from './pages/Deposits/SuccessDeposits';
 import AllWithdraws from './pages/Withdrawls/AllWithdraws';
 import PendingWithdraws from './pages/Withdrawls/PendingWithdraws';
 import SuccessWithdraws from './pages/Withdrawls/SuccessWithdraws';
+import GeneralSettings from './pages/GeneralSettings';
+import BonusSettings from './pages/BonusSettings';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -36,7 +38,7 @@ function App() {
   }, [pathname]);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
+    setTimeout(() => setLoading(false), 500);
   }, []);
 
   return loading ? (
@@ -46,6 +48,16 @@ function App() {
       <Routes>
         <Route
           index
+          element={
+            <>
+              <PageTitle title="SignIn" />
+              <SignIn />
+            </>
+          }
+        />
+
+        <Route
+          path="/dashboard"
           element={
             <>
               <PageTitle title="eCommerce Dashboard" />
@@ -199,6 +211,28 @@ function App() {
             </>
           }
         />
+
+        <Route
+          path="/general-settings"
+          element={
+            <>
+              <PageTitle title="General Settings" />
+              <GeneralSettings />
+            </>
+          }
+        />
+
+        <Route
+          path="/bonus-settings"
+          element={
+            <>
+              <PageTitle title="General Settings" />
+              <BonusSettings />
+            </>
+          }
+        />
+
+
         <Route
           path="/forms/form-layout"
           element={
