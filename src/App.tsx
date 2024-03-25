@@ -46,7 +46,7 @@ function App() {
   ) : (
     <>
       <Routes>
-        {/* <Route
+        <Route
           index
           element={
             <>
@@ -54,10 +54,10 @@ function App() {
               <SignIn />
             </>
           }
-        /> */}
+        />
 
         <Route
-          index
+          path="/dashboard"
           element={
             <>
               <PageTitle title="eCommerce Dashboard" />

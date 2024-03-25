@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import DropdownMessage from './DropdownMessage';
 import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
-import LogoIcon from '../../images/logo/logo-icon.svg';
+import LogoIcon from '../../assets/Biz Favicon legal Dark White-01.png';
 import DarkModeSwitcher from './DarkModeSwitcher';
 
 const Header = (props: {
@@ -52,13 +52,14 @@ const Header = (props: {
           {/* <!-- Hamburger Toggle BTN --> */}
 
           <Link className="block flex-shrink-0 lg:hidden" to="/">
-            {/* <img src={LogoIcon} alt="Logo" /> */}
+            <img className='w-8' src={LogoIcon} alt="Logo" />
+
           </Link>
         </div>
 
         <div className="hidden sm:block">
           <form action="https://formbold.com/s/unique_form_id" method="POST">
-            <div className="relative">
+            <div className="relative border p-1 rounded-full px-2">
               <button className="absolute left-0 top-1/2 -translate-y-1/2">
                 <svg
                   className="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
@@ -86,7 +87,7 @@ const Header = (props: {
               <input
                 type="text"
                 placeholder="Type to search..."
-                className="w-full bg-transparent pl-9 pr-4 text-black focus:outline-none dark:text-white xl:w-125"
+                className="w-full   rounded-full   bg-transparent pl-9 pr-4 text-black focus:outline-none dark:text-white xl:w-125"
               />
             </div>
           </form>
