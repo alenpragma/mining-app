@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../../layout/DefaultLayout";
 import { Package } from '../../types/package';
+import axios from "axios";
 
 
 
@@ -41,7 +43,30 @@ const packageData: Package[] = [
 
 
 const AllUsers = () => {
+  const [data, setData] = useState(null);
 
+  useEffect(() => {
+    // Function to fetch data from the API
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('biztoken');
+        const response = await axios.get('http://biztoken.fecotrade.com/api/user-lists', {
+          headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json', // Example of additional header
+          },
+        });
+        console.log(response);
+
+        setData(response.data); // Assuming the response is JSON data
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData(); // Call the fetch function when the component mounts
+  }, []); // Empty dependency array ensures this effect runs only once
+  console.log(data);
 
 
   return (

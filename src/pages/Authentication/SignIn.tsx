@@ -30,6 +30,7 @@ const SignIn: React.FC = () => {
       });
       const responseData = await response.json();
       if (responseData.token) {
+        localStorage.setItem('biztoken', responseData.token);
         Swal.fire({
           title: "success",
           text: "Login successfull",
