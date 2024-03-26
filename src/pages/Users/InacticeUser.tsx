@@ -64,7 +64,7 @@ const InacticeUser = () => {
                 </th>
 
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Join data
+                  Join date
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Status
