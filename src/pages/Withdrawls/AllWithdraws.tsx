@@ -80,7 +80,7 @@ const AllWithdraws = () => {
                   Amount
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Data
+                  Date
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Status

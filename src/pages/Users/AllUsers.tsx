@@ -1,72 +1,53 @@
-import { useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../../layout/DefaultLayout";
-import { Package } from '../../types/package';
 import axios from "axios";
+import { formatToLocalDate } from "../../hooks/formatDate";
+
+export type user = {
+  id: number;
+  name: string;
+  email: string;
+  email_verified_at: null | any;
+  is_admin: string;
+  referral_code: string | null;
+  status: string;
+  created_at: string;
+  updated_at: string;
+};
 
 
-
-const packageData: Package[] = [
-  {
-    name: 'user name',
-    email: "example@gmail.com",
-    price: 0.0,
-    invoiceDate: `0156666666`,
-    refarence: '34522323',
-    status: 'Active',
-  },
-  {
-    name: 'user name',
-    email: "example@gmail.com",
-    price: 59.0,
-    invoiceDate: `0156666666`,
-    refarence: '34522323',
-    status: 'Active',
-  },
-  {
-    name: 'user name',
-    email: "example@gmail.com",
-    price: 99.0,
-    invoiceDate: `0156666666`,
-    refarence: '34522323',
-    status: 'Inactive',
-  },
-  {
-    name: 'user name',
-    email: "example@gmail.com",
-    price: 59.0,
-    invoiceDate: `0156666666`,
-    refarence: '34522323',
-    status: 'Active',
-  },
-];
 
 
 const AllUsers = () => {
-  const [data, setData] = useState(null);
+  const [allUsers, setAllUsers] = useState<user[]>([]);
 
   useEffect(() => {
-    // Function to fetch data from the API
+
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('biztoken');
+        // console.log(token);
+
         const response = await axios.get('http://biztoken.fecotrade.com/api/user-lists', {
           headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json', // Example of additional header
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
         });
-        console.log(response);
 
-        setData(response.data); // Assuming the response is JSON data
+        setAllUsers(response?.data[0].users);
+        console.log(response?.data, 'asas');
+
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    fetchData(); // Call the fetch function when the component mounts
-  }, []); // Empty dependency array ensures this effect runs only once
-  console.log(data);
+    fetchData();
+  }, []);
+  console.log(allUsers);
 
 
   return (
@@ -95,7 +76,6 @@ const AllUsers = () => {
                   <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                     Balance
                   </th>
-
                   <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                     Join date
                   </th>
@@ -108,52 +88,51 @@ const AllUsers = () => {
                 </tr>
               </thead>
               <tbody>
-                {packageData.map((packageItem, key) => (
+                {allUsers?.map((user: user, key: Key | null | undefined) => (
                   <tr key={key}>
                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                       <h5 className="font-medium text-black dark:text-white">
-                        {key + 1}
+                        {Number(key) + 1}
                       </h5>
                     </td>
-
                     <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                       <h5 className="font-medium text-black dark:text-white">
-                        {packageItem.name}
+                        {user.name}
                       </h5>
-                      <p className="text-sm">{packageItem.invoiceDate}</p>
+                      <p className="text-sm">0153234242</p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {packageItem.email}
+                        {user.email}
                       </p>
                     </td>
 
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {packageItem.refarence}
+                        {user.referral_code}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        36
+                        36 USD
                       </p>
                     </td>
 
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        01/03/24
+                        {formatToLocalDate(user?.created_at)}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p
-                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${packageItem.status === 'Active'
+                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${user?.status === 'Active'
                           ? 'bg-success text-success'
-                          : packageItem.status === 'Inactive'
+                          : user?.status === 'Inactive'
                             ? 'bg-danger text-danger'
                             : 'bg-warning text-warning'
                           }`}
                       >
-                        {packageItem.status}
+                        {user?.status} Active
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">

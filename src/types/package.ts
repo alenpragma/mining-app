@@ -1,8 +1,10 @@
 export type Package = {
+  id: number;
   name: string;
-  price: number;
-  invoiceDate: string;
   email: string;
-  refarence: string;
-  status: string;
+  email_verified_at: null | any;
+  is_admin: string;
+  referral_code: string | null;
+  created_at: string;
+  updated_at: string;
 };
