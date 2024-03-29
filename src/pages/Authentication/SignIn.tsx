@@ -23,7 +23,7 @@ const SignIn: React.FC = () => {
     console.log(data);
 
     try {
-      const response = await fetch('http://biztoken.fecotrade.com/api/login', {
+      const response = await fetch('https://biztoken.fecotrade.com/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
