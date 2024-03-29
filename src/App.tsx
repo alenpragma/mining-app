@@ -28,6 +28,7 @@ import PendingWithdraws from './pages/Withdrawls/PendingWithdraws';
 import SuccessWithdraws from './pages/Withdrawls/SuccessWithdraws';
 import GeneralSettings from './pages/GeneralSettings';
 import BonusSettings from './pages/BonusSettings';
+import { SkeletonTheme } from 'react-loading-skeleton';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -38,274 +39,274 @@ function App() {
   }, [pathname]);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
+    setTimeout(() => setLoading(false), 100);
   }, []);
 
-  return loading ? (
-    <Loader />
-  ) : (
+  return (
     <>
-      <Routes>
-        <Route
-          index
-          element={
-            <>
-              <PageTitle title="SignIn" />
-              <SignIn />
-            </>
-          }
-        />
+      <SkeletonTheme baseColor="#3c4a5e" highlightColor="#47566c">
+        <Routes>
+          <Route
+            index
+            element={
+              <>
+                <PageTitle title="SignIn" />
+                <SignIn />
+              </>
+            }
+          />
 
-        <Route
-          path="/dashboard"
-          element={
-            <>
-              <PageTitle title="eCommerce Dashboard" />
-              <ECommerce />
-            </>
-          }
-        />
+          <Route
+            path="/dashboard"
+            element={
+              <>
+                <PageTitle title="eCommerce Dashboard" />
+                <ECommerce />
+              </>
+            }
+          />
 
-        <Route
-          path="/users/all-user"
-          element={
-            <>
-              <PageTitle title="All Users" />
-              <AllUsers />
-            </>
-          }
-        />
+          <Route
+            path="/users/all-user"
+            element={
+              <>
+                <PageTitle title="All Users" />
+                <AllUsers />
+              </>
+            }
+          />
 
-        <Route
-          path="/users/active-user"
-          element={
-            <>
-              <PageTitle title="All Users" />
-              <ActiveUser />
-            </>
-          }
-        />
-        <Route
-          path="/users/inactive-user"
-          element={
-            <>
-              <PageTitle title="inactive Users" />
-              <InacticeUser />
-            </>
-          }
-        />
+          <Route
+            path="/users/active-user"
+            element={
+              <>
+                <PageTitle title="All Users" />
+                <ActiveUser />
+              </>
+            }
+          />
+          <Route
+            path="/users/inactive-user"
+            element={
+              <>
+                <PageTitle title="inactive Users" />
+                <InacticeUser />
+              </>
+            }
+          />
 
-        {/* user end */}
+          {/* user end */}
 
-        {/* Packages */}
-        <Route
-          path="/package/package-list"
-          element={
-            <>
-              <PageTitle title="package-list" />
-              <PackageList />
-            </>
-          }
-        />
-        <Route
-          path="/package/package-settings"
-          element={
-            <>
-              <PageTitle title="Package Settings" />
-              <PackageSettings />
-            </>
-          }
-        />
+          {/* Packages */}
+          <Route
+            path="/package/package-list"
+            element={
+              <>
+                <PageTitle title="package-list" />
+                <PackageList />
+              </>
+            }
+          />
+          <Route
+            path="/package/package-settings"
+            element={
+              <>
+                <PageTitle title="Package Settings" />
+                <PackageSettings />
+              </>
+            }
+          />
 
-        {/* Packages */}
+          {/* Packages */}
 
-        {/* Deposits start */}
+          {/* Deposits start */}
 
-        <Route
-          path="/deposits/all-deposit"
-          element={
-            <>
-              <PageTitle title="All Deposit" />
-              <AllDeposits />
-            </>
-          }
-        />
+          <Route
+            path="/deposits/all-deposit"
+            element={
+              <>
+                <PageTitle title="All Deposit" />
+                <AllDeposits />
+              </>
+            }
+          />
 
-        <Route
-          path="/deposits/pending-deposit"
-          element={
-            <>
-              <PageTitle title="Pending Deposit" />
-              <PendingDeposits />
-            </>
-          }
-        />
+          <Route
+            path="/deposits/pending-deposit"
+            element={
+              <>
+                <PageTitle title="Pending Deposit" />
+                <PendingDeposits />
+              </>
+            }
+          />
 
-        <Route
-          path="/deposits/success-deposit"
-          element={
-            <>
-              <PageTitle title="Success Deposit" />
-              <SuccessDeposits />
-            </>
-          }
-        />
+          <Route
+            path="/deposits/success-deposit"
+            element={
+              <>
+                <PageTitle title="Success Deposit" />
+                <SuccessDeposits />
+              </>
+            }
+          />
 
-        {/* Deposits  end*/}
+          {/* Deposits  end*/}
 
-        <Route
-          path="/withdraw/all-withdraws"
-          element={
-            <>
-              <PageTitle title="All withdraws" />
-              <AllWithdraws />
-            </>
-          }
-        />
-        <Route
-          path="/withdraw/pending-withdraws"
-          element={
-            <>
-              <PageTitle title="Pending Withdraws" />
-              <PendingWithdraws />
-            </>
-          }
-        />
-        <Route
-          path="/withdraw/success-withdraws"
-          element={
-            <>
-              <PageTitle title="Success Withdraws" />
-              <SuccessWithdraws />
-            </>
-          }
-        />
-        {/* withdrow end */}
-
-
-
-        <Route
-          path="/calendar"
-          element={
-            <>
-              <PageTitle title="Calendar" />
-              <Calendar />
-            </>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <>
-              <PageTitle title="Profile" />
-              <Profile />
-            </>
-          }
-        />
-        <Route
-          path="/forms/form-elements"
-          element={
-            <>
-              <PageTitle title="Form Elements" />
-              <FormElements />
-            </>
-          }
-        />
-
-        <Route
-          path="/general-settings"
-          element={
-            <>
-              <PageTitle title="General Settings" />
-              <GeneralSettings />
-            </>
-          }
-        />
-
-        <Route
-          path="/bonus-settings"
-          element={
-            <>
-              <PageTitle title="General Settings" />
-              <BonusSettings />
-            </>
-          }
-        />
+          <Route
+            path="/withdraw/all-withdraws"
+            element={
+              <>
+                <PageTitle title="All withdraws" />
+                <AllWithdraws />
+              </>
+            }
+          />
+          <Route
+            path="/withdraw/pending-withdraws"
+            element={
+              <>
+                <PageTitle title="Pending Withdraws" />
+                <PendingWithdraws />
+              </>
+            }
+          />
+          <Route
+            path="/withdraw/success-withdraws"
+            element={
+              <>
+                <PageTitle title="Success Withdraws" />
+                <SuccessWithdraws />
+              </>
+            }
+          />
+          {/* withdrow end */}
 
 
-        <Route
-          path="/forms/form-layout"
-          element={
-            <>
-              <PageTitle title="Form Layout" />
-              <FormLayout />
-            </>
-          }
-        />
-        <Route
-          path="/tables"
-          element={
-            <>
-              <PageTitle title="Tables " />
-              <Tables />
-            </>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <>
-              <PageTitle title="Settings" />
-              <Settings />
-            </>
-          }
-        />
-        <Route
-          path="/chart"
-          element={
-            <>
-              <PageTitle title="Basic Chart" />
-              <Chart />
-            </>
-          }
-        />
-        <Route
-          path="/ui/alerts"
-          element={
-            <>
-              <PageTitle title="Alerts " />
-              <Alerts />
-            </>
-          }
-        />
-        <Route
-          path="/ui/buttons"
-          element={
-            <>
-              <PageTitle title="Buttons" />
-              <Buttons />
-            </>
-          }
-        />
-        <Route
-          path="/auth/signin"
-          element={
-            <>
-              <PageTitle title="Signin" />
-              <SignIn />
-            </>
-          }
-        />
-        <Route
-          path="/auth/signup"
-          element={
-            <>
-              <PageTitle title="Signup" />
-              <SignUp />
-            </>
-          }
-        />
-      </Routes>
+
+          <Route
+            path="/calendar"
+            element={
+              <>
+                <PageTitle title="Calendar" />
+                <Calendar />
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <>
+                <PageTitle title="Profile" />
+                <Profile />
+              </>
+            }
+          />
+          <Route
+            path="/forms/form-elements"
+            element={
+              <>
+                <PageTitle title="Form Elements" />
+                <FormElements />
+              </>
+            }
+          />
+
+          <Route
+            path="/general-settings"
+            element={
+              <>
+                <PageTitle title="General Settings" />
+                <GeneralSettings />
+              </>
+            }
+          />
+
+          <Route
+            path="/bonus-settings"
+            element={
+              <>
+                <PageTitle title="General Settings" />
+                <BonusSettings />
+              </>
+            }
+          />
+
+
+          <Route
+            path="/forms/form-layout"
+            element={
+              <>
+                <PageTitle title="Form Layout" />
+                <FormLayout />
+              </>
+            }
+          />
+          <Route
+            path="/tables"
+            element={
+              <>
+                <PageTitle title="Tables " />
+                <Tables />
+              </>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <>
+                <PageTitle title="Settings" />
+                <Settings />
+              </>
+            }
+          />
+          <Route
+            path="/chart"
+            element={
+              <>
+                <PageTitle title="Basic Chart" />
+                <Chart />
+              </>
+            }
+          />
+          <Route
+            path="/ui/alerts"
+            element={
+              <>
+                <PageTitle title="Alerts " />
+                <Alerts />
+              </>
+            }
+          />
+          <Route
+            path="/ui/buttons"
+            element={
+              <>
+                <PageTitle title="Buttons" />
+                <Buttons />
+              </>
+            }
+          />
+          <Route
+            path="/auth/signin"
+            element={
+              <>
+                <PageTitle title="Signin" />
+                <SignIn />
+              </>
+            }
+          />
+          <Route
+            path="/auth/signup"
+            element={
+              <>
+                <PageTitle title="Signup" />
+                <SignUp />
+              </>
+            }
+          />
+        </Routes>
+      </SkeletonTheme>
     </>
   );
 }
