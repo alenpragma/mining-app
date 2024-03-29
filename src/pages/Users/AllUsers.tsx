@@ -31,7 +31,7 @@ const AllUsers = () => {
         const token = localStorage.getItem('biztoken');
         // console.log(token);
 
-        const response = await axios.get('http://biztoken.fecotrade.com/api/user-lists', {
+        const response = await axios.get('https://biztoken.fecotrade.com/api/user-lists', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
