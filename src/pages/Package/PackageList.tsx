@@ -3,34 +3,60 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 const PackageList = () => {
   const [packages, setPackages] = useState<any>([]);
+  const token = localStorage.getItem('biztoken');
 
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://biztoken.fecotrade.com/api/packages', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      setPackages(response?.data[0]);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('biztoken');
-        const response = await axios.get('https://biztoken.fecotrade.com/api/packages', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-        setPackages(response?.data[0]);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
     fetchData();
   }, []);
-  console.log(packages);
+
+
+  const deletePackage = async (id: string) => {
+    Swal.fire({
+      title: "Do you want to Delete?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await axios.get(`https://biztoken.fecotrade.com/api/package/delete/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        fetchData();
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+  };
 
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Package List" />
-
-
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
           <table className="w-full table-auto">
@@ -113,6 +139,7 @@ const PackageList = () => {
                     </td> */}
                   <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
+                      {/* details btn */}
                       <button className="hover:text-primary">
                         <svg
                           className="fill-current"
@@ -132,7 +159,8 @@ const PackageList = () => {
                           />
                         </svg>
                       </button>
-                      <button className="hover:text-primary">
+                      {/* delete  */}
+                      <button onClick={() => deletePackage(packageItem?.id)} className="hover:text-primary">
                         <svg
                           className="fill-current"
                           width="18"
@@ -159,6 +187,7 @@ const PackageList = () => {
                           />
                         </svg>
                       </button>
+                      {/* edit btn */}
                       <button className="hover:text-primary">
                         <svg className="w-6 h-6 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />

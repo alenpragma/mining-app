@@ -1,6 +1,7 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { useForm, SubmitHandler } from "react-hook-form";
+import Swal from 'sweetalert2';
 
 type Inputs = {
   package_name: string;
@@ -19,7 +20,6 @@ const PackageSettings = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
 
@@ -40,7 +40,11 @@ const PackageSettings = () => {
         throw new Error('Network response was not ok');
       }
       const responseData = await response.json();
-      console.log(responseData);
+      Swal.fire({
+        title: "success",
+        text: "Successfully added new package",
+        icon: "success"
+      });
     } catch (error) {
       console.error('Error occurred while making POST request:', error);
     }
