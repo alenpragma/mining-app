@@ -1,46 +1,30 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const PackageList = () => {
+  const [packages, setPackages] = useState<any>([]);
 
-  const packages = [
-    {
-      name: "Starter",
-      price: "5",
-      dailyToken: "5",
-      duration: "30",
-      hashpower: "2"
-    },
-    {
-      name: "Silver",
-      price: "10$",
-      dailyToken: "15",
-      duration: "30",
-      hashpower: "3"
-    },
-    {
-      name: "Gold",
-      price: "25$",
-      dailyToken: "20",
-      duration: "30",
-      hashpower: "4"
-    },
-    {
-      name: "Platinum",
-      price: "50$",
-      dailyToken: "30",
-      duration: "30",
-      hashpower: "6"
-    },
-    {
-      name: "Crown",
-      price: "100$",
-      dailyToken: "35",
-      duration: "30",
-      hashpower: "8"
-    }
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('biztoken');
+        const response = await axios.get('https://biztoken.fecotrade.com/api/packages', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        setPackages(response?.data[0]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+  console.log(packages);
 
   return (
     <DefaultLayout>
@@ -78,7 +62,7 @@ const PackageList = () => {
               </tr>
             </thead>
             <tbody>
-              {packages.map((packageItem, key) => (
+              {packages?.map((packageItem: any, key: any) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
@@ -88,18 +72,18 @@ const PackageList = () => {
 
                   <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
-                      {packageItem.name}
+                      {packageItem.package_name}
                     </h5>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {packageItem.price}
+                      {packageItem.package_price}
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {packageItem.dailyToken} token
+                      {packageItem.daily_token}
                     </p>
                   </td>
 

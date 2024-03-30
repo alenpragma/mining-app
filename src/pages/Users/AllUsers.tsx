@@ -5,6 +5,7 @@ import axios from "axios";
 import { formatToLocalDate } from "../../hooks/formatDate";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
+import { Modal } from "../../components/ModalSettings";
 
 export type user = {
   id: number;
@@ -23,29 +24,56 @@ export type user = {
 
 const AllUsers = () => {
   const [allUsers, setAllUsers] = useState<user[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmit = (formData: any) => {
+    // Handle form submission logic here
+    console.log("Form submitted with data:", formData);
+  };
+
+  const onSubmit = () => {
+
+  };
+
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('biztoken');
-        // console.log(token);
-
         const response = await axios.get('https://biztoken.fecotrade.com/api/user-lists', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         });
-
         setAllUsers(response?.data[0].users);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, []);
+
+  const deleteData = async (id: string) => {
+    try {
+      const response = await axios.delete(`your_api_endpoint/${id}`);
+      // Handle success
+      console.log('Deleted successfully:', response.data);
+      return response.data;
+    } catch (error) {
+      // Handle error
+      console.error('Error deleting data:', error);
+      throw error;
+    }
+  };
 
 
   return (
@@ -143,7 +171,7 @@ const AllUsers = () => {
                         </td>
                         <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                           <div className="flex items-center space-x-3.5">
-                            <button className="hover:text-primary">
+                            <button onClick={() => openModal()} className="hover:text-primary">
                               <svg
                                 className="fill-current"
                                 width="18"
@@ -202,16 +230,21 @@ const AllUsers = () => {
                   )}
                 </tbody>
               </table>}
-
-
-
           </div>
         </div>
       </DefaultLayout>
+      <div className="mx-auto">
+        {isModalOpen && (
+          <Modal
+            closeModal={closeModal}
+            onSubmit={handleSubmit}
+            defaultValue={{ id: "exampleId", para: "price", criterion: "0", value: "", type: "0" }}
+          />
+        )}
+      </div>
     </div>
   );
 };
 
 export default AllUsers;
-
 

@@ -3,7 +3,7 @@ import dataJSON from '../../public/data.json';
 
 
 
-export const Modal = ({ closeModal, onSubmit, defaultValue }) => {
+export const Modal = ({ closeModal, onSubmit, defaultValue }: any) => {
   const fields = Object.keys(Object.values(dataJSON)[0]).filter((item: any) => !(item.startsWith("delta_")));
 
   const [formState, setFormState] = useState(
@@ -43,7 +43,7 @@ export const Modal = ({ closeModal, onSubmit, defaultValue }) => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: string; value: string; }; }) => {
     console.log(formState.criterion);
     console.log(e.target.name);
     console.log(e.target.name == "para" && e.target.value == 'rating');
@@ -68,7 +68,7 @@ export const Modal = ({ closeModal, onSubmit, defaultValue }) => {
 
   return (
     <div
-      className="modal-container border border-black w-fit fixed z-50 flex  mx-auto   top-25 bottom-5 "
+      className="modal-container mx-auto fixed z-50 flex place-items-center top-25 bottom-5 "
       onClick={(e) => {
         if (e.target.className === "modal-container") closeModal();
       }}

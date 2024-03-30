@@ -1,5 +1,7 @@
+import { useState } from "react";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../../layout/DefaultLayout";
+import { Modal } from "../../components/ModalSettings";
 
 
 const InacticeUser = () => {
@@ -38,6 +40,30 @@ const InacticeUser = () => {
       status: 'Inactive',
     },
   ];
+
+
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmit = (formData: any) => {
+    // Handle form submission logic here
+    console.log("Form submitted with data:", formData);
+  };
+
+  const onSubmit = () => {
+
+  };
+
+
+
 
   return (
     <DefaultLayout>
@@ -125,7 +151,7 @@ const InacticeUser = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
-                      <button className="hover:text-primary">
+                      <button onClick={() => openModal()} className="hover:text-primary">
                         <svg
                           className="fill-current"
                           width="18"
@@ -183,6 +209,15 @@ const InacticeUser = () => {
             </tbody>
           </table>
         </div>
+      </div>
+      <div className=" ">
+        {isModalOpen && (
+          <Modal
+            closeModal={closeModal}
+            onSubmit={handleSubmit}
+            defaultValue={{ id: "exampleId", para: "price", criterion: "0", value: "", type: "0" }}
+          />
+        )}
       </div>
     </DefaultLayout>
   );
