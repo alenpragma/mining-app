@@ -1,5 +1,7 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 export type Deposits = {
@@ -12,56 +14,28 @@ export type Deposits = {
   status: string;
 };
 
-
 const AllDeposits = () => {
+  const token = localStorage.getItem('biztoken');
+  const [depositsData, setDepositData] = useState<any>([]);
+  console.log(depositsData);
 
-  const depositsData: Deposits[] = [
-    {
-      user: 'user name',
-      phone: "0155555",
-      getWay: 'user name',
-      trxId: '90834092802923',
-      amount: '100',
-      date: '01/01/2022',
-      status: 'Success'
-    },
-    {
-      user: 'user name',
-      phone: "0155555",
-      getWay: 'user name',
-      trxId: '90834092802923',
-      amount: '100',
-      date: '01/01/2022',
-      status: "Pending"
-    },
-    {
-      user: 'user name',
-      phone: "0155555",
-      getWay: 'user name',
-      trxId: '90834092802923',
-      amount: '100',
-      date: '01/01/2022',
-      status: 'Success'
-    },
-    {
-      user: 'user name',
-      phone: "0155555",
-      getWay: 'user name',
-      trxId: '90834092802923',
-      amount: '100',
-      date: '01/01/2022',
-      status: 'Pending'
-    },
-    {
-      user: 'user name',
-      phone: "0155555",
-      getWay: 'user name',
-      trxId: '90834092802923',
-      amount: '100',
-      date: '01/01/2022',
-      status: "Pending"
-    },
-  ];
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://biztoken.fecotrade.com/api/withdrawal-setting', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      setDepositData(response?.data[0]);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <DefaultLayout>
@@ -98,7 +72,7 @@ const AllDeposits = () => {
               </tr>
             </thead>
             <tbody>
-              {depositsData.map((depositsItem, key) => (
+              {depositsData.map((depositsItem: any, key: any) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
