@@ -2,6 +2,7 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Swal from 'sweetalert2';
+import Select from 'react-select';
 import { useState } from 'react';
 
 type Inputs = {
@@ -15,7 +16,7 @@ type Inputs = {
   is_deleted: string;
 };
 
-import Select from 'react-select';
+
 
 const options = [
   { value: "0", label: 'Active' },
@@ -23,15 +24,6 @@ const options = [
 ];
 
 const PackageSettings = () => {
-
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedOption, setSelectedOption] = useState<any>();
-
-  const handleDateChange = (date: any) => {
-    setSelectedDate(date);
-    console.log('Selected Date:', date);
-  };
-
   const {
     register,
     control,

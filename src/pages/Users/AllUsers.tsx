@@ -5,7 +5,7 @@ import axios from "axios";
 import { formatToLocalDate } from "../../hooks/formatDate";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
-import { Modal } from "../../components/Modal";
+import { UpdatePackageModal } from "../Package/UpdatePackageModal";
 
 export type user = {
   id: number;
@@ -245,9 +245,8 @@ const AllUsers = () => {
 
       <div>
         {
-
           isModalOpen && (
-            <Modal
+            <UpdatePackageModal
               closeModal={closeModal}
               onSubmit={handleSubmit}
               defaultValue={{ id: "exampleId", para: "price", criterion: "0", value: "", type: "0" }}

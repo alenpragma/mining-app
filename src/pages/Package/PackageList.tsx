@@ -1,13 +1,30 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import { UpdatePackageModal } from './UpdatePackageModal';
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+
 
 const PackageList = () => {
+
   const [packages, setPackages] = useState<any>([]);
   const token = localStorage.getItem('biztoken');
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [packageItem, setPackageItem] = useState('');
+
+  const openModal = (packageItem: any) => {
+    setPackageItem(packageItem);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+
 
 
   const fetchData = async () => {
@@ -23,36 +40,55 @@ const PackageList = () => {
       console.error('Error fetching data:', error);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
 
 
-  const deletePackage = async (id: string) => {
-    Swal.fire({
-      title: "Do you want to Delete?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const response = await axios.get(`https://biztoken.fecotrade.com/api/package/delete/${id}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        fetchData();
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success"
-        });
-      }
-    });
+  // delete data
+
+  // const deletePackage = async (id: string) => {
+  //   Swal.fire({
+  //     title: "Do you want to Delete?",
+  //     text: "You won't be able to revert this!",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#3085d6",
+  //     cancelButtonColor: "#d33",
+  //     confirmButtonText: "Yes, delete it!"
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       const response = await axios.get(`https://biztoken.fecotrade.com/api/package/delete/${id}`, {
+  //         headers: {
+  //           'Authorization': `Bearer ${token}`,
+  //         },
+  //       });
+  //       fetchData();
+  //       Swal.fire({
+  //         title: "Deleted!",
+  //         text: "Your file has been deleted.",
+  //         icon: "success"
+  //       });
+  //     }
+  //   });
+  // };
+
+
+  const {
+    register,
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<any>();
+
+  const onSubmit: SubmitHandler<any> = async (data: any) => {
+
+    console.log("Form submitted with data:", data);
   };
+
+
 
   return (
     <DefaultLayout>
@@ -188,7 +224,7 @@ const PackageList = () => {
                         </svg>
                       </button> */}
                       {/* edit btn */}
-                      <button className="hover:text-primary">
+                      <button onClick={() => openModal(packageItem)} className="hover:text-primary">
                         <svg className="w-6 h-6 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                         </svg>
@@ -200,6 +236,19 @@ const PackageList = () => {
             </tbody>
           </table>
         </div>
+      </div>
+      <div>
+        {
+          isModalOpen && (
+            <UpdatePackageModal
+              closeModal={closeModal}
+              handleSubmit={handleSubmit}
+              packageItem={packageItem}
+              fetchData={fetchData}
+
+            />
+          )}
+
       </div>
     </DefaultLayout>
   );
