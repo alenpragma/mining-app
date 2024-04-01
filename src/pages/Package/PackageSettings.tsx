@@ -1,7 +1,8 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Swal from 'sweetalert2';
+import { useState } from 'react';
 
 type Inputs = {
   package_name: string;
@@ -14,17 +15,36 @@ type Inputs = {
   is_deleted: string;
 };
 
+import Select from 'react-select';
+
+const options = [
+  { value: "0", label: 'Active' },
+  { value: "1", label: 'Inactive' },
+];
+
 const PackageSettings = () => {
 
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedOption, setSelectedOption] = useState<any>();
+
+  const handleDateChange = (date: any) => {
+    setSelectedDate(date);
+    console.log('Selected Date:', date);
+  };
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
 
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
+    const { status, ...rest } = data;
+    const newPackage = { ...rest, status: data.status.value };
+
+
     try {
       const token = localStorage.getItem('biztoken');
       const response = await fetch('https://biztoken.fecotrade.com/api/package/store', {
@@ -33,7 +53,7 @@ const PackageSettings = () => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(newPackage)
       });
 
       if (!response.ok) {
@@ -48,6 +68,27 @@ const PackageSettings = () => {
     } catch (error) {
       console.error('Error occurred while making POST request:', error);
     }
+  };
+
+
+  const customStyles = {
+    control: (baseStyles: any, state: any) => ({
+      ...baseStyles,
+      borderColor: state.isFocused ? '#3cb7ed' : '#E2E8F0',
+      borderRadius: '10px',
+      height: 'full',
+      padding: '5px',
+      background: 'transparent',
+    }),
+    option: (provided: any, state: any) => ({
+      ...provided,
+      backgroundColor: state.isSelected ? '#3cb7ed' : 'white',
+      color: state.isSelected ? 'white' : 'black',
+      '&:hover': {
+        backgroundColor: '#2E3A47',
+        color: 'white'
+      }
+    })
   };
 
 
@@ -121,7 +162,7 @@ const PackageSettings = () => {
             </div>
 
 
-            <div>
+            {/* <div>
               <select
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 {...register("status")}
@@ -129,6 +170,29 @@ const PackageSettings = () => {
                 <option className='h-5' value="1">Active</option>
                 <option value="0">Inactive</option>
               </select>
+            </div> */}
+
+            <div>
+              <Controller
+                name="status"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    styles={customStyles}
+                    options={options}
+                    theme={(theme) => ({
+                      ...theme,
+                      borderRadius: 0,
+                      colors: {
+                        ...theme.colors,
+                        neutral80: "#fff",
+                      },
+                    })}
+                  />
+                )}
+              />
             </div>
             <button
               className="w-fit mx-auto items-center justify-center  bg-meta-3 py-3 px-10  mb-2 rounded-md text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"

@@ -29,6 +29,7 @@ import SuccessWithdraws from './pages/Withdrawls/SuccessWithdraws';
 import GeneralSettings from './pages/GeneralSettings';
 import BonusSettings from './pages/BonusSettings';
 import { SkeletonTheme } from 'react-loading-skeleton';
+import WithdrawsSettings from './pages/Withdrawls/WithdrawsSettings';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -177,6 +178,16 @@ function App() {
               <>
                 <PageTitle title="Success Withdraws" />
                 <SuccessWithdraws />
+              </>
+            }
+          />
+
+          <Route
+            path="/withdraw/withdraws-settings"
+            element={
+              <>
+                <PageTitle title="Withdraws Settings" />
+                <WithdrawsSettings />
               </>
             }
           />
