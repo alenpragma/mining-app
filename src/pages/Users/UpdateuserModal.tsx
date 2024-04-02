@@ -1,72 +1,24 @@
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import Swal from "sweetalert2";
+import React, { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-
-type Inputs = {
-  id: number;
-  package_name: string;
-  package_price: string;
-  duration: string;
-  daily_token: string;
-  hashpower: string;
-  status: string;
-
-};
-
-export const UpdatePackageModal = ({ fetchData, closeModal, packageItem }: any) => {
+const UpdateuserModal = ({ fetchData, closeModal, packageItem }: any) => {
 
   const [formState, setFormState] = useState({ ...packageItem });
 
   const {
     register,
     handleSubmit,
-  } = useForm<Inputs>();
+  } = useForm<any>();
 
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
   };
+  const onSubmit: SubmitHandler<any> = async (data: any) => {
 
-
-
-  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-    const newData = { ...data, id: packageItem.id }; // Make a copy of the data object
-    console.log(newData);
-
-    try {
-
-
-      const token = localStorage.getItem('biztoken');
-      const response = await fetch('https://biztoken.fecotrade.com/api/package/update', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify(newData)
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const responseData = await response.json();
-      if (responseData.success) {
-        fetchData();
-        Swal.fire({
-          title: "success",
-          text: "Successfully updated package",
-          icon: "success"
-        }).then(() => { closeModal(); });
-      }
-    } catch (error) {
-      Swal.fire({
-        title: "error",
-        text: "Something wrong",
-        icon: "error"
-      });
-    }
   };
+
 
 
   return (
@@ -86,7 +38,7 @@ export const UpdatePackageModal = ({ fetchData, closeModal, packageItem }: any) 
                 onClick={closeModal}
               >&times;</strong>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex  flex-col w-full gap-5.5 p-6.5">
+            <form onSubmit={handleSubmit(onsubmit)} className="flex  flex-col w-full gap-5.5 p-6.5">
               <div>
                 <p>package name</p>
                 <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
@@ -151,7 +103,7 @@ export const UpdatePackageModal = ({ fetchData, closeModal, packageItem }: any) 
         </div>
       </div>
     </div>
-
   );
 };
 
+export default UpdateuserModal;
