@@ -2,6 +2,7 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import 'react-datepicker/dist/react-datepicker.css';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import SelectOptions from '../../Ui/SelectOptions';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -22,6 +23,13 @@ const DepositSettings = () => {
 
   };
 
+
+  const options = [
+    { value: "0", label: 'Active' },
+    { value: "1", label: 'Inactive' },
+  ];
+
+
   return (
 
     <DefaultLayout>
@@ -29,6 +37,15 @@ const DepositSettings = () => {
 
       <div>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5.5 p-6.5">
+          <div>
+            <label className="mb-3 block text-black dark:text-white">
+              Select coin
+            </label>
+            <div>
+              <SelectOptions options={options} />
+            </div>
+          </div>
+
           <div>
             <label className="mb-3 block text-black dark:text-white">
               Select coin

@@ -3,6 +3,7 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Swal from 'sweetalert2';
 import Select from 'react-select';
+import SelectOptions from '../../Ui/SelectOptions';
 
 type Inputs = {
   package_name: string;
@@ -17,10 +18,6 @@ type Inputs = {
 
 
 
-const options = [
-  { value: "0", label: 'Active' },
-  { value: "1", label: 'Inactive' },
-];
 
 const PackageSettings = () => {
   const {
@@ -30,11 +27,17 @@ const PackageSettings = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
+  const options = [
+    { value: "0", label: 'Active' },
+    { value: "1", label: 'Inactive' },
+  ];
 
   const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
     const { status, ...rest } = data;
     const newPackage = { ...rest, status: data.status.value };
+    console.log(newPackage);
 
+    return;
 
     try {
       const token = localStorage.getItem('biztoken');
@@ -164,7 +167,7 @@ const PackageSettings = () => {
             </div> */}
 
             <div>
-              <Controller
+              {/* <Controller
                 name="status"
                 control={control}
                 defaultValue=""
@@ -184,7 +187,17 @@ const PackageSettings = () => {
                   />
                 )}
               />
+            */}
+              <SelectOptions
+                label='Status'
+                name="status"
+                control={control}
+                value={'1'}
+                options={options}
+                placeholder={'Select...'}
+              />
             </div>
+
             <button
               className="w-fit mx-auto items-center justify-center  bg-meta-3 py-3 px-10  mb-2 rounded-md text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
             >

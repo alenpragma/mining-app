@@ -2,6 +2,7 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import 'react-datepicker/dist/react-datepicker.css';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import SelectOptions from '../../Ui/SelectOptions';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -10,21 +11,32 @@ const options = [
 ];
 
 const WithdrawsSettings = () => {
+  const options = [
+    { value: "0", label: 'coin 1' },
+    { value: "1", label: 'coin 2' },
+    { value: "2", label: 'coin 3' },
+    { value: "3", label: 'coin 4' },
+  ];
+  const neworkOptions = [
+    { value: "0", label: 'Nework 1' },
+    { value: "1", label: 'Nework 2' },
+    { value: "2", label: 'Nework 3' },
+    { value: "3", label: 'Nework 4' },
+  ];
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<any>();
 
+
   const onSubmit: SubmitHandler<any> = async (data: any) => {
     console.log(data);
-
-
   };
 
   return (
-
     <DefaultLayout>
       <Breadcrumb pageName="Withdraws Settings" />
 
@@ -34,28 +46,24 @@ const WithdrawsSettings = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5.5 p-6.5">
 
           <div>
-            <p>Select coin</p>
-            <select
-              className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-              {...register("coin")}
-            >
-              <option value="1">coin 1</option>
-              <option value="1">coin 2</option>
-              <option value="1">coin 3</option>
-
-            </select>
+            <SelectOptions
+              label='Select coin'
+              name="status"
+              control={control}
+              value={'1'}
+              options={options}
+              placeholder={'Select...'}
+            />
           </div>
 
           <div>
-            <p>Select Nework</p>
-            <select
-              className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-              {...register("coin")}
-            >
-              <option value="1">Nework 1</option>
-              <option value="1">Nework 2</option>
-              <option value="1">Nework 3</option>
-            </select>
+            <SelectOptions
+              label='Select Nework'
+              name="nework"
+              control={control}
+              options={neworkOptions}
+              placeholder={'Select Nework...'}
+            />
           </div>
           <div>
             <label className="mb-3 block text-black dark:text-white">
