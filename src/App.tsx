@@ -30,6 +30,7 @@ import GeneralSettings from './pages/GeneralSettings';
 import BonusSettings from './pages/BonusSettings';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import WithdrawsSettings from './pages/Withdrawls/WithdrawsSettings';
+import DepositSettings from './pages/Deposits/DepositSettings';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -148,6 +149,15 @@ function App() {
               <>
                 <PageTitle title="Success Deposit" />
                 <SuccessDeposits />
+              </>
+            }
+          />
+          <Route
+            path="/deposits/deposit-settings"
+            element={
+              <>
+                <PageTitle title="Deposit Settings" />
+                <DepositSettings />
               </>
             }
           />

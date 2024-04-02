@@ -9,7 +9,7 @@ const options = [
   { value: 'vanilla', label: 'Vanilla' },
 ];
 
-const WithdrawsSettings = () => {
+const DepositSettings = () => {
 
   const {
     register,
@@ -20,21 +20,19 @@ const WithdrawsSettings = () => {
   const onSubmit: SubmitHandler<any> = async (data: any) => {
     console.log(data);
 
-
   };
 
   return (
 
     <DefaultLayout>
-      <Breadcrumb pageName="Withdraws Settings" />
-
-
+      <Breadcrumb pageName="Deposit Settings" />
 
       <div>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5.5 p-6.5">
-
           <div>
-            <p>Select coin</p>
+            <label className="mb-3 block text-black dark:text-white">
+              Select coin
+            </label>
             <select
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               {...register("coin")}
@@ -47,7 +45,9 @@ const WithdrawsSettings = () => {
           </div>
 
           <div>
-            <p>Select Nework</p>
+            <label className="mb-3 block text-black dark:text-white">
+              Select Nework
+            </label>
             <select
               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               {...register("coin")}
@@ -103,4 +103,4 @@ const WithdrawsSettings = () => {
   );
 };
 
-export default WithdrawsSettings;
+export default DepositSettings;

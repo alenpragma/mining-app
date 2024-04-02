@@ -117,6 +117,9 @@ const PackageList = () => {
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   hashpower
                 </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  status
+                </th>
 
                 <th className="py-4 px-4 font-medium text-black dark:text-white">
                   Actions
@@ -158,6 +161,11 @@ const PackageList = () => {
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
                       {packageItem.hashpower} hz
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {packageItem.status}
                     </p>
                   </td>
 
