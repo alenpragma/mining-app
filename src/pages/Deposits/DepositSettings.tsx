@@ -33,14 +33,17 @@ const DepositSettings = () => {
       <div>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5.5 p-6.5">
           <div>
-            <label className="mb-3 block text-black dark:text-white">
-              Select coin
-            </label>
+
             <div>
               <SelectOptions
-                label={'select...'}
                 control={control}
-                options={options} />
+                options={options}
+                label='Select coin'
+                name="status"
+                defaultValue={1}
+                value={'1'}
+                placeholder={'Select...'}
+              />
             </div>
           </div>
 

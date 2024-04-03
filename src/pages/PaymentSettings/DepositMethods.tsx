@@ -1,45 +1,14 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddDepositMothod from './AddDepositMothod';
 import EditDepositMothodModal from './EditDepositMothodModal';
+import axios from 'axios';
 
 const DepositMethods = () => {
 
-  const packageData: any[] = [
-    {
-      name: 'user name',
-      email: "example@gmail.com",
-      price: 0.0,
-      invoiceDate: `0156666666`,
-      refarence: '34522323',
-      status: 'Inactive',
-    },
-    {
-      name: 'user name',
-      email: "example@gmail.com",
-      price: 59.0,
-      invoiceDate: `0156666666`,
-      refarence: '34522323',
-      status: 'Inactive',
-    },
-    {
-      name: 'user name',
-      email: "example@gmail.com",
-      price: 99.0,
-      invoiceDate: `0156666666`,
-      refarence: '34522323',
-      status: 'Inactive',
-    },
-    {
-      name: 'user name',
-      email: "example@gmail.com",
-      price: 59.0,
-      invoiceDate: `0156666666`,
-      refarence: '34522323',
-      status: 'Inactive',
-    },
-  ];
+  const [wihtdrawMethods, setWihtdrawMethods] = useState([]);
+
 
   const [isModalOpenAddMethod, setIsModalOpenAddMethod] = useState(false);
 
@@ -56,6 +25,27 @@ const DepositMethods = () => {
     console.log("Form submitted with data:", formData);
   };
 
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem('biztoken');
+      const response = await axios.get('https://biztoken.fecotrade.com/api/admin-wallets', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response?.data[0]);
+
+
+      setWihtdrawMethods(response?.data[0]);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
 
   return (
@@ -98,7 +88,7 @@ const DepositMethods = () => {
               </tr>
             </thead>
             <tbody>
-              {packageData.map((packageItem, key) => (
+              {wihtdrawMethods.map((packageItem, key) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
@@ -107,40 +97,40 @@ const DepositMethods = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
-                      {packageItem.name}
+                      {packageItem.wallet_name}
                     </h5>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      wallet Address
+                      .
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {packageItem.refarence}
+                      {packageItem.wallet_no}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      5
+                      .
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      9999
+                      .
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p
-                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${packageItem.status === 'Active'
+                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${packageItem.status === '0'
                         ? 'bg-success text-success'
-                        : packageItem.status === 'Inactive'
+                        : packageItem.status === '1'
                           ? 'bg-danger text-danger'
                           : 'bg-warning text-warning'
                         }`}
                     >
-                      {packageItem.status}
+                      {packageItem.status == '0' ? "Active" : "Inactive"}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">

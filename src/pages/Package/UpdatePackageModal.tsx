@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import SelectOptions from "../../Ui/SelectOptions";
 
+type status = {
+  label: string;
+  value: string;
+};
 
 type Inputs = {
   id: number;
@@ -10,17 +15,22 @@ type Inputs = {
   duration: string;
   daily_token: string;
   hashpower: string;
-  status: string;
+  status: status;
 
 };
 
 export const UpdatePackageModal = ({ fetchData, closeModal, packageItem }: any) => {
+  const options = [
+    { value: "0", label: 'Active' },
+    { value: "1", label: 'Inactive' },
+  ];
 
   const [formState, setFormState] = useState({ ...packageItem });
+  const [selectedOption, setSelectedOption] = useState(options[0]); // Set default value here
 
   const {
     register,
-    handleSubmit,
+    handleSubmit, control
   } = useForm<Inputs>();
 
 
@@ -32,12 +42,9 @@ export const UpdatePackageModal = ({ fetchData, closeModal, packageItem }: any) 
 
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-    const newData = { ...data, id: packageItem.id }; // Make a copy of the data object
-    console.log(newData);
+    const newData = { ...data, id: packageItem.id, status: data.status.value }; // Make a copy of the data object
 
     try {
-
-
       const token = localStorage.getItem('biztoken');
       const response = await fetch('https://biztoken.fecotrade.com/api/package/update', {
         method: 'POST',
@@ -131,7 +138,7 @@ export const UpdatePackageModal = ({ fetchData, closeModal, packageItem }: any) 
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <p>status</p>
                 <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register("status", { required: true })}
@@ -139,6 +146,17 @@ export const UpdatePackageModal = ({ fetchData, closeModal, packageItem }: any) 
                   onChange={handleChange}
                 />
 
+              </div> */}
+              <div>
+                <SelectOptions
+                  control={control}
+                  options={options}
+                  label='status'
+                  name="status"
+                  defaultValue={formState.status}
+                  // value={'1'}
+                  placeholder={'Select...'}
+                />
               </div>
 
 

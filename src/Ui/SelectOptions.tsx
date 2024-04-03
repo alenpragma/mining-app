@@ -9,7 +9,7 @@ export type SelectOptions = {
 };
 
 const SelectOptions = ({ name,
-  control, label, options, placeholder = 'Select...' }: any) => {
+  control, label, options, defaultValue, placeholder = 'Select...' }: any) => {
 
   const customStyles = {
     control: (baseStyles: any, state: any) => ({
@@ -39,7 +39,7 @@ const SelectOptions = ({ name,
       <Controller
         name={name}
         control={control}
-        defaultValue=""
+        defaultValue={options[defaultValue]}
         render={({ field }) => (
           <Select
             {...field}
