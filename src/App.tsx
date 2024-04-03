@@ -31,6 +31,8 @@ import BonusSettings from './pages/BonusSettings';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import WithdrawsSettings from './pages/Withdrawls/WithdrawsSettings';
 import DepositSettings from './pages/Deposits/DepositSettings';
+import WihtdrawMethods from './pages/PaymentSettings/WihtdrawMethods';
+import DepositMethods from './pages/PaymentSettings/DepositMethods';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -202,6 +204,26 @@ function App() {
             }
           />
           {/* withdrow end */}
+
+          <Route
+            path="/payment-settings/deposit-methods"
+            element={
+              <>
+                <PageTitle title="deposit Methods" />
+                <DepositMethods />
+              </>
+            }
+          />
+
+          <Route
+            path="/payment-settings/withdraw-methods"
+            element={
+              <>
+                <PageTitle title="deposit Methods" />
+                <WihtdrawMethods />
+              </>
+            }
+          />
 
 
 

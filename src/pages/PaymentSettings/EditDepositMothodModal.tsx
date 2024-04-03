@@ -1,24 +1,72 @@
-import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
-const UpdateuserModal = ({ fetchData, closeModal, packageItem }: any) => {
 
-  const [formState, setFormState] = useState({ ...packageItem });
+type Inputs = {
+  id: number;
+  package_name: string;
+  package_price: string;
+  duration: string;
+  daily_token: string;
+  hashpower: string;
+  status: string;
+};
+
+const EditDepositMothodModal = ({ fetchData, closeModal, data }: any) => {
+  console.log(data);
+
+  const [formState, setFormState] = useState({ ...data });
 
   const {
     register,
     handleSubmit,
-  } = useForm<any>();
+  } = useForm<Inputs>();
 
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
   };
-  const onSubmit: SubmitHandler<any> = async (data: any) => {
 
+
+
+  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+    const newData = { ...data, id: data.id }; // Make a copy of the data object
+    console.log(newData);
+    return;
+    try {
+
+
+      const token = localStorage.getItem('biztoken');
+      const response = await fetch(' ', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(newData)
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const responseData = await response.json();
+      if (responseData.success) {
+        fetchData();
+        Swal.fire({
+          title: "success",
+          text: "Successfully updated package",
+          icon: "success"
+        }).then(() => { closeModal(); });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "error",
+        text: "Something wrong",
+        icon: "error"
+      });
+    }
   };
-
 
 
   return (
@@ -96,14 +144,15 @@ const UpdateuserModal = ({ fetchData, closeModal, packageItem }: any) => {
 
               <button className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
                 type="submit">
-                Submit
+                Update
               </button>
             </form>
           </div>
         </div>
       </div>
     </div>
+
   );
 };
 
-export default UpdateuserModal;
+export default EditDepositMothodModal;
