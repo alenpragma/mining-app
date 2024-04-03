@@ -88,7 +88,16 @@ const EditDepositMothodModal = ({ fetchData, closeModal, data }: any) => {
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="flex  flex-col w-full gap-5.5 p-6.5">
               <div>
-                <p>package name</p>
+                <p className="pb-1">Payment Method</p>
+                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                  {...register("package_name", { required: true })}
+                  value={formState.package_name}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div>
+                <p className="pb-1">Network</p>
                 <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register("package_name", { required: true })}
                   value={formState.package_name}
@@ -96,49 +105,37 @@ const EditDepositMothodModal = ({ fetchData, closeModal, data }: any) => {
                 />
               </div>
               <div>
-                <p>package price</p>
+                <p className="pb-1">Wallet</p>
                 <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-
-                  {...register("package_price", { required: true })}
-                  value={formState.package_price}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <p>daily token</p>
-                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-
-                  {...register("daily_token", { required: true })}
-                  value={parseFloat(formState.daily_token)}
+                  {...register("package_name", { required: true })}
+                  value={formState.package_name}
                   onChange={handleChange}
                 />
               </div>
 
               <div>
-                <p>duration</p>
+                <p className="pb-1">Minimum</p>
                 <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("duration", { required: true })}
-                  value={formState.duration}
+                  {...register("package_name", { required: true })}
+                  value={formState.package_name}
                   onChange={handleChange}
                 />
               </div>
-              <div><p>hashpower</p>
-                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-
-                  {...register("hashpower", { required: true })}
-                  value={formState.hashpower}
-                  onChange={handleChange}
-                />
-              </div>
-
               <div>
-                <p>status</p>
+                <p className="pb-1">Maximum</p>
+                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                  {...register("package_name", { required: true })}
+                  value={formState.package_name}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <p className="pb-1">status</p>
                 <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register("status", { required: true })}
                   value={formState.status}
                   onChange={handleChange}
                 />
-
               </div>
 
 
