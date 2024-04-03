@@ -4,17 +4,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import SelectOptions from '../../Ui/SelectOptions';
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
 
 const DepositSettings = () => {
 
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<any>();
 
@@ -31,7 +27,6 @@ const DepositSettings = () => {
 
 
   return (
-
     <DefaultLayout>
       <Breadcrumb pageName="Deposit Settings" />
 
@@ -42,7 +37,10 @@ const DepositSettings = () => {
               Select coin
             </label>
             <div>
-              <SelectOptions options={options} />
+              <SelectOptions
+                label={'select...'}
+                control={control}
+                options={options} />
             </div>
           </div>
 

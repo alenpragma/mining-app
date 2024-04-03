@@ -1,4 +1,4 @@
-import { Key, Suspense, useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../../layout/DefaultLayout";
 import axios from "axios";

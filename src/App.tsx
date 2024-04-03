@@ -33,6 +33,7 @@ import WithdrawsSettings from './pages/Withdrawls/WithdrawsSettings';
 import DepositSettings from './pages/Deposits/DepositSettings';
 import WihtdrawMethods from './pages/PaymentSettings/WihtdrawMethods';
 import DepositMethods from './pages/PaymentSettings/DepositMethods';
+import useColorMode from './hooks/useColorMode';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -45,10 +46,13 @@ function App() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 100);
   }, []);
+  const primaryColor = "#3c4a5e"; // Define your primary color
+  const [colorMode, setColorMode] = useColorMode();
+  console.log(colorMode);
 
   return (
     <>
-      <SkeletonTheme baseColor="#3c4a5e" highlightColor="#47566c">
+      <SkeletonTheme baseColor={primaryColor} highlightColor="#47566c">
         <Routes>
           <Route
             index

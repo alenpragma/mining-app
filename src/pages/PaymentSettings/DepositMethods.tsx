@@ -2,6 +2,7 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { useState } from 'react';
 import AddDepositMothod from './AddDepositMothod';
+import EditDepositMothodModal from './EditDepositMothodModal';
 
 const DepositMethods = () => {
 
@@ -193,6 +194,15 @@ const DepositMethods = () => {
       <div className=" ">
         {isModalOpenAddMethod && (
           <AddDepositMothod
+            closeModal={closeModalAddNew}
+            onSubmit={handleSubmit}
+          />
+        )}
+      </div>
+
+      <div className=" ">
+        {isModalOpenAddMethod && (
+          <EditDepositMothodModal
             closeModal={closeModalAddNew}
             onSubmit={handleSubmit}
           />
