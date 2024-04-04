@@ -5,37 +5,28 @@ import Button from "../../Ui/Button";
 
 
 type Inputs = {
-  id: number;
-  package_name: string;
+  wallet_name: string;
+  wallet_no: string;
   network: string;
-  duration: string;
-  daily_token: string;
-  hashpower: string;
-  status: string;
+  min_token: string;
+  max_token: string;
 };
 
-const AddDepositMothod = ({ fetchData, closeModal }: any) => {
 
+
+const AddDepositMothod = ({ fetchData, closeModal }: any) => {
 
   const {
     register,
     handleSubmit,
   } = useForm<Inputs>();
 
-
-
-
-
-
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-    const newData = { ...data, id: data.id }; // Make a copy of the data object
-    console.log(newData);
-    return;
+    const newData = { ...data, };
+    // console.log(newData);
     try {
-
-
       const token = localStorage.getItem('biztoken');
-      const response = await fetch(' ', {
+      const response = await fetch('https://biztoken.fecotrade.com/api/admin-wallet/store', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +79,7 @@ const AddDepositMothod = ({ fetchData, closeModal }: any) => {
               <div>
                 <label className="mb-2 block text-sm font-medium text-black dark:text-white" htmlFor="type">Payment Method</label>
                 <input className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("hashpower", { required: true })}
+                  {...register("wallet_name", { required: true })}
                 />
               </div>
               <div>
@@ -98,21 +89,21 @@ const AddDepositMothod = ({ fetchData, closeModal }: any) => {
                 />
               </div>
               <div>
-                <label className="mb-2 block text-sm font-medium text-black dark:text-white" htmlFor="type">Wallet</label>
+                <label className="mb-2 block text-sm font-medium text-black dark:text-white" htmlFor="type">Wallet no</label>
                 <input className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("network", { required: true })}
+                  {...register("wallet_no", { required: true })}
                 />
               </div>
               <div>
                 <label className="mb-2 block text-sm font-medium text-black dark:text-white" htmlFor="type">Minimum</label>
                 <input className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("network", { required: true })}
+                  {...register("min_token", { required: true })}
                 />
               </div>
               <div>
                 <label className="mb-2 block text-sm font-medium text-black dark:text-white" htmlFor="type">Maximum</label>
                 <input className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("network", { required: true })}
+                  {...register("max_token", { required: true })}
                 />
               </div>
               <Button btnName="Submit" />

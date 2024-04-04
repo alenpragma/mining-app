@@ -88,7 +88,7 @@ const DepositMethods = () => {
               </tr>
             </thead>
             <tbody>
-              {wihtdrawMethods.map((packageItem, key) => (
+              {wihtdrawMethods?.map((packageItem: any, key) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
@@ -97,12 +97,12 @@ const DepositMethods = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
-                      {packageItem.wallet_name}
+                      {packageItem?.wallet_name}
                     </h5>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      .
+                      {packageItem?.network}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -112,13 +112,13 @@ const DepositMethods = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      .
+                      {packageItem?.min_token}
                     </p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      .
+                      {packageItem?.max_token}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -190,14 +190,14 @@ const DepositMethods = () => {
         )}
       </div>
 
-      <div className=" ">
+      {/* <div className=" ">
         {isModalOpenAddMethod && (
           <EditDepositMothodModal
             closeModal={closeModalAddNew}
             onSubmit={handleSubmit}
           />
         )}
-      </div>
+      </div> */}
     </DefaultLayout>
   );
 };

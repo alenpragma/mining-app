@@ -78,10 +78,11 @@ const EditDepositMothodModal = ({ fetchData, closeModal, data }: any) => {
           if (target.className === "modal-container") closeModal();
         }}
       >
-
         <div className="modal rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark overflow-auto">
-          <div className="min-w-full w-[400px] lg:w-[600px] border-b border-stroke py-4 px-1 dark:border-strokedark">
-            <div className="w-full flex justify-end">
+          <div className="min-w-full w-[400px] lg:w-[600px] border-b border-stroke   pb-4 px-1 dark:border-strokedark">
+            <div className="w-full flex justify-between px-3 place-items-center py-3">
+              <h2 className="text-xl font-bold text-white">Add New Method</h2>
+
               <strong className="text-xl align-center cursor-pointer "
                 onClick={closeModal}
               >&times;</strong>

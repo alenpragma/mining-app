@@ -21,12 +21,13 @@ type Inputs = {
 
 export const UpdatePackageModal = ({ fetchData, closeModal, packageItem }: any) => {
   const options = [
-    { value: "0", label: 'Active' },
-    { value: "1", label: 'Inactive' },
+    { value: "0", label: 'Inactive' },
+    { value: "1", label: 'Active' },
   ];
 
   const [formState, setFormState] = useState({ ...packageItem });
   const [selectedOption, setSelectedOption] = useState(options[0]); // Set default value here
+
 
   const {
     register,

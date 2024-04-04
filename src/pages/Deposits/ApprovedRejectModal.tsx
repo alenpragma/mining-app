@@ -16,7 +16,6 @@ type Inputs = {
   daily_token: string;
   hashpower: string;
   status: status;
-
 };
 
 export const ApprovedRejectModal = ({ fetchData, closeModal, updateItem }: any) => {
@@ -52,7 +51,7 @@ export const ApprovedRejectModal = ({ fetchData, closeModal, updateItem }: any) 
 
     try {
       const token = localStorage.getItem('biztoken');
-      const response = await fetch('https://biztoken.fecotrade.com/api/package/update', {
+      const response = await fetch('https://biztoken.fecotrade.com/api/usdt-add-request/approve', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
