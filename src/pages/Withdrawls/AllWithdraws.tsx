@@ -119,7 +119,7 @@ const AllWithdraws = () => {
               </tr>
             </thead>
             <tbody>
-              {withdrawsData?.map((depositsItem: any, key: any) => (
+              {depositsData?.map((depositsItem: any, key: any) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
