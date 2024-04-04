@@ -10,53 +10,7 @@ const AllWithdraws = () => {
   const token = localStorage.getItem('biztoken');
   const [withdrawsData, setWithdrawsData] = useState<any>([]);
 
-  const depositsData: Deposits[] = [
-    {
-      user: 'user name',
-      phone: "0155555",
-      getWay: 'user name',
-      trxId: '90834092802923',
-      amount: '100',
-      date: '01/01/2022',
-      status: 'Success'
-    },
-    {
-      user: 'user name',
-      phone: "0155555",
-      getWay: 'user name',
-      trxId: '90834092802923',
-      amount: '100',
-      date: '01/01/2022',
-      status: "Pending"
-    },
-    {
-      user: 'user name',
-      phone: "0155555",
-      getWay: 'user name',
-      trxId: '90834092802923',
-      amount: '100',
-      date: '01/01/2022',
-      status: 'Success'
-    },
-    {
-      user: 'user name',
-      phone: "0155555",
-      getWay: 'user name',
-      trxId: '90834092802923',
-      amount: '100',
-      date: '01/01/2022',
-      status: 'Pending'
-    },
-    {
-      user: 'user name',
-      phone: "0155555",
-      getWay: 'user name',
-      trxId: '90834092802923',
-      amount: '100',
-      date: '01/01/2022',
-      status: "Pending"
-    },
-  ];
+
 
 
 
@@ -96,7 +50,10 @@ const AllWithdraws = () => {
                   SL NO
                 </th>
                 <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                  User-Phone
+                  User-Email
+                </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  Date
                 </th>
                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                   GateWay
@@ -107,9 +64,7 @@ const AllWithdraws = () => {
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Amount
                 </th>
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Date
-                </th>
+
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Status
                 </th>
@@ -119,7 +74,7 @@ const AllWithdraws = () => {
               </tr>
             </thead>
             <tbody>
-              {depositsData?.map((depositsItem: any, key: any) => (
+              {withdrawsData?.map((depositsItem: any, key: any) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
@@ -128,18 +83,18 @@ const AllWithdraws = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
-                      {depositsItem.user}
+                      {depositsItem.name}
                     </h5>
-                    <p className="text-sm">{depositsItem.phone}</p>
+                    <p className="text-sm">{depositsItem.email}</p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {depositsItem.getWay}
+                      {depositsItem.network}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {depositsItem.trxId}
+                      {depositsItem.txn_id}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">

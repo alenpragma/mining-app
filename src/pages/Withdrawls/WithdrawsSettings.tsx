@@ -50,9 +50,9 @@ const WithdrawsSettings = () => {
               label='Select coin'
               name="status"
               control={control}
-              value={'1'}
+              // value={'1'}
               options={options}
-              placeholder={'Select...'}
+              placeholder={'Select...'} defaultValue={1}
             />
           </div>
 
@@ -63,6 +63,7 @@ const WithdrawsSettings = () => {
               control={control}
               options={neworkOptions}
               placeholder={'Select Nework...'}
+              defaultValue={1}
             />
           </div>
           <div>

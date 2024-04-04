@@ -9,16 +9,27 @@ const DepositMethods = () => {
 
   const [wihtdrawMethods, setWihtdrawMethods] = useState([]);
 
-
   const [isModalOpenAddMethod, setIsModalOpenAddMethod] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [updateData, setUpdateDate] = useState("");
 
   const openModalAddNew = () => {
     setIsModalOpenAddMethod(true);
   };
-
   const closeModalAddNew = () => {
     setIsModalOpenAddMethod(false);
   };
+
+  const openEditModal = (updateItem: any) => {
+    setIsEditModalOpen(true);
+    setUpdateDate(updateItem);
+  };
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+
+
+
 
   const handleSubmit = (formData: any) => {
     // Handle form submission logic here
@@ -123,14 +134,14 @@ const DepositMethods = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p
-                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${packageItem.status === '0'
+                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${packageItem.status === '1'
                         ? 'bg-success text-success'
                         : packageItem.status === '1'
                           ? 'bg-danger text-danger'
                           : 'bg-warning text-warning'
                         }`}
                     >
-                      {packageItem.status == '0' ? "Active" : "Inactive"}
+                      {packageItem.status == '1' ? "Active" : "Inactive"}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
@@ -165,7 +176,7 @@ const DepositMethods = () => {
                         </svg>
                       </button>
                       {/* edit */}
-                      <button onClick={() => openModalAddNew()} className="hover:text-primary">
+                      <button onClick={() => openEditModal(packageItem)} className="hover:text-primary">
                         <svg className="w-6 h-6 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                         </svg>
@@ -179,8 +190,6 @@ const DepositMethods = () => {
           </table>
         </div>
       </div>
-
-
       <div className=" ">
         {isModalOpenAddMethod && (
           <AddDepositMothod
@@ -190,14 +199,15 @@ const DepositMethods = () => {
         )}
       </div>
 
-      {/* <div className=" ">
-        {isModalOpenAddMethod && (
+      <div className=" ">
+        {isEditModalOpen && (
           <EditDepositMothodModal
-            closeModal={closeModalAddNew}
+            closeModal={closeEditModal}
             onSubmit={handleSubmit}
+            updateData={updateData}
           />
         )}
-      </div> */}
+      </div>
     </DefaultLayout>
   );
 };

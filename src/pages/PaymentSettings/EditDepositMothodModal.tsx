@@ -1,26 +1,38 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import SelectOptions from "../../Ui/SelectOptions";
 
 
 type Inputs = {
-  id: number;
-  package_name: string;
-  package_price: string;
-  duration: string;
-  daily_token: string;
-  hashpower: string;
-  status: string;
+
+  wallet_name: string;
+  network: string;
+  wallet_no: string;
+  min_token: string;
+  max_token: string;
+  status: {
+    value: string;
+    lavel: string;
+  };
 };
 
-const EditDepositMothodModal = ({ fetchData, closeModal, data }: any) => {
-  console.log(data);
+const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
+  console.log(updateData);
 
-  const [formState, setFormState] = useState({ ...data });
+  const [formState, setFormState] = useState({ ...updateData });
+
+  const options = [
+    { value: "0", label: 'inactive' },
+    { value: "1", label: 'Active' },
+  ];
+
+
 
   const {
     register,
     handleSubmit,
+    control
   } = useForm<Inputs>();
 
 
@@ -32,14 +44,11 @@ const EditDepositMothodModal = ({ fetchData, closeModal, data }: any) => {
 
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-    const newData = { ...data, id: data.id }; // Make a copy of the data object
+    const newData = { ...data, id: updateData.id, status: data.status.value }; // Make a copy of the data object
     console.log(newData);
-    return;
     try {
-
-
       const token = localStorage.getItem('biztoken');
-      const response = await fetch(' ', {
+      const response = await fetch('https://biztoken.fecotrade.com/api/admin-wallet/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,63 +90,56 @@ const EditDepositMothodModal = ({ fetchData, closeModal, data }: any) => {
         <div className="modal rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark overflow-auto">
           <div className="min-w-full w-[400px] lg:w-[600px] border-b border-stroke   pb-4 px-1 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
-              <h2 className="text-xl font-bold text-white">Add New Method</h2>
-
-              <strong className="text-xl align-center cursor-pointer "
+              <h2 className="text-xl font-bold text-white">update</h2>
+              <strong className="text-3xl align-center text-white  cursor-pointer "
                 onClick={closeModal}
               >&times;</strong>
             </div>
+            <hr />
             <form onSubmit={handleSubmit(onSubmit)} className="flex  flex-col w-full gap-5.5 p-6.5">
               <div>
-                <p className="pb-1">Payment Method</p>
-                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("package_name", { required: true })}
-                  value={formState.package_name}
+                <label className="mb-2 block text-sm font-medium text-black dark:text-white" htmlFor="type">Payment Method</label>
+                <input className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                  {...register("wallet_name", { required: true })}
+                  value={formState.wallet_name}
+                  onChange={handleChange}
+
+                />
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-medium text-black dark:text-white" htmlFor="type">Network</label>
+                <input className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                  {...register("network", { required: true })}
+                  value={formState.network}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-medium text-black dark:text-white" htmlFor="type">Wallet no</label>
+                <input className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                  {...register("wallet_no", { required: true })}
+                  value={formState.wallet_no}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-medium text-black dark:text-white" htmlFor="type">Minimum</label>
+                <input className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                  {...register("min_token", { required: true })}
+                  value={formState.min_token}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-medium text-black dark:text-white" htmlFor="type">Maximum</label>
+                <input className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                  {...register("max_token", { required: true })}
+                  value={formState.max_token}
                   onChange={handleChange}
                 />
               </div>
 
-              <div>
-                <p className="pb-1">Network</p>
-                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("package_name", { required: true })}
-                  value={formState.package_name}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <p className="pb-1">Wallet</p>
-                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("package_name", { required: true })}
-                  value={formState.package_name}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <p className="pb-1">Minimum</p>
-                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("package_name", { required: true })}
-                  value={formState.package_name}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <p className="pb-1">Maximum</p>
-                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("package_name", { required: true })}
-                  value={formState.package_name}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <p className="pb-1">status</p>
-                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("status", { required: true })}
-                  value={formState.status}
-                  onChange={handleChange}
-                />
-              </div>
+              <SelectOptions name="status" control={control} defaultValue={1} label="status" options={options} placeholder="status" />
 
 
               <button className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
