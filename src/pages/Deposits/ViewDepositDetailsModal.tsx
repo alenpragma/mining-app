@@ -1,7 +1,10 @@
+import { useState } from "react";
+
+const ViewDepositDetailsModal = ({ closeModal, details }: any) => {
+  console.log(details);
 
 
-export const ViewuserModal = ({ closeModal, userDetail }: any) => {
-  console.log(userDetail);
+
 
   return (
     <div className="flex justify-center">
@@ -15,33 +18,43 @@ export const ViewuserModal = ({ closeModal, userDetail }: any) => {
         <div className="modal rounded-sm border border-stroke bg-white shadow-8 dark:border-strokedark dark:bg-boxdark overflow-auto">
           <div className="min-w-full w-[400px] lg:w-[600px] border-b border-stroke   pb-4 px-1 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
-              <h2 className="text-xl font-bold text-black dark:text-white">User Details</h2>
+              <h2 className="text-xl font-bold text-black dark:text-white">Deposit Details</h2>
 
-              <strong className="text-xl align-center cursor-pointer "
+              <strong className="text-xl px-2 dark:text-white align-center cursor-pointer "
                 onClick={closeModal}
               >&times;</strong>
             </div>
-            <div className="text-black dark:text-white flex flex-col w-full gap-5.5 p-6.5">
+            <hr />
+            <div className="text-black dark:text-white flex flex-col w-full gap-2 px-6.5 py-3">
+
+              {/* <img src={details.image} alt="" /> */}
+              <p>Name: {details.name}</p>
+              <p>Email: {details.email}</p>
+
+              <p>Method: {details.method}</p>
+              <p>Network: {details.network}</p>
+              <p>Txn id: {details.txn_id}</p>
+              <p>Type: {details.type}</p>
+              <p>User id: {details.user_id}</p>
+
+              <p>Wallet name: {details.wallet_name}</p>
+
+              <p>Wallet no: {details.wallet_no}</p>
 
 
-              {/* <img src={userDetail.image} alt="" /> */}
-              <p>Name: {userDetail.name}</p>
-              <p>Email: {userDetail.email}</p>
-              <p>Phone: {userDetail.phone}</p>
-              <p>Name: {userDetail.name}</p>
-              <p>Referral code: {userDetail.referral_code}</p>
-              <p>Sponsor: {userDetail.sponsor}</p>
 
+              <p>Status: {details.status}</p>
               <button onClick={() => closeModal()} className="btn w-fit ms-auto flex justify-end rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
               >
                 Close
               </button>
+
             </div>
           </div>
         </div>
       </div>
     </div>
-
   );
 };
 
+export default ViewDepositDetailsModal;

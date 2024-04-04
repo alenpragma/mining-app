@@ -3,6 +3,7 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ApprovedRejectModal } from './ApprovedRejectModal';
+import ViewDepositDetailsModal from './ViewDepositDetailsModal';
 
 
 export type Deposits = {
@@ -19,8 +20,10 @@ const AllDeposits = () => {
   const token = localStorage.getItem('biztoken');
   const [depositsData, setDepositData] = useState<any>([]);
 
-
-
+  // view
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [userDetail, setUserDetail] = useState('');
+  // view 
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateItem, setUpdateItem] = useState(null);
@@ -35,8 +38,19 @@ const AllDeposits = () => {
   };
 
 
+  // view
+  const closeViewModal = () => {
+    setIsViewModalOpen(false);
+  };
 
 
+  const openViewModal = (data: any) => {
+    setIsViewModalOpen(true);
+    setUserDetail(data);
+  };
+
+
+  //  view
 
 
   const fetchData = async () => {
@@ -160,7 +174,7 @@ const AllDeposits = () => {
                     </p>
                   </td>
                   <td className="border-b text-white border-[#eee] py-5 px-3 dark:border-strokedark">
-                    <div className="flex items-center space-x-3.5">
+                    <div onClick={() => { openViewModal(depositsItem); }} className="flex items-center space-x-3.5">
                       <button className="hover:text-primary">
                         <svg
                           className="fill-current"
@@ -231,8 +245,19 @@ const AllDeposits = () => {
 
             />
           )}
-
       </div>
+
+      < >
+        {
+          isViewModalOpen && (
+            <ViewDepositDetailsModal
+              closeModal={closeViewModal}
+              details={userDetail}
+
+            />
+          )}
+
+      </>
     </DefaultLayout>
   );
 };
