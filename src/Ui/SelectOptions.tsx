@@ -3,13 +3,22 @@ import { Controller, } from 'react-hook-form';
 import Select from 'react-select';
 
 
-export type SelectOptions = {
+export type IOptions = {
   label: string;
   value: string;
 };
 
+
+type selectType = {
+  name: string;
+  control: any;
+  label: string;
+  defaultValue: number | string;
+  placeholder: string;
+  options: IOptions | any;
+};
 const SelectOptions = ({ name,
-  control, label, options, defaultValue, placeholder = 'Select...' }: any) => {
+  control, label, options, defaultValue, placeholder = 'Select...' }: selectType) => {
 
   const customStyles = {
     control: (baseStyles: any, state: any) => ({
