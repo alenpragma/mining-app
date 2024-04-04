@@ -3,11 +3,11 @@ import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../../layout/DefaultLayout";
 import axios from "axios";
 import { formatToLocalDate } from "../../hooks/formatDate";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
-import { UpdatePackageModal } from "../Package/UpdatePackageModal";
+import { ViewuserModal } from "./ViewuserModal";
 
-export type user = {
+export type IUser = {
   id: number;
   name: string;
   email: string;
@@ -23,25 +23,19 @@ export type user = {
 
 
 const AllUsers = () => {
-  const [allUsers, setAllUsers] = useState<user[]>([]);
+  const [allUsers, setAllUsers] = useState<IUser[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userDetail, setUserDetail] = useState('');
 
-  const openModal = () => {
+  const openModal = (data: any) => {
     setIsModalOpen(true);
+    setUserDetail(data);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const handleSubmit = (formData: any) => {
-    // Handle form submission logic here
-    console.log("Form submitted with data:", formData);
-  };
-
-  const onSubmit = () => {
-
-  };
 
 
   useEffect(() => {
@@ -119,7 +113,7 @@ const AllUsers = () => {
                 </thead>
                 <tbody>
 
-                  {allUsers.map((user: user, key: Key | null | undefined) => {
+                  {allUsers?.map((user: IUser, key: Key | null | undefined) => {
                     return (
                       <tr key={key}>
                         <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
@@ -171,7 +165,7 @@ const AllUsers = () => {
                         </td>
                         <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                           <div className="flex items-center space-x-3.5">
-                            <button onClick={() => openModal()} className="hover:text-primary">
+                            <button onClick={() => openModal(user)} className="hover:text-primary">
                               <svg
                                 className="fill-current"
                                 width="25"
@@ -217,11 +211,11 @@ const AllUsers = () => {
                                 />
                               </svg>
                             </button> */}
-                            <button className="hover:text-primary">
+                            {/* <button className="hover:text-primary">
                               <svg className="w-7 h-7 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                               </svg>
-                            </button>
+                            </button> */}
                           </div>
                         </td>
                       </tr>
@@ -246,10 +240,9 @@ const AllUsers = () => {
       <div>
         {
           isModalOpen && (
-            <UpdatePackageModal
+            <ViewuserModal
               closeModal={closeModal}
-              onSubmit={handleSubmit}
-              defaultValue={{ id: "exampleId", para: "price", criterion: "0", value: "", type: "0" }}
+              userDetail={userDetail}
             />
           )}
 

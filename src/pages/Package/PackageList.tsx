@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { UpdatePackageModal } from './UpdatePackageModal';
 import { useForm, SubmitHandler } from "react-hook-form";
 import Skeleton from 'react-loading-skeleton';
+import ViewpackageModal from './ViewpackageModal';
 
 
 const PackageList = () => {
@@ -16,6 +17,11 @@ const PackageList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [packageItem, setPackageItem] = useState(null);
 
+
+
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [userDetail, setUserDetail] = useState('');
+
   const openModal = (packageItem: any) => {
     setPackageItem(packageItem);
     setIsModalOpen(true);
@@ -23,6 +29,17 @@ const PackageList = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+
+  const closeViewModal = () => {
+    setIsViewModalOpen(false);
+  };
+
+
+  const openViewModal = (data: any) => {
+    setIsViewModalOpen(true);
+    setUserDetail(data);
   };
 
 
@@ -173,7 +190,7 @@ const PackageList = () => {
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p className="text-black dark:text-white">
-                          {packageItem.status == 1 ? "Active" : 'Inactive'} {packageItem.status}
+                          {packageItem.status == 1 ? "Active" : 'Inactive'}
                         </p>
                       </td>
 
@@ -190,7 +207,7 @@ const PackageList = () => {
                       </p>
                     </td> */}
                       <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
-                        <div className="flex items-center space-x-3.5">
+                        <div onClick={() => openViewModal(packageItem)} className="flex items-center space-x-3.5">
                           {/* details btn */}
                           <button className="hover:text-primary">
                             <svg
@@ -267,6 +284,20 @@ const PackageList = () => {
           )}
 
       </div>
+
+      {/*  details view modal */}
+      <div>
+        {
+          isViewModalOpen && (
+            <ViewpackageModal
+              closeModal={closeViewModal}
+              details={userDetail}
+
+            />
+          )}
+
+      </div>
+
     </DefaultLayout>
   );
 };
