@@ -47,7 +47,7 @@ export const ApprovedRejectModal = ({ fetchData, closeModal, updateItem }: any) 
     const newData = { id: updateItem.id, status: data.status.value }; // Make a copy of the data object
 
     console.log(newData);
-    return;
+    ;
 
     try {
       const token = localStorage.getItem('biztoken');

@@ -1,11 +1,14 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { Deposits } from '../Deposits/AllDeposits';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 
 const AllWithdraws = () => {
 
-
+  const token = localStorage.getItem('biztoken');
+  const [withdrawsData, setWithdrawsData] = useState<any>([]);
 
   const depositsData: Deposits[] = [
     {
@@ -55,6 +58,31 @@ const AllWithdraws = () => {
     },
   ];
 
+
+
+
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://biztoken.fecotrade.com/api/biztoken-withdraw-request', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response.data);
+
+      setWithdrawsData(response?.data[0]);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+  console.log(withdrawsData);
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="All Withdraws" />
@@ -91,7 +119,7 @@ const AllWithdraws = () => {
               </tr>
             </thead>
             <tbody>
-              {depositsData.map((depositsItem, key) => (
+              {withdrawsData?.map((depositsItem: any, key: any) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">

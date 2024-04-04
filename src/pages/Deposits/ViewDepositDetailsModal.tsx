@@ -30,25 +30,19 @@ const ViewDepositDetailsModal = ({ closeModal, details }: any) => {
               {/* <img src={details.image} alt="" /> */}
               <p>Name: {details.name}</p>
               <p>Email: {details.email}</p>
+              <p>User id: {details.user_id}</p>
 
               <p>Method: {details.method}</p>
               <p>Network: {details.network}</p>
               <p>Txn id: {details.txn_id}</p>
               <p>Type: {details.type}</p>
-              <p>User id: {details.user_id}</p>
-
               <p>Wallet name: {details.wallet_name}</p>
-
               <p>Wallet no: {details.wallet_no}</p>
-
-
-
               <p>Status: {details.status}</p>
               <button onClick={() => closeModal()} className="btn w-fit ms-auto flex justify-end rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
               >
                 Close
               </button>
-
             </div>
           </div>
         </div>
