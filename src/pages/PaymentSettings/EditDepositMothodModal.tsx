@@ -18,6 +18,8 @@ type Inputs = {
   };
 };
 
+
+
 const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
   console.log(updateData);
 
@@ -39,7 +41,6 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     const newData = { ...data, id: updateData.id, status: data.status.value }; // Make a copy of the data object
-    console.log(newData);
     try {
       const token = localStorage.getItem('biztoken');
       const response = await fetch('https://biztoken.fecotrade.com/api/admin-wallet/update', {

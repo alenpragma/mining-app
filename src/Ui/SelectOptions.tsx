@@ -7,8 +7,6 @@ export type IOptions = {
   label: string;
   value: string;
 };
-
-
 type selectType = {
   name: string;
   control: any;
@@ -17,9 +15,10 @@ type selectType = {
   placeholder: string;
   options: IOptions | any;
 };
+
+
 const SelectOptions = ({ name,
   control, label, options, defaultValue, placeholder = 'Select...' }: selectType) => {
-  console.log(defaultValue);
 
   const customStyles = {
     control: (baseStyles: any, state: any) => ({

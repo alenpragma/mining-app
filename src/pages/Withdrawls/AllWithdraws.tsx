@@ -3,6 +3,9 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { Deposits } from '../Deposits/AllDeposits';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { formatToLocalDate } from '../../hooks/formatDate';
+import { ApprovedRejectModal } from '../Deposits/ApprovedRejectModal';
+import { BizApprovedRejectModal } from './BizApprovedRejectModal';
 
 
 const AllWithdraws = () => {
@@ -11,6 +14,22 @@ const AllWithdraws = () => {
   const [withdrawsData, setWithdrawsData] = useState<any>([]);
 
 
+  // edit
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [updateItem, setUpdateItem] = useState(null);
+  // edit
+
+
+  const openEditModal = (data: any) => {
+    console.log(data);
+
+    setUpdateItem(data);
+    setIsEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+  };
 
 
 
@@ -24,8 +43,6 @@ const AllWithdraws = () => {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response.data);
-
       setWithdrawsData(response?.data[0]);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -35,7 +52,6 @@ const AllWithdraws = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(withdrawsData);
 
   return (
     <DefaultLayout>
@@ -58,11 +74,17 @@ const AllWithdraws = () => {
                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                   GateWay
                 </th>
+                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                  network
+                </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Trx ID
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Amount
+                </th>
+                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                  charge
                 </th>
 
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
@@ -89,6 +111,17 @@ const AllWithdraws = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
+                      {formatToLocalDate(depositsItem.created_at)}
+                    </p>
+                  </td>
+
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {depositsItem.wallet_name}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
                       {depositsItem.network}
                     </p>
                   </td>
@@ -104,14 +137,14 @@ const AllWithdraws = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                      {depositsItem.date}
+                      {depositsItem.charge}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p
-                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${depositsItem.status === 'Success'
+                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${depositsItem.status === 'approved'
                         ? 'bg-success text-success'
-                        : depositsItem.status === 'Pending'
+                        : depositsItem.status === 'rejected'
                           ? 'bg-danger text-danger'
                           : 'bg-warning text-warning'
                         }`}
@@ -167,7 +200,7 @@ const AllWithdraws = () => {
                           />
                         </svg>
                       </button>
-                      <button>
+                      <button onClick={() => openEditModal(depositsItem)}>
                         <svg className="w-6 h-6 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                         </svg>
@@ -180,6 +213,17 @@ const AllWithdraws = () => {
             </tbody>
           </table>
         </div>
+      </div>
+      <div>
+        {
+          isEditModalOpen && (
+            <BizApprovedRejectModal
+              closeModal={closeEditModal}
+              updateItem={updateItem}
+              fetchData={fetchData}
+
+            />
+          )}
       </div>
 
     </DefaultLayout>

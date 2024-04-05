@@ -632,7 +632,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               Deposit Methods
                             </NavLink>
                           </li>
-                          <li>
+                          {/* <li>
                             <NavLink
                               to="/payment-settings/withdraw-methods"
                               className={({ isActive }) =>
@@ -642,7 +642,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             >
                               Withdraw Methods
                             </NavLink>
-                          </li>
+                          </li> */}
 
 
                         </ul>

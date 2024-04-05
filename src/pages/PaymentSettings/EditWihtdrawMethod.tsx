@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import SelectOptions from "../../Ui/SelectOptions";
+import { options } from "../options";
 
 
 type Inputs = {
@@ -12,15 +14,11 @@ type Inputs = {
   status: string;
 };
 
-const EditWihtdrawMethod = ({ fetchData, closeModal, updateData }: any) => {
-  console.log(updateData);
+const EditWihtdrawMethod = ({ fetchData, closeModal, updateItem }: any) => {
+  console.log(updateItem);
 
-  const [formState, setFormState] = useState({ ...updateData });
+  const [formState, setFormState] = useState({ ...updateItem });
 
-  const options = [
-    { value: "0", label: 'inactive' },
-    { value: "1", label: 'Active' },
-  ];
 
 
 
@@ -42,6 +40,8 @@ const EditWihtdrawMethod = ({ fetchData, closeModal, updateData }: any) => {
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     const newData = { ...data };
     console.log(newData);
+
+    return;
     try {
 
 
@@ -99,6 +99,8 @@ const EditWihtdrawMethod = ({ fetchData, closeModal, updateData }: any) => {
                 <p>Payment Method</p>
                 <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register("payment_method", { required: true })}
+                  value={formState.payment_method}
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -109,14 +111,17 @@ const EditWihtdrawMethod = ({ fetchData, closeModal, updateData }: any) => {
               <div>
                 <p>Withdrwal charge</p>
                 <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-
                   {...register("withdrwal_charge", { required: true })}
+                  value={formState.withdrwal_charge}
+                  onChange={handleChange}
                 />
               </div>
               <div>
                 <p>Min withdraw</p>
                 <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register("min_withdraw", { required: true })}
+                  value={formState.max_withdraw}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -124,8 +129,20 @@ const EditWihtdrawMethod = ({ fetchData, closeModal, updateData }: any) => {
                 <p>max_withdraw</p>
                 <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register("max_withdraw", { required: true })}
+                  value={formState.max_withdraw}
+                  onChange={handleChange}
                 />
               </div>
+
+
+              <SelectOptions
+                name="status"
+                control={control}
+                defaultValue={Number(formState.status)}
+                label="status"
+                options={options}
+                placeholder="status" />
+
               <button className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
                 type="submit">
                 Submit
