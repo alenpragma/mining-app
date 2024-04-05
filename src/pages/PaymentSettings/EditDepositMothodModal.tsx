@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import SelectOptions from "../../Ui/SelectOptions";
+import { options } from "../options";
 
 
 type Inputs = {
@@ -22,12 +23,6 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
 
   const [formState, setFormState] = useState({ ...updateData });
 
-  const options = [
-    { value: "0", label: 'inactive' },
-    { value: "1", label: 'Active' },
-  ];
-
-
 
   const {
     register,
@@ -40,7 +35,6 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
   };
-
 
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
@@ -59,9 +53,14 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+
       const responseData = await response.json();
+      console.log(responseData);
+
       if (responseData.success) {
-        fetchData();
+        console.log('ddd');
+
+        await fetchData();
         Swal.fire({
           title: "success",
           text: "Successfully updated package",
@@ -139,7 +138,13 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
                 />
               </div>
 
-              <SelectOptions name="status" control={control} defaultValue={1} label="status" options={options} placeholder="status" />
+              <SelectOptions
+                name="status"
+                control={control}
+                defaultValue={Number(formState.status)}
+                label="status"
+                options={options}
+                placeholder="status" />
 
 
               <button className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"

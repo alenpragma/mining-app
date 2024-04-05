@@ -3,13 +3,21 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import EditWihtdrawMethod from './EditWihtdrawMethod';
+import AddWithdrowMethod from './AddWithdrowMethod';
 
 const WihtdrawMethods = () => {
 
 
+
+
+
   const [isModalOpenAddMethod, setIsModalOpenAddMethod] = useState(false);
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+  const [updateItem, setUpdateItem] = useState('');
+
   const [wihtdrawMethods, setWihtdrawMethods] = useState([]);
 
+  // add new method 
   const openModalAddNew = () => {
     setIsModalOpenAddMethod(true);
   };
@@ -17,6 +25,23 @@ const WihtdrawMethods = () => {
   const closeModalAddNew = () => {
     setIsModalOpenAddMethod(false);
   };
+
+  // edit modal
+  const openEditModal = (data: any) => {
+    setIsModalEditOpen(true);
+    setUpdateItem(data);
+  };
+
+  const closeEditModal = () => {
+    setIsModalEditOpen(false);
+  };
+
+
+
+
+
+
+
 
   const handleSubmit = (formData: any) => {
     // Handle form submission logic here
@@ -51,12 +76,12 @@ const WihtdrawMethods = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Wihtdraw Method" />
-      {/* <div className='py-3'>
+      <div className='py-3'>
         <button onClick={() => openModalAddNew()} className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
           type="submit">
           Add METHOD
         </button>
-      </div> */}
+      </div>
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
           <table className="w-full table-auto">
@@ -71,9 +96,9 @@ const WihtdrawMethods = () => {
                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                   Network
                 </th>
-                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                {/* <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Wallet
-                </th>
+                </th> */}
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Withdrwal Charge
                 </th>
@@ -91,7 +116,7 @@ const WihtdrawMethods = () => {
               </tr>
             </thead>
             <tbody>
-              {wihtdrawMethods?.map((method, key) => (
+              {wihtdrawMethods?.map((method: any, key) => (
                 <tr key={method.id}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
@@ -108,11 +133,7 @@ const WihtdrawMethods = () => {
                       .
                     </p>
                   </td>
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      .
-                    </p>
-                  </td>
+
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
                       {method?.withdrwal_charge}
@@ -174,12 +195,11 @@ const WihtdrawMethods = () => {
                         </svg>
                       </button>
                       {/* edit */}
-                      <button onClick={() => openModalAddNew()} className="hover:text-primary">
+                      <button onClick={() => openEditModal(method)} className="hover:text-primary">
                         <svg className="w-6 h-6 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                         </svg>
                       </button>
-
                     </div>
                   </td>
                 </tr>
@@ -192,12 +212,24 @@ const WihtdrawMethods = () => {
 
       <div className=" ">
         {isModalOpenAddMethod && (
-          <EditWihtdrawMethod
+          <AddWithdrowMethod
             closeModal={closeModalAddNew}
             onSubmit={handleSubmit}
           />
         )}
       </div>
+
+      <div className=" ">
+        {isModalEditOpen && (
+          <EditWihtdrawMethod
+            closeModal={closeEditModal}
+            updateItem={updateItem}
+            fetchData={fetchData}
+          />
+        )}
+      </div>
+
+
     </DefaultLayout>
   );
 };

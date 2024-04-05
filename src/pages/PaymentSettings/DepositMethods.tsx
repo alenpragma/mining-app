@@ -205,6 +205,7 @@ const DepositMethods = () => {
             closeModal={closeEditModal}
             onSubmit={handleSubmit}
             updateData={updateData}
+            fetchData={fetchData}
           />
         )}
       </div>

@@ -19,6 +19,7 @@ type selectType = {
 };
 const SelectOptions = ({ name,
   control, label, options, defaultValue, placeholder = 'Select...' }: selectType) => {
+  console.log(defaultValue);
 
   const customStyles = {
     control: (baseStyles: any, state: any) => ({

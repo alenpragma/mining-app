@@ -437,7 +437,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </NavLink>
                           </li>
 
-                          <li>
+                          {/* <li>
                             <NavLink
                               to="/deposits/deposit-settings"
                               className={({ isActive }) =>
@@ -447,7 +447,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             >
                               Deposit Settings
                             </NavLink>
-                          </li>
+                          </li> */}
 
                         </ul>
                       </div>
@@ -548,7 +548,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </NavLink>
                           </li>
 
-                          <li>
+                          {/* <li>
                             <NavLink
                               to="/withdraw/withdraws-settings"
                               className={({ isActive }) =>
@@ -558,7 +558,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             >
                               Withdraws Settings
                             </NavLink>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                       {/* <!-- Dropdown Menu End --> */}
