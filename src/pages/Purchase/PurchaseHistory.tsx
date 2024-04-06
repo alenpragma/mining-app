@@ -113,25 +113,28 @@ const PurchaseHistory = () => {
               :
               <table className="w-full table-auto">
                 <thead>
+
                   <tr className="bg-gray-2 text-left dark:bg-meta-4">
                     <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                       SL NO
                     </th>
                     <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      Package Name
+                      Date
+                    </th>
+                    <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                      package name
                     </th>
                     <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                       Price
                     </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Daily Token
+                      Method
                     </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Duration
+                      Amount
                     </th>
-
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Hash Power
+                      Amount
                     </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                       Status
@@ -169,13 +172,13 @@ const PurchaseHistory = () => {
 
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p className="text-black dark:text-white">
-                          {packageItem.duration} d
+                          {packageItem.duration}
                         </p>
                       </td>
 
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p className="text-black dark:text-white">
-                          {packageItem.hashpower} hz
+                          {packageItem.hashpower}
                         </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">

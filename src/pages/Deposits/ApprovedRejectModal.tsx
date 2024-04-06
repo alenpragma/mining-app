@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import SelectOptions from "../../Ui/SelectOptions";
@@ -22,9 +22,9 @@ export const ApprovedRejectModal = ({ fetchData, closeModal, updateItem }: any) 
   console.log(updateItem);
 
   const options = [
-    { value: "0", label: 'rejected' },
-    { value: "1", label: 'approved' },
-    { value: "2", label: 'pending' },
+    { value: "0", label: 'Rejected' },
+    { value: "1", label: 'Approved' },
+    { value: "2", label: 'Pending' },
   ];
 
   const [formState, setFormState] = useState({ ...updateItem });
@@ -35,18 +35,21 @@ export const ApprovedRejectModal = ({ fetchData, closeModal, updateItem }: any) 
   } = useForm<Inputs>();
 
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormState({ ...formState, [name]: value });
-  };
-
 
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-    const newData = { id: updateItem.id, status: data.status.value }; // Make a copy of the data object
 
-    console.log(newData);
-    ;
+    if (data.status.value == '2') {
+      return (
+        Swal.fire({
+          title: "Message",
+          text: "its already pending deposit",
+          icon: "info"
+        })
+      );
+    }
+
+    const newData = { id: updateItem.id, status: data.status.value }; // Make a copy of the data object
 
     try {
       const token = localStorage.getItem('biztoken');
@@ -66,7 +69,7 @@ export const ApprovedRejectModal = ({ fetchData, closeModal, updateItem }: any) 
         fetchData();
         Swal.fire({
           title: "success",
-          text: "Successfully updated package",
+          text: `Successfully ${data?.status?.label} deposit`,
           icon: "success"
         }).then(() => { closeModal(); });
       }
@@ -79,11 +82,10 @@ export const ApprovedRejectModal = ({ fetchData, closeModal, updateItem }: any) 
     }
   };
 
-
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center place-items-center">
       <div
-        className="modal-container  fixed z-50 flex  mx-auto top-25 bottom-5"
+        className="modal-container h-fit pb-10 fixed z-50 flex  mx-auto top-25 bottom-5"
         onClick={(e) => {
           const target = e.target as HTMLDivElement;
           if (target.className === "modal-container") closeModal();
@@ -93,45 +95,28 @@ export const ApprovedRejectModal = ({ fetchData, closeModal, updateItem }: any) 
         <div className="modal rounded-sm border border-stroke bg-white shadow-8 dark:border-strokedark dark:bg-boxdark overflow-auto">
           <div className="min-w-full w-[400px] lg:w-[600px] border-b border-stroke   pb-4 px-1 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
-              <h2 className="text-xl font-bold text-black dark:text-white">Update</h2>
-              <strong className="text-xl align-center cursor-pointer "
+              <h2 className="text-xl font-bold text-black dark:text-white">UPDATE  {formState.email}</h2>
+              <strong className="text-4xl align-center cursor-pointer"
                 onClick={closeModal}
               >&times;</strong>
             </div>
+            <hr />
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full gap-5.5 p-6.5">
-              <div>
-                <p>package name</p>
-                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("package_name", { required: true })}
-                  value={formState.method}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                {/* <SelectOptions
-                  control={control}
-                  options={options}
-                  label='status'
-                  name="status"
-                  defaultValue={formState}
-                  placeholder={'Select...'}
-                /> */}
 
+              <div>
                 <SelectOptions
                   control={control}
                   options={options}
                   label='status'
                   name="status"
                   defaultValue={formState.status === "rejected" ? "0" : formState.status === "approved" ? "1" : '2'}
-                  // value={'1'}
                   placeholder={'Select...'}
                 />
               </div>
 
-
               <button className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
                 type="submit">
-                Submit
+                Update
               </button>
             </form>
           </div>

@@ -5,7 +5,7 @@ const ViewDepositDetailsModal = ({ closeModal, details }: any) => {
 
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center justify-items-center">
       <div
         className="modal-container fixed z-50 flex  mx-auto top-25 bottom-5"
         onClick={(e) => {
@@ -18,7 +18,7 @@ const ViewDepositDetailsModal = ({ closeModal, details }: any) => {
             <div className="w-full flex justify-between px-3 place-items-center py-3">
               <h2 className="text-xl font-bold text-black dark:text-white">Deposit Details</h2>
               <hr />
-              <strong className="text-xl px-2 dark:text-white align-center cursor-pointer"
+              <strong className="text-4xl px-2 dark:text-white align-center cursor-pointer"
                 onClick={closeModal}
               >&times;</strong>
             </div>

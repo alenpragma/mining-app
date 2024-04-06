@@ -119,13 +119,11 @@ const AllDeposits = () => {
                       {key + 1}
                     </h5>
                   </td>
-                  <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
+                  <td className="border-b border-[#eee] py-5 px-2 pl-4 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
                       {formatToLocalDate(depositsItem.created_at)}
                     </h5>
-                    <p className="text-sm">{depositsItem.phone}</p>
                   </td>
-
                   <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
                       {depositsItem.name}
@@ -133,7 +131,7 @@ const AllDeposits = () => {
                     <p>{depositsItem.email}</p>
                   </td>
 
-                  <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
                       {depositsItem.network}
                     </h5>
@@ -148,7 +146,6 @@ const AllDeposits = () => {
                       {depositsItem.txn_id}
                     </p>
                   </td>
-
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
                       {depositsItem.wallet_no}
@@ -193,7 +190,7 @@ const AllDeposits = () => {
                           />
                         </svg>
                       </button>
-                      <button className="hover:text-primary">
+                      {/* <button className="hover:text-primary">
                         <svg
                           className="fill-current"
                           width="18"
@@ -219,7 +216,7 @@ const AllDeposits = () => {
                             fill=""
                           />
                         </svg>
-                      </button>
+                      </button> */}
                       <button disabled={depositsItem.status != 'pending'} onClick={() => openEditModal(depositsItem)} className={`${depositsItem.status != 'pending' ? "text-zinc-500" : " "}`}>
                         <svg className="w-6 h-6 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
