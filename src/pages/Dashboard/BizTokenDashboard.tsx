@@ -45,7 +45,7 @@ const BizTokenDashboard: React.FC = () => {
 
 
         <Link to={'/deposits/all-deposit'}>
-          <CardDataStats title="All Deposits" total="80"
+          <CardDataStats title="Total Deposits" total="80"
           // rate="0.95%"
           // levelDown
           >
@@ -63,7 +63,7 @@ const BizTokenDashboard: React.FC = () => {
         </Link>
 
         <Link to={'/withdraw/all-withdraws'}>
-          <CardDataStats title="All Withdrawls" total="80"
+          <CardDataStats title="Total Withdrawls" total="80"
           // rate="0.95%"
           // levelDown
           >

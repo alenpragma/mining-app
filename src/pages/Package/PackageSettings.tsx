@@ -4,6 +4,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Swal from 'sweetalert2';
 import Select from 'react-select';
 import SelectOptions from '../../Ui/SelectOptions';
+import { options } from '../options';
 
 type Inputs = {
   package_name: string;
@@ -27,10 +28,6 @@ const PackageSettings = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const options = [
-    { value: "0", label: 'Active' },
-    { value: "1", label: 'Inactive' },
-  ];
 
   const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
     const { status, ...rest } = data;
@@ -91,11 +88,7 @@ const PackageSettings = () => {
       <Breadcrumb pageName="Add Package" />
       <div className='lg:w-[60%] mx-auto'>
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
-            <h3 className="font-medium text-black dark:text-white">
-              New
-            </h3>
-          </div>
+
 
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5.5 p-6.5">
             <div>
@@ -191,8 +184,8 @@ const PackageSettings = () => {
               <SelectOptions
                 label='Status'
                 name="status"
+                defaultValue={'1'}
                 control={control}
-                value={'1'}
                 options={options}
                 placeholder={'Select...'}
               />

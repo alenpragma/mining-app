@@ -17,8 +17,6 @@ const PackageList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [packageItem, setPackageItem] = useState<IPackage>();
 
-
-
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [userDetail, setUserDetail] = useState<IPackage>();
 
@@ -31,7 +29,6 @@ const PackageList = () => {
     setIsModalOpen(false);
   };
 
-
   const closeViewModal = () => {
     setIsViewModalOpen(false);
   };
@@ -41,9 +38,6 @@ const PackageList = () => {
     setIsViewModalOpen(true);
     setUserDetail(data);
   };
-
-
-
 
   const fetchData = async () => {
     try {
@@ -121,7 +115,6 @@ const PackageList = () => {
               :
               <table className="w-full table-auto">
                 <thead>
-
                   <tr className="bg-gray-2 text-left dark:bg-meta-4">
                     <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                       SL NO
@@ -136,16 +129,15 @@ const PackageList = () => {
                       Daily Token
                     </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      duration
+                      Duration
                     </th>
 
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      hashpower
+                      Hash Power
                     </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      status
+                      Status
                     </th>
-
                     <th className="py-4 px-4 font-medium text-black dark:text-white">
                       Actions
                     </th>
@@ -276,10 +268,8 @@ const PackageList = () => {
           isModalOpen && (
             <UpdatePackageModal
               closeModal={closeModal}
-              handleSubmit={handleSubmit}
               packageItem={packageItem}
               fetchData={fetchData}
-
             />
           )}
 
