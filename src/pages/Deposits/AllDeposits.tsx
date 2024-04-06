@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ApprovedRejectModal } from './ApprovedRejectModal';
 import ViewDepositDetailsModal from './ViewDepositDetailsModal';
+import { formatToLocalDate } from '../../hooks/formatDate';
 
 
 export type Deposits = {
@@ -32,12 +33,9 @@ const AllDeposits = () => {
   // edit
 
   const openEditModal = (data: any) => {
-    console.log(data);
-
     setUpdateItem(data);
     setIsEditModalOpen(true);
   };
-
   const closeEditModal = () => {
     setIsEditModalOpen(false);
   };
@@ -47,14 +45,10 @@ const AllDeposits = () => {
   const closeViewModal = () => {
     setIsViewModalOpen(false);
   };
-
-
   const openViewModal = (data: any) => {
     setIsViewModalOpen(true);
     setUserDetail(data);
   };
-
-
   //  view
 
 
@@ -127,7 +121,7 @@ const AllDeposits = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
-                      {depositsItem.created_at}
+                      {formatToLocalDate(depositsItem.created_at)}
                     </h5>
                     <p className="text-sm">{depositsItem.phone}</p>
                   </td>

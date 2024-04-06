@@ -11,10 +11,12 @@ export type IUser = {
   id: number;
   name: string;
   email: string;
-  email_verified_at: null | any;
+  phone: string;
+  email_verified_at: null | string;
   is_admin: string;
   referral_code: string | null;
   status: string;
+  sponsor: string;
   created_at: string;
   updated_at: string;
 };
@@ -25,9 +27,9 @@ export type IUser = {
 const AllUsers = () => {
   const [allUsers, setAllUsers] = useState<IUser[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userDetail, setUserDetail] = useState('');
+  const [userDetail, setUserDetail] = useState<IUser>();
 
-  const openModal = (data: any) => {
+  const openModal = (data: IUser) => {
     setIsModalOpen(true);
     setUserDetail(data);
   };
@@ -98,6 +100,9 @@ const AllUsers = () => {
                       Refarence
                     </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                      Sponsor
+                    </th>
+                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                       Balance
                     </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
@@ -125,7 +130,7 @@ const AllUsers = () => {
                           <h5 className="font-medium text-black dark:text-white">
                             {user.name || <Skeleton height={30} count={3} />}
                           </h5>
-                          <p className="text-sm">0153234242</p>
+                          <p className="text-sm">{user.phone}</p>
                         </td>
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           {allUsers ? (
@@ -138,6 +143,11 @@ const AllUsers = () => {
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <p className="text-black dark:text-white">
                             {user.referral_code}
+                          </p>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <p className="text-black dark:text-white">
+                            {user.sponsor}
                           </p>
                         </td>
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">

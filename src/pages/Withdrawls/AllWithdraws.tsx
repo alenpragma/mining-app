@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { formatToLocalDate } from '../../hooks/formatDate';
 import { ApprovedRejectModal } from '../Deposits/ApprovedRejectModal';
 import { BizApprovedRejectModal } from './BizApprovedRejectModal';
+import ViewWithdrawDetailsModal from './ViewWithdrawDetailsModal';
 
 
 const AllWithdraws = () => {
@@ -18,6 +19,24 @@ const AllWithdraws = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [updateItem, setUpdateItem] = useState(null);
   // edit
+
+
+  // view
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [userDetail, setUserDetail] = useState('');
+  // view
+
+  // view
+  const closeViewModal = () => {
+    setIsViewModalOpen(false);
+  };
+  const openViewModal = (data: any) => {
+    setIsViewModalOpen(true);
+    setUserDetail(data);
+  };
+  //  view
+
+
 
 
   const openEditModal = (data: any) => {
@@ -154,7 +173,7 @@ const AllWithdraws = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-2 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
-                      <button className="hover:text-primary">
+                      <button onClick={() => { openViewModal(depositsItem); }} className="hover:text-primary">
                         <svg
                           className="fill-current"
                           width="18"
@@ -221,6 +240,16 @@ const AllWithdraws = () => {
               closeModal={closeEditModal}
               updateItem={updateItem}
               fetchData={fetchData}
+
+            />
+          )}
+      </div>
+      <div>
+        {
+          isViewModalOpen && (
+            <ViewWithdrawDetailsModal
+              closeModal={closeViewModal}
+              details={userDetail}
 
             />
           )}

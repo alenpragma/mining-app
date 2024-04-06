@@ -28,7 +28,6 @@ export const ApprovedRejectModal = ({ fetchData, closeModal, updateItem }: any) 
   ];
 
   const [formState, setFormState] = useState({ ...updateItem });
-  const [selectedOption, setSelectedOption] = useState(options[0]); // Set default value here
 
   const {
     register,
@@ -91,9 +90,10 @@ export const ApprovedRejectModal = ({ fetchData, closeModal, updateItem }: any) 
         }}
       >
 
-        <div className="modal rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark overflow-auto">
-          <div className="min-w-full w-[400px] lg:w-[600px] border-b border-stroke py-4 px-1 dark:border-strokedark">
-            <div className="w-full flex justify-end">
+        <div className="modal rounded-sm border border-stroke bg-white shadow-8 dark:border-strokedark dark:bg-boxdark overflow-auto">
+          <div className="min-w-full w-[400px] lg:w-[600px] border-b border-stroke   pb-4 px-1 dark:border-strokedark">
+            <div className="w-full flex justify-between px-3 place-items-center py-3">
+              <h2 className="text-xl font-bold text-black dark:text-white">Update</h2>
               <strong className="text-xl align-center cursor-pointer "
                 onClick={closeModal}
               >&times;</strong>

@@ -1,8 +1,7 @@
 
-const ViewDepositDetailsModal = ({ closeModal, details }: any) => {
+const ViewWithdrawDetailsModal = ({ closeModal, details }: any) => {
 
-
-
+  console.log(details);
 
   return (
     <div className="flex justify-center">
@@ -30,12 +29,12 @@ const ViewDepositDetailsModal = ({ closeModal, details }: any) => {
               <p>Email: {details.email}</p>
               <p>User id: {details.user_id}</p>
 
-              <p>Method: {details.method}</p>
+              {/* <p>Method: {details.method}</p> */}
               <p>Network: {details.network}</p>
               <p>Txn id: {details.txn_id}</p>
-              <p>Type: {details.type}</p>
+              {/* <p>Type: {details.type}</p> */}
               <p>Wallet name: {details.wallet_name}</p>
-              <p>Wallet no: {details.wallet_no}</p>
+              <p>Wallet address: {details.wallet_address}</p>
               <p>Status: {details.status}</p>
               <button onClick={() => closeModal()} className="btn w-fit ms-auto flex justify-end rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
               >
@@ -50,4 +49,4 @@ const ViewDepositDetailsModal = ({ closeModal, details }: any) => {
   );
 };
 
-export default ViewDepositDetailsModal;
+export default ViewWithdrawDetailsModal;
