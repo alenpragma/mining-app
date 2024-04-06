@@ -70,6 +70,7 @@ const AllUsers = () => {
       throw error;
     }
   };
+  console.log(allUsers);
 
 
   return (
@@ -102,9 +103,7 @@ const AllUsers = () => {
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                       Sponsor
                     </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Balance
-                    </th>
+
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                       Join date
                     </th>
@@ -148,11 +147,6 @@ const AllUsers = () => {
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <p className="text-black dark:text-white">
                             {user.sponsor}
-                          </p>
-                        </td>
-                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                          <p className="text-black dark:text-white">
-                            36 USD
                           </p>
                         </td>
 
