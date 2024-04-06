@@ -7,7 +7,6 @@ import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
-import ECommerce from './pages/Dashboard/ECommerce';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
 import Profile from './pages/Profile';
@@ -33,7 +32,7 @@ import WithdrawsSettings from './pages/Withdrawls/WithdrawsSettings';
 import DepositSettings from './pages/Deposits/DepositSettings';
 import WihtdrawMethods from './pages/PaymentSettings/WihtdrawMethods';
 import DepositMethods from './pages/PaymentSettings/DepositMethods';
-import useColorMode from './hooks/useColorMode';
+import BizTokenDashboard from './pages/Dashboard/BizTokenDashboard';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -46,9 +45,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 100);
   }, []);
-  const primaryColor = "#3c4a5e"; // Define your primary color
-  const [colorMode, setColorMode] = useColorMode();
-  console.log(colorMode);
+  const primaryColor = "#3c4a5e";
 
   return (
     <>
@@ -68,8 +65,8 @@ function App() {
             path="/dashboard"
             element={
               <>
-                <PageTitle title="eCommerce Dashboard" />
-                <ECommerce />
+                <PageTitle title="BIZ Token Dashboard" />
+                <BizTokenDashboard />
               </>
             }
           />

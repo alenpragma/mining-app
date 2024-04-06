@@ -1,7 +1,7 @@
 
-const ViewpackageModal = ({ closeModal, details }: any) => {
-  console.log(details);
+import { IPackageDetails } from "../../types/packages";
 
+const ViewpackageModal = ({ closeModal, details }: IPackageDetails) => {
 
   return (
     <div className="flex justify-center">
@@ -21,6 +21,7 @@ const ViewpackageModal = ({ closeModal, details }: any) => {
                 onClick={closeModal}
               >&times;</strong>
             </div>
+            <hr />
             <div className="text-black dark:text-white flex flex-col w-full gap-5.5 p-6.5">
 
               {/* <img src={details.image} alt="" /> */}

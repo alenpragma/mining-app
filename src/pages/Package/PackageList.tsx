@@ -2,27 +2,27 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
 import { UpdatePackageModal } from './UpdatePackageModal';
 import { useForm, SubmitHandler } from "react-hook-form";
 import Skeleton from 'react-loading-skeleton';
 import ViewpackageModal from './ViewpackageModal';
+import { IPackage } from '../../types/packages';
 
 
 const PackageList = () => {
 
-  const [packages, setPackages] = useState<any>([]);
+  const [packages, setPackages] = useState<IPackage[]>([]);
   const token = localStorage.getItem('biztoken');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [packageItem, setPackageItem] = useState(null);
+  const [packageItem, setPackageItem] = useState<IPackage>();
 
 
 
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-  const [userDetail, setUserDetail] = useState('');
+  const [userDetail, setUserDetail] = useState<IPackage>();
 
-  const openModal = (packageItem: any) => {
+  const openModal = (packageItem: IPackage) => {
     setPackageItem(packageItem);
     setIsModalOpen(true);
   };
@@ -37,7 +37,7 @@ const PackageList = () => {
   };
 
 
-  const openViewModal = (data: any) => {
+  const openViewModal = (data: IPackage) => {
     setIsViewModalOpen(true);
     setUserDetail(data);
   };
@@ -99,9 +99,9 @@ const PackageList = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<any>();
+  } = useForm();
 
-  const onSubmit: SubmitHandler<any> = async (data: any) => {
+  const onSubmit: SubmitHandler<any> = async (data) => {
 
     console.log("Form submitted with data:", data);
   };
@@ -207,9 +207,9 @@ const PackageList = () => {
                       </p>
                     </td> */}
                       <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
-                        <div onClick={() => openViewModal(packageItem)} className="flex items-center space-x-3.5">
+                        <div className="flex items-center space-x-3.5">
                           {/* details btn */}
-                          <button className="hover:text-primary">
+                          <button onClick={() => openViewModal(packageItem)} className="hover:text-primary">
                             <svg
                               className="fill-current"
                               width="18"
@@ -292,7 +292,6 @@ const PackageList = () => {
             <ViewpackageModal
               closeModal={closeViewModal}
               details={userDetail}
-
             />
           )}
 
