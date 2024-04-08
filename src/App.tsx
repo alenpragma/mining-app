@@ -33,7 +33,7 @@ import DepositSettings from './pages/Deposits/DepositSettings';
 import WihtdrawMethods from './pages/PaymentSettings/WihtdrawMethods';
 import DepositMethods from './pages/PaymentSettings/DepositMethods';
 import BizTokenDashboard from './pages/Dashboard/BizTokenDashboard';
-import PurchaseHistory from './pages/Purchase/purchaseHistory';
+import PurchaseHistory from './pages/Purchase/PurchaseHistory';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);

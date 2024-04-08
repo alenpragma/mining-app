@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/Biz Favicon legal Dark White-01.png';
 import Logoblack from '../../assets/biz.png';
 import Swal from 'sweetalert2';
 import { useForm, SubmitHandler } from "react-hook-form";
+import { PuffLoader } from 'react-spinners';
 
 type Inputs = {
   email: string;
@@ -11,8 +12,17 @@ type Inputs = {
 };
 
 const SignIn: React.FC = () => {
+  const [loding, setLoading] = useState(false);
+
+  const token = localStorage.getItem('biztoken');
 
   const navigate = useNavigate();
+  useEffect(() => {
+    if (token) {
+      navigate('/dashboard');
+    }
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -20,6 +30,7 @@ const SignIn: React.FC = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setLoading(true);
     console.log(data);
 
     try {
@@ -43,7 +54,7 @@ const SignIn: React.FC = () => {
       }
       else {
         Swal.fire({
-          title: "error",
+          title: "Error",
           text: "Something wrong",
           icon: "error"
         });
@@ -51,8 +62,15 @@ const SignIn: React.FC = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+    setLoading(false);
 
+  };
+  const override: CSSProperties = {
+    display: "block",
+    margin: "10px auto",
+
+    borderColor: "red",
+  };
 
   return (
     <div className='min-h-screen flex justify-center items-center place-items-center '>
@@ -277,11 +295,15 @@ const SignIn: React.FC = () => {
                   </div>
 
                   <div className="mb-5">
-                    <input
-                      type="submit"
-                      value="Sign In"
-                      className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90"
-                    />
+                    {!loding ?
+                      <input
+                        type="submit"
+                        value="Sign In"
+                        className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90"
+                      />
+                      :
+                      <PuffLoader className='mx-auto' color="#36d7b7" size={40} />
+                    }
                   </div>
                 </form>
               </div>
