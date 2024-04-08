@@ -34,7 +34,7 @@ const PackageSettings = () => {
     const newPackage = { ...rest, status: data.status.value };
     console.log(newPackage);
 
-    return;
+
 
     try {
       const token = localStorage.getItem('biztoken');
