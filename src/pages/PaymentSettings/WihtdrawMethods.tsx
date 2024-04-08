@@ -7,10 +7,6 @@ import AddWithdrowMethod from './AddWithdrowMethod';
 
 const WihtdrawMethods = () => {
 
-
-
-
-
   const [isModalOpenAddMethod, setIsModalOpenAddMethod] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [updateItem, setUpdateItem] = useState('');

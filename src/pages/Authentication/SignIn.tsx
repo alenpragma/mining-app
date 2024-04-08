@@ -1,10 +1,10 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/Biz Favicon legal Dark White-01.png';
 import Logoblack from '../../assets/biz.png';
 import Swal from 'sweetalert2';
 import { useForm, SubmitHandler } from "react-hook-form";
-import { GridLoader, PuffLoader } from 'react-spinners';
+import { PuffLoader } from 'react-spinners';
 
 type Inputs = {
   email: string;
@@ -17,9 +17,11 @@ const SignIn: React.FC = () => {
   const token = localStorage.getItem('biztoken');
 
   const navigate = useNavigate();
-  if (token) {
-    navigate('/dashboard');
-  }
+  useEffect(() => {
+    if (token) {
+      navigate('/dashboard');
+    }
+  }, []);
 
   const {
     register,

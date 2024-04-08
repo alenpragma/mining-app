@@ -1,7 +1,5 @@
-import React from 'react';
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import SelectOptions from '../Ui/SelectOptions';
 
 const GeneralSettings = () => {
   return (
