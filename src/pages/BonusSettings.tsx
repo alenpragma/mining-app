@@ -50,9 +50,9 @@ const BonusSettings = () => {
 
   const onSubmit: SubmitHandler<IInput> = async (data: IInput) => {
     console.log(data);
-    return;
+    // return;
     try {
-      const response = await fetch('  https://biztoken.fecotrade.com/api/comission-setting', {
+      const response = await fetch('https://biztoken.fecotrade.com/api/comission-setting', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,11 +65,14 @@ const BonusSettings = () => {
         throw new Error('Network response was not ok');
       }
       const responseData = await response.json();
-      Swal.fire({
-        title: "success",
-        text: "Successfully Add Bonus Settings",
-        icon: "success"
-      });
+      if (responseData.success) {
+        fetchData();
+        Swal.fire({
+          title: "success",
+          text: "Successfully Update Bonus Settings",
+          icon: "success"
+        });
+      }
     } catch (error) {
       console.error('Error occurred while making POST request:', error);
     }
@@ -86,17 +89,17 @@ const BonusSettings = () => {
             :
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5.5 p-6.5">
 
-              {/* <div>
+              <div>
                 <label className="mb-3 block text-black dark:text-white">
                   Free Mining Rewards
                 </label>
                 <input
                   type="text"
-                  {...register("refer_comission", { required: true })}
+                  // {...register("refer_comission", { required: true })}
                   placeholder="Free Mining Rewards"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
-              </div> */}
+              </div>
 
               <div>
                 <label className="mb-3 block text-black dark:text-white">
@@ -117,7 +120,7 @@ const BonusSettings = () => {
                 <div>
                   <div>
                     <label className="mt-3 block text-black dark:text-white">
-                      Level 1 (%)
+                      Level one (%)
                     </label>
                     <input
                       type="text"
@@ -131,7 +134,7 @@ const BonusSettings = () => {
 
                   <div>
                     <label className="mt-3 block text-black dark:text-white">
-                      Level 2 (%)
+                      Level two (%)
                     </label>
                     <input
                       type="text"
@@ -144,7 +147,7 @@ const BonusSettings = () => {
 
                   <div>
                     <label className="mt-3 block text-black dark:text-white">
-                      Level 3 (%)
+                      Level three (%)
                     </label>
                     <input
                       type="text"
@@ -160,7 +163,7 @@ const BonusSettings = () => {
               <button
                 className="w-fit mx-auto items-center justify-center  bg-meta-3 py-3 px-10  mb-2 rounded-md text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
               >
-                Submit
+                Update
               </button>
             </form>
         }
