@@ -6,13 +6,13 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 interface IInput {
+  free_mining_rewards: string;
   refer_comission: string;
   level_comission_1: string;
   level_commission_2: string;
   level_comission_3: string;
 }
 const BonusSettings = () => {
-
 
   const token = localStorage.getItem('biztoken');
   const [bonusData, setBonusData] = useState<any>('');
@@ -35,9 +35,6 @@ const BonusSettings = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  console.log(bonusData.length);
-
 
   const {
     register,
@@ -77,7 +74,6 @@ const BonusSettings = () => {
       console.error('Error occurred while making POST request:', error);
     }
   };
-  console.log(bonusData[0]);
 
 
   return (
@@ -95,8 +91,9 @@ const BonusSettings = () => {
                 </label>
                 <input
                   type="text"
-                  // {...register("refer_comission", { required: true })}
+                  {...register("free_mining_rewards", { required: true })}
                   placeholder="Free Mining Rewards"
+                  defaultValue={bonusData[0]?.free_mining_rewards}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
               </div>
@@ -109,7 +106,7 @@ const BonusSettings = () => {
                   type="text"
                   {...register("refer_comission", { required: true })}
                   placeholder="Refer Commission"
-                  defaultValue={bonusData[0]?.refer_comission} // Assuming refer_comission is a field in bonusData
+                  defaultValue={bonusData[0]?.refer_comission}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
               </div>
