@@ -9,7 +9,7 @@ interface IInput {
   free_mining_rewards: string;
   refer_comission: string;
   level_comission_1: string;
-  level_commission_2: string;
+  level_comission_2: string;
   level_comission_3: string;
 }
 const BonusSettings = () => {
@@ -82,6 +82,8 @@ const BonusSettings = () => {
       });
     }
   };
+  console.log(bonusData);
+
 
   return (
     <DefaultLayout>
@@ -119,7 +121,7 @@ const BonusSettings = () => {
             </div>
 
             <div>
-              <h2 className='text-2xl font-bold pb-3 text-white'>Level Commission</h2>
+              <h2 className='text-2xl font-bold pb-3 text-black dark:text-white'>Level Commission</h2>
 
               <div>
                 <div>
@@ -128,7 +130,6 @@ const BonusSettings = () => {
                   </label>
                   <input
                     type="text"
-
                     {...register("level_comission_1", { required: true })}
                     placeholder="Level-1"
                     defaultValue={bonusData[0]?.level_comission_1}
@@ -142,9 +143,9 @@ const BonusSettings = () => {
                   </label>
                   <input
                     type="text"
-                    {...register("level_commission_2", { required: true })}
+                    {...register("level_comission_2", { required: true })}
                     placeholder="Level-2"
-                    defaultValue={bonusData[0]?.level_commission_2}
+                    defaultValue={bonusData[0]?.level_comission_2}
                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>

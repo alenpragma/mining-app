@@ -48,10 +48,6 @@ const AllWithdraws = () => {
     setIsEditModalOpen(false);
   };
 
-
-
-
-
   const fetchData = async () => {
     try {
       const response = await axios.get('https://biztoken.fecotrade.com/api/biztoken-withdraw-request', {
@@ -60,7 +56,7 @@ const AllWithdraws = () => {
           'Content-Type': 'application/json',
         },
       });
-      setWithdrawsData(response?.data[0]);
+      setWithdrawsData(response?.data[0].reverse());
     } catch (error) {
       console.error('Error fetching data:', error);
     }

@@ -15,7 +15,7 @@ const Profile = () => {
 
         </div>
         <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
-          <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
+          <div className="relative z-30 mx-auto -mt-22 h-30 w-full rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
             <div className="relative drop-shadow-2">
               <img src={userSix} alt="profile" />
               <label
@@ -58,17 +58,93 @@ const Profile = () => {
             </h3>
             <p className="font-medium">Softwar Developer</p>
 
-            <div className="mt-5 mx-auto max-w-180">
+            <div className="mt-5 mx-auto ">
               <h4 className="font-semibold text-black dark:text-white">
                 About Me
               </h4>
-              <p className="mt-4.5">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque posuere fermentum urna, eu condimentum mauris
-                tempus ut. Donec fermentum blandit aliquet. Etiam dictum dapibus
-                ultricies. Sed vel aliquet libero. Nunc a augue fermentum,
-                pharetra ligula sed, aliquam lacus.
-              </p>
+              <div className="flex text-start   flex-col gap-9">
+                {/* <!-- Contact Form --> */}
+                <div className="rounded-sm flex border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+
+                  <form action="#">
+                    <div className="p-6.5">
+                      <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-2.5 block text-black dark:text-white">
+                            First name
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="Enter your first name"
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          />
+                        </div>
+
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-2.5 block text-black dark:text-white">
+                            Last name
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="Enter your last name"
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mb-4.5">
+                        <label className="mb-2.5 block text-black dark:text-white">
+                          Email <span className="text-meta-1">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          placeholder="Enter your email address"
+                          className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        />
+                      </div>
+
+                      <button className="flex px-7 mx-auto justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                  <form action="#">
+                    <div className="p-6.5">
+                      <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-2.5 block text-black dark:text-white">
+                            pasword
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="pasword"
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          />
+                        </div>
+
+                        <div className="w-full xl:w-1/2">
+                          <label className="mb-2.5 block text-black dark:text-white">
+                            New pasword
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="new pasword"
+                            className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          />
+                        </div>
+                      </div>
+
+
+
+                      <button className="flex px-7 mx-auto justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+
             </div>
 
             <div className="mt-6.5">
