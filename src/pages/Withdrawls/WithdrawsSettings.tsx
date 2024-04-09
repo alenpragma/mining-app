@@ -4,11 +4,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import SelectOptions from '../../Ui/SelectOptions';
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
 
 const WithdrawsSettings = () => {
   const options = [
