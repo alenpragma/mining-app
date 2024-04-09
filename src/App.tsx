@@ -206,15 +206,7 @@ function App() {
             }
           />
 
-          <Route
-            path="/withdraw/withdraws-settings"
-            element={
-              <>
-                <PageTitle title="Withdraws Settings" />
-                <WithdrawsSettings />
-              </>
-            }
-          />
+
           {/* withdrow end */}
 
           <Route

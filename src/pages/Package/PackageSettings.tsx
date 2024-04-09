@@ -1,8 +1,7 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import Swal from 'sweetalert2';
-import Select from 'react-select';
 import SelectOptions from '../../Ui/SelectOptions';
 import { options } from '../options';
 

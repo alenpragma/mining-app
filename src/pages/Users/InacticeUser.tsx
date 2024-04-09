@@ -2,7 +2,6 @@ import { useState } from "react";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../../layout/DefaultLayout";
 import { Modal } from "../../components/ModalSettings";
-import DataTable from "../../Ui/DataTable";
 
 
 const InacticeUser = () => {

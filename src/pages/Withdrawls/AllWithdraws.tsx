@@ -1,10 +1,8 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { Deposits } from '../Deposits/AllDeposits';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { formatToLocalDate } from '../../hooks/formatDate';
-import { ApprovedRejectModal } from '../Deposits/ApprovedRejectModal';
 import { BizApprovedRejectModal } from './BizApprovedRejectModal';
 import ViewWithdrawDetailsModal from './ViewWithdrawDetailsModal';
 
