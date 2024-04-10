@@ -71,7 +71,7 @@ const BizTokenDashboard: React.FC = () => {
           </CardDataStats>
         </Link>
 
-        <Link to={'/users/all-user'}>
+        <Link to={'/withdraw/pending-withdraws'}>
           <CardDataStats title="Pending Withdrawls" total="80"
           // rate="0.95%"
           // levelDown
@@ -81,7 +81,7 @@ const BizTokenDashboard: React.FC = () => {
 
         </Link>
 
-        <Link to={'/users/all-user'}>
+        <Link to={'/payment-settings/deposit-methods'}>
           <CardDataStats title="Deposit Methods" total="03"
           // rate="0.95%"
           // levelDown
@@ -89,9 +89,6 @@ const BizTokenDashboard: React.FC = () => {
             <UserIcon />
           </CardDataStats>
         </Link>
-
-
-
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">

@@ -60,7 +60,7 @@ const AllDeposits = () => {
           'Content-Type': 'application/json',
         },
       });
-      setDepositData(response?.data[0]);
+      setDepositData(response?.data[0].reverse());
     } catch (error) {
       console.error('Error fetching data:', error);
     }

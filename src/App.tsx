@@ -228,9 +228,6 @@ function App() {
               </>
             }
           />
-
-
-
           <Route
             path="/calendar"
             element={
@@ -324,7 +321,7 @@ function App() {
             }
           />
           <Route
-            path="/ui/buttons"
+            path="/buttons"
             element={
               <>
                 <PageTitle title="Buttons" />

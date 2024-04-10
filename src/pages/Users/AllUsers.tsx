@@ -50,7 +50,7 @@ const AllUsers = () => {
             'Content-Type': 'application/json',
           },
         });
-        setAllUsers(response?.data[0].users);
+        setAllUsers(response?.data[0].users.reverse());
       } catch (error) {
         console.error('Error fetching data:', error);
       }
