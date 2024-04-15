@@ -312,7 +312,7 @@ function App() {
             path="/bonus-settings"
             element={
               <>
-                <PageTitle title="General Settings" />
+                <PageTitle title="Bonus Settings" />
                 <ProtectedRoute>
                   <BonusSettings />
                 </ProtectedRoute>
