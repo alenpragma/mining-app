@@ -336,7 +336,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              Package Settings
+                              Add New Package
                             </NavLink>
                           </li>
 

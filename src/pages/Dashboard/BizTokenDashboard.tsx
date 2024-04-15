@@ -1,14 +1,12 @@
 import React from 'react';
 import CardDataStats from '../../components/CardDataStats';
-import ChartOne from '../../components/Charts/ChartOne';
-import ChartThree from '../../components/Charts/ChartThree';
-import ChartTwo from '../../components/Charts/ChartTwo';
-import ChatCard from '../../components/Chat/ChatCard';
-import MapOne from '../../components/Maps/MapOne';
-import TableOne from '../../components/Tables/TableOne';
+import LastestDeposits from '../../components/Tables/LastestDeposits';
 import DefaultLayout from '../../layout/DefaultLayout';
 import UserIcon from '../../assets/icon/UserIcon';
 import { Link } from 'react-router-dom';
+import LatestPurchaseHistory from './LatestPurchaseHistory';
+
+
 
 const BizTokenDashboard: React.FC = () => {
   return (
@@ -91,16 +89,17 @@ const BizTokenDashboard: React.FC = () => {
         </Link>
       </div>
 
-      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
-        <ChartTwo />
-        <ChartThree />
-        <MapOne />
-        <div className="col-span-12 xl:col-span-8">
-          <TableOne />
+
+      <div className='mt-5'>
+
+        <LastestDeposits />
+        <div className='mt-5'>
+          <LatestPurchaseHistory />
         </div>
-        <ChatCard />
       </div>
+
+
+
     </DefaultLayout>
   );
 };
