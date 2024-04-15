@@ -9,14 +9,26 @@ import Skeleton from 'react-loading-skeleton';
 
 
 export type IDeposit = {
-  user: string;
-  phone: string;
-  getWay: string;
-  trxId: string;
+  id: number;
+  user_id: string;
+  received_by: string;
+  received_from: string;
   amount: string;
-  date: string;
+  type: string;
   status: string;
-};
+  txn_id: string;
+  method: string;
+  wallet_id: string;
+  description: string;
+  name: string;
+  email: string;
+  wallet_name: string;
+  wallet_no: string;
+  network: string;
+  created_at: string;
+  updated_at: string;
+} | any;
+
 
 const AllDeposits = () => {
   const token = localStorage.getItem('biztoken');
@@ -120,7 +132,7 @@ const AllDeposits = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {depositsData.map((depositsItem: any, key: any) => (
+                  {depositsData.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()).map((depositsItem: IDeposit, key: any) => (
                     <tr key={key}>
                       <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                         <h5 className="font-medium text-black dark:text-white">
@@ -129,12 +141,12 @@ const AllDeposits = () => {
                       </td>
                       <td className="border-b border-[#eee] py-5 px-2 pl-4 dark:border-strokedark xl:pl-11">
                         <h5 className="font-medium text-black dark:text-white">
-                          {formatToLocalDate(depositsItem.created_at)}
+                          {formatToLocalDate(depositsItem?.created_at)}
                         </h5>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                         <h5 className="font-medium text-black dark:text-white">
-                          {depositsItem.name}
+                          {depositsItem?.name}
                         </h5>
                         <p>{depositsItem.email}</p>
                       </td>
