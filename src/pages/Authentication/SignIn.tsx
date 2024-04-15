@@ -31,7 +31,6 @@ const SignIn: React.FC = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setLoading(true);
-    console.log(data);
 
     try {
       const response = await fetch('https://biztoken.fecotrade.com/api/login', {

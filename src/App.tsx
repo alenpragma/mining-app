@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
-import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
@@ -34,6 +33,7 @@ import WihtdrawMethods from './pages/PaymentSettings/WihtdrawMethods';
 import DepositMethods from './pages/PaymentSettings/DepositMethods';
 import BizTokenDashboard from './pages/Dashboard/BizTokenDashboard';
 import PurchaseHistory from './pages/Purchase/PurchaseHistory';
+import ProtectedRoute from './hooks/ProtectedRoute';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -67,7 +67,11 @@ function App() {
             element={
               <>
                 <PageTitle title="BIZ Token Dashboard" />
+                <ProtectedRoute>
+
+                </ProtectedRoute>
                 <BizTokenDashboard />
+
               </>
             }
           />
@@ -77,7 +81,9 @@ function App() {
             element={
               <>
                 <PageTitle title="All Users" />
-                <AllUsers />
+                <ProtectedRoute>
+                  <AllUsers />
+                </ProtectedRoute>
               </>
             }
           />
@@ -87,7 +93,9 @@ function App() {
             element={
               <>
                 <PageTitle title="All Users" />
-                <ActiveUser />
+                <ProtectedRoute>
+                  <ActiveUser />
+                </ProtectedRoute>
               </>
             }
           />
@@ -96,7 +104,9 @@ function App() {
             element={
               <>
                 <PageTitle title="inactive Users" />
-                <InacticeUser />
+                <ProtectedRoute>
+                  <InacticeUser />
+                </ProtectedRoute>
               </>
             }
           />
@@ -109,7 +119,9 @@ function App() {
             element={
               <>
                 <PageTitle title="package-list" />
-                <PackageList />
+                <ProtectedRoute>
+                  <PackageList />
+                </ProtectedRoute>
               </>
             }
           />
@@ -118,7 +130,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Package Settings" />
-                <PackageSettings />
+                <ProtectedRoute>
+                  <PackageSettings />
+                </ProtectedRoute>
               </>
             }
           />
@@ -128,7 +142,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Purchase History" />
-                <PurchaseHistory />
+                <ProtectedRoute>
+                  <PurchaseHistory />
+                </ProtectedRoute>
               </>
             }
           />
@@ -142,7 +158,9 @@ function App() {
             element={
               <>
                 <PageTitle title="All Deposit" />
-                <AllDeposits />
+                <ProtectedRoute>
+                  <AllDeposits />
+                </ProtectedRoute>
               </>
             }
           />
@@ -152,7 +170,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Pending Deposit" />
-                <PendingDeposits />
+                <ProtectedRoute>
+                  <PendingDeposits />
+                </ProtectedRoute>
               </>
             }
           />
@@ -162,7 +182,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Success Deposit" />
-                <SuccessDeposits />
+                <ProtectedRoute>
+                  <SuccessDeposits />
+                </ProtectedRoute>
               </>
             }
           />
@@ -171,7 +193,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Deposit Settings" />
-                <DepositSettings />
+                <ProtectedRoute>
+                  <DepositSettings />
+                </ProtectedRoute>
               </>
             }
           />
@@ -183,7 +207,9 @@ function App() {
             element={
               <>
                 <PageTitle title="All withdraws" />
-                <AllWithdraws />
+                <ProtectedRoute>
+                  <AllWithdraws />
+                </ProtectedRoute>
               </>
             }
           />
@@ -192,7 +218,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Pending Withdraws" />
-                <PendingWithdraws />
+                <ProtectedRoute>
+                  <PendingWithdraws />
+                </ProtectedRoute>
               </>
             }
           />
@@ -201,7 +229,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Success Withdraws" />
-                <SuccessWithdraws />
+                <ProtectedRoute>
+                  <SuccessWithdraws />
+                </ProtectedRoute>
               </>
             }
           />
@@ -214,7 +244,9 @@ function App() {
             element={
               <>
                 <PageTitle title="deposit Methods" />
-                <DepositMethods />
+                <ProtectedRoute>
+                  <DepositMethods />
+                </ProtectedRoute>
               </>
             }
           />
@@ -224,7 +256,9 @@ function App() {
             element={
               <>
                 <PageTitle title="deposit Methods" />
-                <WihtdrawMethods />
+                <ProtectedRoute>
+                  <WihtdrawMethods />
+                </ProtectedRoute>
               </>
             }
           />
@@ -233,7 +267,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Calendar" />
-                <Calendar />
+                <ProtectedRoute>
+                  <Calendar />
+                </ProtectedRoute>
               </>
             }
           />
@@ -242,7 +278,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Profile" />
-                <Profile />
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
               </>
             }
           />
@@ -251,7 +289,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Form Elements" />
-                <FormElements />
+                <ProtectedRoute>
+                  <FormElements />
+                </ProtectedRoute>
               </>
             }
           />
@@ -261,7 +301,9 @@ function App() {
             element={
               <>
                 <PageTitle title="General Settings" />
-                <GeneralSettings />
+                <ProtectedRoute>
+                  <GeneralSettings />
+                </ProtectedRoute>
               </>
             }
           />
@@ -270,8 +312,10 @@ function App() {
             path="/bonus-settings"
             element={
               <>
-                <PageTitle title="General Settings" />
-                <BonusSettings />
+                <PageTitle title="Bonus Settings" />
+                <ProtectedRoute>
+                  <BonusSettings />
+                </ProtectedRoute>
               </>
             }
           />
@@ -280,7 +324,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Form Layout" />
-                <FormLayout />
+                <ProtectedRoute>
+                  <FormLayout />
+                </ProtectedRoute>
               </>
             }
           />
@@ -289,7 +335,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Tables " />
-                <Tables />
+                <ProtectedRoute>
+                  <Tables />
+                </ProtectedRoute>
               </>
             }
           />
@@ -298,7 +346,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Settings" />
-                <Settings />
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
               </>
             }
           />
@@ -307,7 +357,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Basic Chart" />
-                <Chart />
+                <ProtectedRoute>
+                  <Chart />
+                </ProtectedRoute>
               </>
             }
           />
@@ -316,7 +368,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Alerts " />
-                <Alerts />
+                <ProtectedRoute>
+                  <Alerts />
+                </ProtectedRoute>
               </>
             }
           />
@@ -325,7 +379,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Buttons" />
-                <Buttons />
+                <ProtectedRoute>
+                  <Buttons />
+                </ProtectedRoute>
               </>
             }
           />
@@ -334,7 +390,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Signin" />
-                <SignIn />
+                <ProtectedRoute>
+                  <SignIn />
+                </ProtectedRoute>
               </>
             }
           />
@@ -343,7 +401,9 @@ function App() {
             element={
               <>
                 <PageTitle title="Signup" />
-                <SignUp />
+                <ProtectedRoute>
+                  <SignUp />
+                </ProtectedRoute>
               </>
             }
           />
