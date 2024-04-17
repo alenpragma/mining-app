@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
@@ -8,17 +7,13 @@ import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
-import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
-import Buttons from './pages/UiElements/Buttons';
 import AllUsers from './pages/Users/AllUsers';
 import ActiveUser from './pages/Users/ActiveUser';
 import InacticeUser from './pages/Users/InacticeUser';
 import PackageList from './pages/Package/PackageList';
-import PackageSettings from './pages/Package/PackageSettings';
-import AllDeposits from './pages/Deposits/AllDeposits';
 import PendingDeposits from './pages/Deposits/PendingDeposits';
 import SuccessDeposits from './pages/Deposits/SuccessDeposits';
 import AllWithdraws from './pages/Withdrawls/AllWithdraws';
@@ -26,15 +21,26 @@ import PendingWithdraws from './pages/Withdrawls/PendingWithdraws';
 import SuccessWithdraws from './pages/Withdrawls/SuccessWithdraws';
 import GeneralSettings from './pages/GeneralSettings';
 import BonusSettings from './pages/BonusSettings';
-import { SkeletonTheme } from 'react-loading-skeleton';
-import WithdrawsSettings from './pages/Withdrawls/WithdrawsSettings';
 import DepositSettings from './pages/Deposits/DepositSettings';
 import WihtdrawMethods from './pages/PaymentSettings/WihtdrawMethods';
-import DepositMethods from './pages/PaymentSettings/DepositMethods';
+// import DepositMethods from './pages/PaymentSettings/DepositMethods';
 import BizTokenDashboard from './pages/Dashboard/BizTokenDashboard';
 import PurchaseHistory from './pages/Purchase/PurchaseHistory';
 import ProtectedRoute from './hooks/ProtectedRoute';
+// import PackageSettings from './pages/Package/PackageSettings';
+
+
+
+
+const Profile = lazy(() => import('./pages/Profile'));
+
+const Buttons = lazy(() => import('./pages/UiElements/Buttons'));
+const AllDeposits = lazy(() => import('./pages/Deposits/AllDeposits'));
+const PackageSettings = lazy(() => import('./pages/Package/PackageSettings'));
+const DepositMethods = lazy(() => import('./pages/PaymentSettings/DepositMethods'));
+
 import MyContext from './hooks/MyContext';
+import { SkeletonTheme } from 'react-loading-skeleton';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -54,18 +60,14 @@ function App() {
     setTheme,
   };
 
-  console.log(theme);
+  const baseColor = theme === 'light' ? "#1d2a39" : "#800";
 
-  const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light')); // Toggle between 'light' and 'dark' themes
-  };
 
-  const primaryColor = theme === 'dark' ? "dark:[#3085d6] bg-blue-700 text-white" : "bg-blue-700 text-white";
 
   return (
     <>
       <MyContext.Provider value={contextValues}>
-        <SkeletonTheme baseColor={`${primaryColor}`} highlightColor="#47566c">
+        <SkeletonTheme baseColor={`${theme === 'light' ? "#1d2a39" : "#800"}`} highlightColor="#47566c">
           <Routes>
             <Route
               index
@@ -145,9 +147,11 @@ function App() {
               element={
                 <>
                   <PageTitle title="Package Settings" />
-                  <ProtectedRoute>
-                    <PackageSettings />
-                  </ProtectedRoute>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <ProtectedRoute>
+                      <PackageSettings />
+                    </ProtectedRoute>
+                  </Suspense>
                 </>
               }
             />
@@ -173,9 +177,11 @@ function App() {
               element={
                 <>
                   <PageTitle title="All Deposit" />
-                  <ProtectedRoute>
-                    <AllDeposits />
-                  </ProtectedRoute>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <ProtectedRoute>
+                      <AllDeposits />
+                    </ProtectedRoute>
+                  </Suspense>
                 </>
               }
             />
@@ -259,9 +265,11 @@ function App() {
               element={
                 <>
                   <PageTitle title="deposit Methods" />
-                  <ProtectedRoute>
-                    <DepositMethods />
-                  </ProtectedRoute>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <ProtectedRoute>
+                      <DepositMethods />
+                    </ProtectedRoute>
+                  </Suspense>
                 </>
               }
             />
@@ -277,25 +285,17 @@ function App() {
                 </>
               }
             />
-            <Route
-              path="/calendar"
-              element={
-                <>
-                  <PageTitle title="Calendar" />
-                  <ProtectedRoute>
-                    <Calendar />
-                  </ProtectedRoute>
-                </>
-              }
-            />
+
             <Route
               path="/profile"
               element={
                 <>
                   <PageTitle title="Profile" />
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <ProtectedRoute>
+                      <Profile />
+                    </ProtectedRoute>
+                  </Suspense>
                 </>
               }
             />
@@ -341,6 +341,17 @@ function App() {
                   <PageTitle title="Form Layout" />
                   <ProtectedRoute>
                     <FormLayout />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/calendar"
+              element={
+                <>
+                  <PageTitle title="Calendar" />
+                  <ProtectedRoute>
+                    <Calendar />
                   </ProtectedRoute>
                 </>
               }
@@ -394,9 +405,11 @@ function App() {
               element={
                 <>
                   <PageTitle title="Buttons" />
-                  <ProtectedRoute>
-                    <Buttons />
-                  </ProtectedRoute>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <ProtectedRoute>
+                      <Buttons />
+                    </ProtectedRoute>
+                  </Suspense>
                 </>
               }
             />
@@ -424,7 +437,7 @@ function App() {
             />
           </Routes>
         </SkeletonTheme>
-      </MyContext.Provider>
+      </MyContext.Provider >
     </>
   );
 }

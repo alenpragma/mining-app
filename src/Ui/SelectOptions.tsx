@@ -1,6 +1,8 @@
 
+import { useContext } from 'react';
 import { Controller, } from 'react-hook-form';
 import Select from 'react-select';
+import MyContext from '../hooks/MyContext';
 
 
 export type IOptions = {
@@ -20,6 +22,13 @@ type selectType = {
 const SelectOptions = ({ name,
   control, label, options, defaultValue, placeholder = 'Select...' }: selectType) => {
 
+  const { theme: themColors } = useContext(MyContext);
+
+  console.log(themColors);
+
+
+  let currentColor = themColors == 'dark' ? "#000" : '#fff';
+
   const customStyles = {
     control: (baseStyles: any, state: any) => ({
       ...baseStyles,
@@ -28,7 +37,7 @@ const SelectOptions = ({ name,
       height: 'full',
       padding: '5px',
       backgroundColor: 'transparent',
-      color: "black"
+      color: currentColor
     }),
     option: (provided: any, state: any) => ({
       ...provided,
@@ -42,7 +51,7 @@ const SelectOptions = ({ name,
   };
   return (
     <div>
-      <label className="mb-3 block text-black dark:text-white">
+      <label className="mb-3 block   dark:text-white">
         {label}
       </label>
       <Controller
@@ -60,13 +69,12 @@ const SelectOptions = ({ name,
               borderRadius: 0,
               colors: {
                 ...theme.colors,
-                neutral80: "#fff"
+                neutral80: `{${currentColor}}`
               },
             })}
           />
         )}
       />
-
     </div>
   );
 };

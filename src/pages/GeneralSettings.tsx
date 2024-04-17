@@ -1,12 +1,7 @@
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import { useContext } from 'react';
-import MyContext from '../hooks/MyContext';
 
 const GeneralSettings = () => {
-  const { theme, setTheme } = useContext(MyContext);
-
-  console.log(theme);
 
 
   return (

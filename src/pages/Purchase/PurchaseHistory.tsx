@@ -50,7 +50,6 @@ const PurchaseHistory = () => {
     }
   };
 
-  ;
 
 
   // delete data
@@ -118,30 +117,30 @@ const PurchaseHistory = () => {
                     SL NO
                   </th>
                   <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                    User
-                  </th>
-                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                     Date
                   </th>
+                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                    Email
+                  </th>
+
                   <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                     package name
                   </th>
                   <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                     Price
                   </th>
-                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                    Method
+                  <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                    Daily Token
+                  </th>
+                  <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                    Received
                   </th>
                   <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                    Amount
-                  </th>
-                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                    Amount
+                    Remaining
                   </th>
                   <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                     Status
                   </th>
-
                 </tr>
               </thead>
               <tbody>
@@ -152,15 +151,14 @@ const PurchaseHistory = () => {
                         {key + 1}
                       </h5>
                     </td>
-
                     <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                       <h5 className="font-medium text-black dark:text-white">
-                        user name
+                        4/16/2024, 9:44:55 PM
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                       <h5 className="font-medium text-black dark:text-white">
-                        date
+                        example@gmail.com
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
@@ -168,18 +166,6 @@ const PurchaseHistory = () => {
                         {packageItem.package_name}
                       </h5>
                     </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {packageItem.package_price}
-                      </p>
-                    </td>
-
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {packageItem.daily_token}
-                      </p>
-                    </td>
-
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
                         {packageItem.duration}
@@ -191,9 +177,21 @@ const PurchaseHistory = () => {
                         {packageItem.hashpower}
                       </p>
                     </td>
+
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {packageItem.status == 1 ? "Active" : 'Inactive'}
+                        8
+                      </p>
+                    </td>
+
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        Remaining
+                      </p>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem.status == 1 ? "Expired" : 'Running'}
                       </p>
                     </td>
 
