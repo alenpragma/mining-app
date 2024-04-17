@@ -1,12 +1,11 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import useColorMode from '../../hooks/useColorMode';
 import MyContext from '../../hooks/MyContext';
 
 const DarkModeSwitcher = () => {
   const [colorMode, setColorMode] = useColorMode();
-  const { theme, setTheme } = useContext(MyContext);
+  const { setTheme } = useContext(MyContext);
 
-  console.log(theme);
 
   return (
     <li>
