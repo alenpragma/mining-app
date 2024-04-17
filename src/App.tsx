@@ -34,6 +34,7 @@ import DepositMethods from './pages/PaymentSettings/DepositMethods';
 import BizTokenDashboard from './pages/Dashboard/BizTokenDashboard';
 import PurchaseHistory from './pages/Purchase/PurchaseHistory';
 import ProtectedRoute from './hooks/ProtectedRoute';
+import { ThemeContext } from './hooks/theme';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -47,6 +48,8 @@ function App() {
     setTimeout(() => setLoading(false), 100);
   }, []);
   const primaryColor = "#3c4a5e";
+
+  const [theme, setTheme] = useState('light');
 
   return (
     <>

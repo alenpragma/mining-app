@@ -9,8 +9,6 @@ import ViewDepositDetailsModal from '../../pages/Deposits/ViewDepositDetailsModa
 
 const LastestDeposits = () => {
   const [depositsData, setDepositData] = useState<IDeposit[]>([]);
-
-
   // view
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [userDetail, setUserDetail] = useState<IDeposit>();

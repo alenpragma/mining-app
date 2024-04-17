@@ -1,7 +1,13 @@
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import { useContext } from 'react';
+import { ThemeContext } from '../hooks/theme';
 
 const GeneralSettings = () => {
+
+
+
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="General Settings" />

@@ -70,7 +70,6 @@ const AllUsers = () => {
       throw error;
     }
   };
-  console.log(allUsers);
 
 
   return (
@@ -80,7 +79,6 @@ const AllUsers = () => {
 
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
           <div className="max-w-full overflow-x-auto">
-
             {allUsers.length == 0 ?
               <div>
                 <Skeleton height={45} count={8} />
