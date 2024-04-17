@@ -1,7 +1,12 @@
+import { useContext, useEffect } from 'react';
 import useColorMode from '../../hooks/useColorMode';
+import MyContext from '../../hooks/MyContext';
 
 const DarkModeSwitcher = () => {
   const [colorMode, setColorMode] = useColorMode();
+  const { theme, setTheme } = useContext(MyContext);
+
+  console.log(theme);
 
   return (
     <li>
@@ -14,6 +19,7 @@ const DarkModeSwitcher = () => {
           onChange={() => {
             if (typeof setColorMode === 'function') {
               setColorMode(colorMode === 'light' ? 'dark' : 'light');
+              setTheme(colorMode);
             }
           }}
           className="dur absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"
