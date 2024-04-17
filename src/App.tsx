@@ -34,7 +34,7 @@ import DepositMethods from './pages/PaymentSettings/DepositMethods';
 import BizTokenDashboard from './pages/Dashboard/BizTokenDashboard';
 import PurchaseHistory from './pages/Purchase/PurchaseHistory';
 import ProtectedRoute from './hooks/ProtectedRoute';
-import { ThemeContext } from './hooks/theme';
+import MyContext from './hooks/MyContext';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -47,371 +47,384 @@ function App() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 100);
   }, []);
-  const primaryColor = "#3c4a5e";
 
   const [theme, setTheme] = useState('light');
+  const contextValues = {
+    theme,
+    setTheme,
+  };
+
+  console.log(theme);
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light')); // Toggle between 'light' and 'dark' themes
+  };
+
+  const primaryColor = theme === 'dark' ? "dark:[#3085d6] bg-blue-700 text-white" : "bg-blue-700 text-white";
 
   return (
     <>
-      <SkeletonTheme baseColor={primaryColor} highlightColor="#47566c">
-        <Routes>
-          <Route
-            index
-            element={
-              <>
-                <PageTitle title="SignIn" />
-                <SignIn />
-              </>
-            }
-          />
-
-          <Route
-            path="/dashboard"
-            element={
-              <>
-                <PageTitle title="BIZ Token Dashboard" />
-                <ProtectedRoute>
-
-                </ProtectedRoute>
-                <BizTokenDashboard />
-
-              </>
-            }
-          />
-
-          <Route
-            path="/users/all-user"
-            element={
-              <>
-                <PageTitle title="All Users" />
-                <ProtectedRoute>
-                  <AllUsers />
-                </ProtectedRoute>
-              </>
-            }
-          />
-
-          <Route
-            path="/users/active-user"
-            element={
-              <>
-                <PageTitle title="All Users" />
-                <ProtectedRoute>
-                  <ActiveUser />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/users/inactive-user"
-            element={
-              <>
-                <PageTitle title="inactive Users" />
-                <ProtectedRoute>
-                  <InacticeUser />
-                </ProtectedRoute>
-              </>
-            }
-          />
-
-          {/* user end */}
-
-          {/* Packages */}
-          <Route
-            path="/package/package-list"
-            element={
-              <>
-                <PageTitle title="package-list" />
-                <ProtectedRoute>
-                  <PackageList />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/package/package-settings"
-            element={
-              <>
-                <PageTitle title="Package Settings" />
-                <ProtectedRoute>
-                  <PackageSettings />
-                </ProtectedRoute>
-              </>
-            }
-          />
-
-          <Route
-            path="/purchase/purchase-history"
-            element={
-              <>
-                <PageTitle title="Purchase History" />
-                <ProtectedRoute>
-                  <PurchaseHistory />
-                </ProtectedRoute>
-              </>
-            }
-          />
-
-          {/* Packages */}
-
-          {/* Deposits start */}
-
-          <Route
-            path="/deposits/all-deposit"
-            element={
-              <>
-                <PageTitle title="All Deposit" />
-                <ProtectedRoute>
-                  <AllDeposits />
-                </ProtectedRoute>
-              </>
-            }
-          />
-
-          <Route
-            path="/deposits/pending-deposit"
-            element={
-              <>
-                <PageTitle title="Pending Deposit" />
-                <ProtectedRoute>
-                  <PendingDeposits />
-                </ProtectedRoute>
-              </>
-            }
-          />
-
-          <Route
-            path="/deposits/success-deposit"
-            element={
-              <>
-                <PageTitle title="Success Deposit" />
-                <ProtectedRoute>
-                  <SuccessDeposits />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/deposits/deposit-settings"
-            element={
-              <>
-                <PageTitle title="Deposit Settings" />
-                <ProtectedRoute>
-                  <DepositSettings />
-                </ProtectedRoute>
-              </>
-            }
-          />
-
-          {/* Deposits  end*/}
-
-          <Route
-            path="/withdraw/all-withdraws"
-            element={
-              <>
-                <PageTitle title="All withdraws" />
-                <ProtectedRoute>
-                  <AllWithdraws />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/withdraw/pending-withdraws"
-            element={
-              <>
-                <PageTitle title="Pending Withdraws" />
-                <ProtectedRoute>
-                  <PendingWithdraws />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/withdraw/success-withdraws"
-            element={
-              <>
-                <PageTitle title="Success Withdraws" />
-                <ProtectedRoute>
-                  <SuccessWithdraws />
-                </ProtectedRoute>
-              </>
-            }
-          />
-
-
-          {/* withdrow end */}
-
-          <Route
-            path="/payment-settings/deposit-methods"
-            element={
-              <>
-                <PageTitle title="deposit Methods" />
-                <ProtectedRoute>
-                  <DepositMethods />
-                </ProtectedRoute>
-              </>
-            }
-          />
-
-          <Route
-            path="/payment-settings/withdraw-methods"
-            element={
-              <>
-                <PageTitle title="deposit Methods" />
-                <ProtectedRoute>
-                  <WihtdrawMethods />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/calendar"
-            element={
-              <>
-                <PageTitle title="Calendar" />
-                <ProtectedRoute>
-                  <Calendar />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <>
-                <PageTitle title="Profile" />
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/forms/form-elements"
-            element={
-              <>
-                <PageTitle title="Form Elements" />
-                <ProtectedRoute>
-                  <FormElements />
-                </ProtectedRoute>
-              </>
-            }
-          />
-
-          <Route
-            path="/general-settings"
-            element={
-              <>
-                <PageTitle title="General Settings" />
-                <ProtectedRoute>
-                  <GeneralSettings />
-                </ProtectedRoute>
-              </>
-            }
-          />
-
-          <Route
-            path="/bonus-settings"
-            element={
-              <>
-                <PageTitle title="Bonus Settings" />
-                <ProtectedRoute>
-                  <BonusSettings />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/forms/form-layout"
-            element={
-              <>
-                <PageTitle title="Form Layout" />
-                <ProtectedRoute>
-                  <FormLayout />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/tables"
-            element={
-              <>
-                <PageTitle title="Tables " />
-                <ProtectedRoute>
-                  <Tables />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/settings"
-            element={
-              <>
-                <PageTitle title="Settings" />
-                <ProtectedRoute>
-                  <Settings />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/chart"
-            element={
-              <>
-                <PageTitle title="Basic Chart" />
-                <ProtectedRoute>
-                  <Chart />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/ui/alerts"
-            element={
-              <>
-                <PageTitle title="Alerts " />
-                <ProtectedRoute>
-                  <Alerts />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/buttons"
-            element={
-              <>
-                <PageTitle title="Buttons" />
-                <ProtectedRoute>
-                  <Buttons />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/auth/signin"
-            element={
-              <>
-                <PageTitle title="Signin" />
-                <ProtectedRoute>
+      <MyContext.Provider value={contextValues}>
+        <SkeletonTheme baseColor={`${primaryColor}`} highlightColor="#47566c">
+          <Routes>
+            <Route
+              index
+              element={
+                <>
+                  <PageTitle title="SignIn" />
                   <SignIn />
-                </ProtectedRoute>
-              </>
-            }
-          />
-          <Route
-            path="/auth/signup"
-            element={
-              <>
-                <PageTitle title="Signup" />
-                <ProtectedRoute>
-                  <SignUp />
-                </ProtectedRoute>
-              </>
-            }
-          />
-        </Routes>
-      </SkeletonTheme>
+                </>
+              }
+            />
+
+            <Route
+              path="/dashboard"
+              element={
+                <>
+                  <PageTitle title="BIZ Token Dashboard" />
+                  <ProtectedRoute>
+
+                  </ProtectedRoute>
+                  <BizTokenDashboard />
+
+                </>
+              }
+            />
+
+            <Route
+              path="/users/all-user"
+              element={
+                <>
+                  <PageTitle title="All Users" />
+                  <ProtectedRoute>
+                    <AllUsers />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/users/active-user"
+              element={
+                <>
+                  <PageTitle title="All Users" />
+                  <ProtectedRoute>
+                    <ActiveUser />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/users/inactive-user"
+              element={
+                <>
+                  <PageTitle title="inactive Users" />
+                  <ProtectedRoute>
+                    <InacticeUser />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            {/* user end */}
+
+            {/* Packages */}
+            <Route
+              path="/package/package-list"
+              element={
+                <>
+                  <PageTitle title="package-list" />
+                  <ProtectedRoute>
+                    <PackageList />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/package/package-settings"
+              element={
+                <>
+                  <PageTitle title="Package Settings" />
+                  <ProtectedRoute>
+                    <PackageSettings />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/purchase/purchase-history"
+              element={
+                <>
+                  <PageTitle title="Purchase History" />
+                  <ProtectedRoute>
+                    <PurchaseHistory />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            {/* Packages */}
+
+            {/* Deposits start */}
+
+            <Route
+              path="/deposits/all-deposit"
+              element={
+                <>
+                  <PageTitle title="All Deposit" />
+                  <ProtectedRoute>
+                    <AllDeposits />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/deposits/pending-deposit"
+              element={
+                <>
+                  <PageTitle title="Pending Deposit" />
+                  <ProtectedRoute>
+                    <PendingDeposits />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/deposits/success-deposit"
+              element={
+                <>
+                  <PageTitle title="Success Deposit" />
+                  <ProtectedRoute>
+                    <SuccessDeposits />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/deposits/deposit-settings"
+              element={
+                <>
+                  <PageTitle title="Deposit Settings" />
+                  <ProtectedRoute>
+                    <DepositSettings />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            {/* Deposits  end*/}
+
+            <Route
+              path="/withdraw/all-withdraws"
+              element={
+                <>
+                  <PageTitle title="All withdraws" />
+                  <ProtectedRoute>
+                    <AllWithdraws />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/withdraw/pending-withdraws"
+              element={
+                <>
+                  <PageTitle title="Pending Withdraws" />
+                  <ProtectedRoute>
+                    <PendingWithdraws />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/withdraw/success-withdraws"
+              element={
+                <>
+                  <PageTitle title="Success Withdraws" />
+                  <ProtectedRoute>
+                    <SuccessWithdraws />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+
+            {/* withdrow end */}
+
+            <Route
+              path="/payment-settings/deposit-methods"
+              element={
+                <>
+                  <PageTitle title="deposit Methods" />
+                  <ProtectedRoute>
+                    <DepositMethods />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/payment-settings/withdraw-methods"
+              element={
+                <>
+                  <PageTitle title="deposit Methods" />
+                  <ProtectedRoute>
+                    <WihtdrawMethods />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/calendar"
+              element={
+                <>
+                  <PageTitle title="Calendar" />
+                  <ProtectedRoute>
+                    <Calendar />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <>
+                  <PageTitle title="Profile" />
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/forms/form-elements"
+              element={
+                <>
+                  <PageTitle title="Form Elements" />
+                  <ProtectedRoute>
+                    <FormElements />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/general-settings"
+              element={
+                <>
+                  <PageTitle title="General Settings" />
+                  <ProtectedRoute>
+                    <GeneralSettings />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/bonus-settings"
+              element={
+                <>
+                  <PageTitle title="Bonus Settings" />
+                  <ProtectedRoute>
+                    <BonusSettings />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/forms/form-layout"
+              element={
+                <>
+                  <PageTitle title="Form Layout" />
+                  <ProtectedRoute>
+                    <FormLayout />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/tables"
+              element={
+                <>
+                  <PageTitle title="Tables " />
+                  <ProtectedRoute>
+                    <Tables />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <>
+                  <PageTitle title="Settings" />
+                  <ProtectedRoute>
+                    <Settings />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/chart"
+              element={
+                <>
+                  <PageTitle title="Basic Chart" />
+                  <ProtectedRoute>
+                    <Chart />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/ui/alerts"
+              element={
+                <>
+                  <PageTitle title="Alerts " />
+                  <ProtectedRoute>
+                    <Alerts />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/buttons"
+              element={
+                <>
+                  <PageTitle title="Buttons" />
+                  <ProtectedRoute>
+                    <Buttons />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/auth/signin"
+              element={
+                <>
+                  <PageTitle title="Signin" />
+                  <ProtectedRoute>
+                    <SignIn />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/auth/signup"
+              element={
+                <>
+                  <PageTitle title="Signup" />
+                  <ProtectedRoute>
+                    <SignUp />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+          </Routes>
+        </SkeletonTheme>
+      </MyContext.Provider>
     </>
   );
 }
