@@ -8,17 +8,17 @@ import { IPackage } from '../../types/packages';
 
 const PurchaseHistory = () => {
 
-  const [packages, setPackages] = useState<IPackage[]>([]);
+  const [purchaseHistorys, setPurchaseHistorys] = useState<IPackage[]>([]);
   const token = localStorage.getItem('biztoken');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [packageItem, setPackageItem] = useState<IPackage>();
+  const [purchaseHistory, setpurchaseHistory] = useState<IPackage>();
 
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [userDetail, setUserDetail] = useState<IPackage>();
 
-  const openModal = (packageItem: IPackage) => {
-    setPackageItem(packageItem);
+  const openModal = (purchaseHistory: IPackage) => {
+    setpurchaseHistory(purchaseHistory);
     setIsModalOpen(true);
   };
 
@@ -38,13 +38,13 @@ const PurchaseHistory = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://biztoken.fecotrade.com/api/packages', {
+      const response = await axios.get('https://biztoken.fecotrade.com/api/admin/package-purchase-history', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
-      setPackages(response?.data[0]);
+      setPurchaseHistorys(response?.data?.purchase_history);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -52,51 +52,36 @@ const PurchaseHistory = () => {
 
 
 
-  // delete data
-
-  // const deletePackage = async (id: string) => {
-  //   Swal.fire({
-  //     title: "Do you want to Delete?",
-  //     text: "You won't be able to revert this!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Yes, delete it!"
-  //   }).then(async (result) => {
-  //     if (result.isConfirmed) {
-  //       const response = await axios.get(`https://biztoken.fecotrade.com/api/package/delete/${id}`, {
-  //         headers: {
-  //           'Authorization': `Bearer ${token}`,
-  //         },
-  //       });
-  //       fetchData();
-  //       Swal.fire({
-  //         title: "Deleted!",
-  //         text: "Your file has been deleted.",
-  //         icon: "success"
-  //       });
-  //     }
-  //   });
-  // };
-
-
-  const {
-    register,
-    control,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit: SubmitHandler<any> = async (data) => {
-
-    console.log("Form submitted with data:", data);
-  };
   useEffect(() => {
     fetchData();
   }, []);
+  console.log(purchaseHistorys);
 
+  const getPasDay = (givenDate: string): number => {
+    // Parse the given date
+    const parsedGivenDate = new Date(givenDate);
+
+    // Check if the parsed date is valid
+    if (isNaN(parsedGivenDate.getTime())) {
+      // If the given date is not valid, return an error or handle it as needed
+      console.error("Invalid date format for givenDate");
+      return 0; // Or handle the error in a different way
+    }
+
+    // Get the current date
+    const currentDate = new Date();
+
+    // Calculate the difference in milliseconds
+    const differenceMs = currentDate.getTime() - parsedGivenDate.getTime();
+
+    // Convert milliseconds to days
+    const differenceDays = Math.floor(differenceMs / (1000 * 60 * 60 * 24));
+
+    return differenceDays;
+  };
+
+  // Example usage
+  console.log(getPasDay("2024-04-01T05:44:59.000000Z")); // Output should be the number of days since the given date
 
   return (
     <DefaultLayout>
@@ -122,7 +107,6 @@ const PurchaseHistory = () => {
                   <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                     Email
                   </th>
-
                   <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                     package name
                   </th>
@@ -144,7 +128,7 @@ const PurchaseHistory = () => {
                 </tr>
               </thead>
               <tbody>
-                {packages?.map((packageItem: any, key: any) => (
+                {purchaseHistorys?.map((purchaseHistory: any, key: any) => (
                   <tr key={key}>
                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                       <h5 className="font-medium text-black dark:text-white">
@@ -153,58 +137,58 @@ const PurchaseHistory = () => {
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                       <h5 className="font-medium text-black dark:text-white">
-                        4/16/2024, 9:44:55 PM
+                        {purchaseHistory?.date}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                       <h5 className="font-medium text-black dark:text-white">
-                        example@gmail.com
+                        {purchaseHistory?.email}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
                       <h5 className="font-medium text-black dark:text-white">
-                        {packageItem.package_name}
+                        {purchaseHistory.package_name}
                       </h5>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {packageItem.duration}
+                        {purchaseHistory.package_price}
                       </p>
                     </td>
 
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {packageItem.hashpower}
+                        {purchaseHistory.daily_token}
                       </p>
                     </td>
 
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        8
+                        {getPasDay(purchaseHistory?.created_at)}
                       </p>
                     </td>
 
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        Remaining
+                        {purchaseHistory?.duration - getPasDay(purchaseHistory?.created_at)}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {packageItem.status == 1 ? "Expired" : 'Running'}
+                        {purchaseHistory.status == 1 ? "Running" : 'Expired'}
                       </p>
                     </td>
 
                     {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p
-                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${packageItem.status === 'Paid'
+                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${purchaseHistory.status === 'Paid'
                           ? 'bg-success text-success'
-                          : packageItem.status === 'Unpaid'
+                          : purchaseHistory.status === 'Unpaid'
                             ? 'bg-danger text-danger'
                             : 'bg-warning text-warning'
                           }`}
                       >
-                        {packageItem.status}
+                        {purchaseHistory.status}
                       </p>
                     </td> */}
 
@@ -220,7 +204,7 @@ const PurchaseHistory = () => {
           isModalOpen && (
             <UpdatePackageModal
               closeModal={closeModal}
-              packageItem={packageItem}
+              purchaseHistory={purchaseHistory}
               fetchData={fetchData}
             />
           )}
