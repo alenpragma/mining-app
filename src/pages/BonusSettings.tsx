@@ -52,6 +52,8 @@ const BonusSettings = () => {
 
   const onSubmit: SubmitHandler<IInput> = async (data: IInput) => {
 
+    setUpdateLodaing(true);
+
     for (const key in data) {
       if (data[key as keyof IInput] === "") {
         data[key as keyof IInput] = bonusData[0][key];
@@ -59,9 +61,8 @@ const BonusSettings = () => {
     }
 
     const newData = { ...data, id: bonusData[0]?.id };
-    console.log(newData);
 
-    return;
+
     try {
       const response = await fetch('https://biztoken.fecotrade.com/api/comission-setting/update', {
         method: 'POST',
@@ -76,7 +77,6 @@ const BonusSettings = () => {
         throw new Error('Network response was not ok');
       }
       const responseData = await response.json();
-      console.log(responseData);
 
       if (responseData.success) {
         reset();

@@ -4,8 +4,10 @@ import MyContext from '../../hooks/MyContext';
 
 const DarkModeSwitcher = () => {
   const [colorMode, setColorMode] = useColorMode();
-  const { setTheme } = useContext(MyContext);
+  const { colorMode: cM,
+    setColorMode: sem, } = useContext(MyContext);
 
+  console.log(cM);
 
   return (
     <li>
@@ -18,7 +20,7 @@ const DarkModeSwitcher = () => {
           onChange={() => {
             if (typeof setColorMode === 'function') {
               setColorMode(colorMode === 'light' ? 'dark' : 'light');
-              setTheme(colorMode);
+              sem(colorMode);
             }
           }}
           className="dur absolute top-0 z-50 m-0 h-full w-full cursor-pointer opacity-0"

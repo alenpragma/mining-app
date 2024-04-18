@@ -41,6 +41,8 @@ const DepositMethods = lazy(() => import('./pages/PaymentSettings/DepositMethods
 
 import MyContext from './hooks/MyContext';
 import { SkeletonTheme } from 'react-loading-skeleton';
+import useLocalStorage from './hooks/useLocalStorage';
+import useColorMode from './hooks/useColorMode';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -53,21 +55,18 @@ function App() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 100);
   }, []);
+  const [colorMode, setColorMode] = useColorMode();
 
-  const [theme, setTheme] = useState('light');
   const contextValues = {
-    theme,
-    setTheme,
+    colorMode,
+    setColorMode,
   };
-
-  const baseColor = theme === 'light' ? "#1d2a39" : "#800";
-
-
+  console.log(colorMode);
 
   return (
     <>
       <MyContext.Provider value={contextValues}>
-        <SkeletonTheme baseColor={`${theme === 'light' ? "#1d2a39" : "#800"}`} highlightColor="#47566c">
+        <SkeletonTheme baseColor={`${colorMode === 'light' ? "#e5e6ea" : "#1d2a39"}`} highlightColor="#47566c">
           <Routes>
             <Route
               index
