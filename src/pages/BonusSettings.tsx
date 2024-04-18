@@ -104,6 +104,13 @@ const BonusSettings = () => {
       <Breadcrumb pageName="Bonus Settings" />
       <div>
         {
+          lodaing ?
+            <PuffLoader className='mx-auto' color="#36d7b7" size={40} />
+            :
+            ""
+        }
+
+        {
           // lodaing ?
           //   <PuffLoader className='mx-auto' color="#36d7b7" size={40} />
           //   :
@@ -192,12 +199,9 @@ const BonusSettings = () => {
             }
           </form>
         }
-
       </div>
     </DefaultLayout>
   );
 };
 
 export default BonusSettings;
-
-
