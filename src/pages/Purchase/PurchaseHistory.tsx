@@ -2,12 +2,11 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { IPackage } from '../../types/packages';
-
+import { formatToLocalDate } from '../../hooks/formatDate';
 
 const PurchaseHistory = () => {
-
   const [purchaseHistorys, setPurchaseHistorys] = useState<IPackage[]>([]);
   const token = localStorage.getItem('biztoken');
 
@@ -30,7 +29,6 @@ const PurchaseHistory = () => {
     setIsViewModalOpen(false);
   };
 
-
   const openViewModal = (data: IPackage) => {
     setIsViewModalOpen(true);
     setUserDetail(data);
@@ -38,24 +36,24 @@ const PurchaseHistory = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://biztoken.fecotrade.com/api/admin/package-purchase-history', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+      const response = await axios.get(
+        'https://biztoken.fecotrade.com/api/admin/package-purchase-history',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
       setPurchaseHistorys(response?.data?.purchase_history);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
-
-
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(purchaseHistorys);
 
   const getPasDay = (givenDate: string): number => {
     // Parse the given date
@@ -64,7 +62,7 @@ const PurchaseHistory = () => {
     // Check if the parsed date is valid
     if (isNaN(parsedGivenDate.getTime())) {
       // If the given date is not valid, return an error or handle it as needed
-      console.error("Invalid date format for givenDate");
+      console.error('Invalid date format for givenDate');
       return 0; // Or handle the error in a different way
     }
 
@@ -81,7 +79,7 @@ const PurchaseHistory = () => {
   };
 
   // Example usage
-  console.log(getPasDay("2024-04-01T05:44:59.000000Z")); // Output should be the number of days since the given date
+  console.log(getPasDay('2024-04-01T05:44:59.000000Z')); // Output should be the number of days since the given date
 
   return (
     <DefaultLayout>
@@ -96,7 +94,6 @@ const PurchaseHistory = () => {
             //   :
             <table className="w-full table-auto">
               <thead>
-
                 <tr className="bg-gray-2 text-left dark:bg-meta-4">
                   <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                     SL NO
@@ -158,7 +155,7 @@ const PurchaseHistory = () => {
 
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {purchaseHistory.daily_token}
+                        {Number(purchaseHistory.daily_token)}
                       </p>
                     </td>
 
@@ -167,15 +164,15 @@ const PurchaseHistory = () => {
                         {getPasDay(purchaseHistory?.created_at)}
                       </p>
                     </td>
-
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {purchaseHistory?.duration - getPasDay(purchaseHistory?.created_at)}
+                        {purchaseHistory?.duration -
+                          getPasDay(purchaseHistory?.created_at)}
                       </p>
                     </td>
                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p className="text-black dark:text-white">
-                        {purchaseHistory.status == 1 ? "Running" : 'Expired'}
+                        {purchaseHistory.status == 1 ? 'Running' : 'Expired'}
                       </p>
                     </td>
 
@@ -191,7 +188,6 @@ const PurchaseHistory = () => {
                         {purchaseHistory.status}
                       </p>
                     </td> */}
-
                   </tr>
                 ))}
               </tbody>
@@ -221,7 +217,6 @@ const PurchaseHistory = () => {
             />
           )}
       </div> */}
-
     </DefaultLayout>
   );
 };

@@ -19,11 +19,8 @@ const GeneralSettings = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="General Settings" />
-
-
-      <div className='  '>
+      <div className=''>
         <div>
-
           <div className="w-full xl:w-1/2">
             <label className="mt-2.5 mb-0.5 block text-black dark:text-white">
               App Name
