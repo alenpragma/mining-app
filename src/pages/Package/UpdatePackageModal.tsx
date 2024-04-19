@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import SelectOptions from '../../Ui/SelectOptions';
 import { IPackage } from '../../types/packages';
+import { PuffLoader } from 'react-spinners';
 
 interface IUpdatePackage {
   fetchData: () => void;
@@ -15,20 +16,22 @@ export const UpdatePackageModal = ({
   closeModal,
   packageItem,
 }: IUpdatePackage) => {
+  const [lodaing, setLoading] = useState(false);
+  const [formState, setFormState] = useState({ ...packageItem });
+  const { register, handleSubmit, control } = useForm<IPackage>();
+
   const options = [
     { value: '0', label: 'Inactive' },
     { value: '1', label: 'Active' },
   ];
 
-  const [formState, setFormState] = useState({ ...packageItem });
-  const { register, handleSubmit, control } = useForm<IPackage>();
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
   };
-
   const onSubmit: SubmitHandler<IPackage> = async (data: IPackage) => {
+    setLoading(true);
+
     const newData = { ...data, id: packageItem.id, status: data.status.value };
 
     try {
@@ -49,6 +52,7 @@ export const UpdatePackageModal = ({
       }
       const responseData = await response.json();
       if (responseData.success) {
+        setLoading(false);
         fetchData();
         Swal.fire({
           title: 'success',
@@ -170,12 +174,17 @@ export const UpdatePackageModal = ({
                   placeholder={'Select...'}
                 />
               </div>
-              <button
-                className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
-                type="submit"
-              >
-                Submit
-              </button>
+
+              {lodaing ? (
+                <PuffLoader className="mx-auto" color="#36d7b7" size={40} />
+              ) : (
+                <button
+                  className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              )}
             </form>
           </div>
         </div>
