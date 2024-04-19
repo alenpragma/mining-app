@@ -3,16 +3,13 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { UpdatePackageModal } from './UpdatePackageModal';
-import { useForm, SubmitHandler } from "react-hook-form";
 import Skeleton from 'react-loading-skeleton';
 import ViewpackageModal from './ViewpackageModal';
 import { IPackage } from '../../types/packages';
-
+import { userToken } from '../../hooks/getTokenFromstorage';
 
 const PackageList = () => {
-
   const [packages, setPackages] = useState<IPackage[]>([]);
-  const token = localStorage.getItem('biztoken');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [packageItem, setPackageItem] = useState<IPackage>();
@@ -33,7 +30,6 @@ const PackageList = () => {
     setIsViewModalOpen(false);
   };
 
-
   const openViewModal = (data: IPackage) => {
     setIsViewModalOpen(true);
     setUserDetail(data);
@@ -41,12 +37,15 @@ const PackageList = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://biztoken.fecotrade.com/api/packages', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+      const response = await axios.get(
+        'https://biztoken.fecotrade.com/api/packages',
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
       setPackages(response?.data[0]);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -57,136 +56,98 @@ const PackageList = () => {
     fetchData();
   }, []);
 
-
-  // delete data
-
-  // const deletePackage = async (id: string) => {
-  //   Swal.fire({
-  //     title: "Do you want to Delete?",
-  //     text: "You won't be able to revert this!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Yes, delete it!"
-  //   }).then(async (result) => {
-  //     if (result.isConfirmed) {
-  //       const response = await axios.get(`https://biztoken.fecotrade.com/api/package/delete/${id}`, {
-  //         headers: {
-  //           'Authorization': `Bearer ${token}`,
-  //         },
-  //       });
-  //       fetchData();
-  //       Swal.fire({
-  //         title: "Deleted!",
-  //         text: "Your file has been deleted.",
-  //         icon: "success"
-  //       });
-  //     }
-  //   });
-  // };
-
-
-  const {
-    register,
-    control,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit: SubmitHandler<any> = async (data) => {
-
-    console.log("Form submitted with data:", data);
-  };
-
-
-
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Package List" />
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
-          {
-            packages.length == 0 ?
-              <div>
-                <Skeleton height={40} count={6} />
-              </div>
-              :
-              <table className="w-full table-auto">
-                <thead>
-                  <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                    <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      SL NO
-                    </th>
-                    <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      Package Name
-                    </th>
-                    <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                      Price
-                    </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Daily Token
-                    </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Duration
-                    </th>
+          {packages.length == 0 ? (
+            <div>
+              <Skeleton height={40} count={6} />
+            </div>
+          ) : (
+            <table className="w-full table-auto">
+              <thead>
+                <tr className="bg-gray-2 text-left dark:bg-meta-4">
+                  <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                    SL NO
+                  </th>
+                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                    Package Name
+                  </th>
+                  <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                    Price
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Daily Token
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    A2i_token
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Duration
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Hash Power
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Status
+                  </th>
+                  <th className="py-4 px-4 font-medium text-black dark:text-white">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {packages?.map((packageItem: IPackage, key: number) => (
+                  <tr key={key}>
+                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {key + 1}
+                      </h5>
+                    </td>
 
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Hash Power
-                    </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Status
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {packages?.map((packageItem: any, key: any) => (
-                    <tr key={key}>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {key + 1}
-                        </h5>
-                      </td>
+                    <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {packageItem?.package_name}
+                      </h5>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.package_price}
+                      </p>
+                    </td>
 
-                      <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {packageItem.package_name}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {packageItem.package_price}
-                        </p>
-                      </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.daily_token}
+                      </p>
+                    </td>
 
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {packageItem.daily_token}
-                        </p>
-                      </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.a2i_token}
+                      </p>
+                    </td>
 
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {packageItem.duration} d
-                        </p>
-                      </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.duration} d
+                      </p>
+                    </td>
 
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {packageItem.hashpower} hz
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {packageItem.status == 1 ? "Active" : 'Inactive'}
-                        </p>
-                      </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.hashpower} hz
+                      </p>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.status == '1' ? 'Active' : 'Inactive'}
+                      </p>
+                    </td>
 
-                      {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p
                         className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${packageItem.status === 'Paid'
                           ? 'bg-success text-success'
@@ -198,30 +159,33 @@ const PackageList = () => {
                         {packageItem.status}
                       </p>
                     </td> */}
-                      <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
-                        <div className="flex items-center space-x-3.5">
-                          {/* details btn */}
-                          <button onClick={() => openViewModal(packageItem)} className="hover:text-primary">
-                            <svg
-                              className="fill-current"
-                              width="18"
-                              height="18"
-                              viewBox="0 0 18 18"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z"
-                                fill=""
-                              />
-                              <path
-                                d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z"
-                                fill=""
-                              />
-                            </svg>
-                          </button>
-                          {/* delete  */}
-                          {/* <button onClick={() => deletePackage(packageItem?.id)} className="hover:text-primary">
+                    <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
+                      <div className="flex items-center space-x-3.5">
+                        {/* details btn */}
+                        <button
+                          onClick={() => openViewModal(packageItem)}
+                          className="hover:text-primary"
+                        >
+                          <svg
+                            className="fill-current"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 18 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z"
+                              fill=""
+                            />
+                            <path
+                              d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z"
+                              fill=""
+                            />
+                          </svg>
+                        </button>
+                        {/* delete  */}
+                        {/* <button onClick={() => deletePackage(packageItem?.id)} className="hover:text-primary">
                         <svg
                           className="fill-current"
                           width="18"
@@ -248,45 +212,54 @@ const PackageList = () => {
                           />
                         </svg>
                       </button> */}
-                          {/* edit btn */}
-                          <button onClick={() => openModal(packageItem)} className="hover:text-primary">
-                            <svg className="w-6 h-6 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
-                            </svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-          }
+                        {/* edit btn */}
+                        <button
+                          onClick={() => openModal(packageItem)}
+                          className="hover:text-primary"
+                        >
+                          <svg
+                            className="w-6 h-6 text-gray-800  "
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="1"
+                              d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
       <div>
-        {
-          isModalOpen && (
-            <UpdatePackageModal
-              closeModal={closeModal}
-              packageItem={packageItem}
-              fetchData={fetchData}
-            />
-          )}
-
+        {isModalOpen && (
+          <UpdatePackageModal
+            closeModal={closeModal}
+            packageItem={packageItem}
+            fetchData={fetchData}
+          />
+        )}
       </div>
 
       {/*  details view modal */}
       <div>
-        {
-          isViewModalOpen && (
-            <ViewpackageModal
-              closeModal={closeViewModal}
-              details={userDetail}
-            />
-          )}
-
+        {isViewModalOpen && (
+          <ViewpackageModal closeModal={closeViewModal} details={userDetail} />
+        )}
       </div>
-
     </DefaultLayout>
   );
 };

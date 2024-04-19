@@ -29,20 +29,20 @@ import PurchaseHistory from './pages/Purchase/PurchaseHistory';
 import ProtectedRoute from './hooks/ProtectedRoute';
 // import PackageSettings from './pages/Package/PackageSettings';
 
-
-
-
 const Profile = lazy(() => import('./pages/Profile'));
 
 const Buttons = lazy(() => import('./pages/UiElements/Buttons'));
 const AllDeposits = lazy(() => import('./pages/Deposits/AllDeposits'));
 const PackageSettings = lazy(() => import('./pages/Package/PackageSettings'));
-const DepositMethods = lazy(() => import('./pages/PaymentSettings/DepositMethods'));
+const DepositMethods = lazy(
+  () => import('./pages/PaymentSettings/DepositMethods'),
+);
 
 import MyContext from './hooks/MyContext';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import useLocalStorage from './hooks/useLocalStorage';
 import useColorMode from './hooks/useColorMode';
+import Lazyloding from './components/Lazyloding';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -66,7 +66,10 @@ function App() {
   return (
     <>
       <MyContext.Provider value={contextValues}>
-        <SkeletonTheme baseColor={`${colorMode === 'light' ? "#e5e6ea" : "#1d2a39"}`} highlightColor="#47566c">
+        <SkeletonTheme
+          baseColor={`${colorMode === 'light' ? '#e5e6ea' : '#1d2a39'}`}
+          highlightColor="#47566c"
+        >
           <Routes>
             <Route
               index
@@ -83,11 +86,8 @@ function App() {
               element={
                 <>
                   <PageTitle title="BIZ Token Dashboard" />
-                  <ProtectedRoute>
-
-                  </ProtectedRoute>
+                  <ProtectedRoute></ProtectedRoute>
                   <BizTokenDashboard />
-
                 </>
               }
             />
@@ -176,7 +176,7 @@ function App() {
               element={
                 <>
                   <PageTitle title="All Deposit" />
-                  <Suspense fallback={<div>Loading...</div>}>
+                  <Suspense fallback={<Lazyloding />}>
                     <ProtectedRoute>
                       <AllDeposits />
                     </ProtectedRoute>
@@ -256,7 +256,6 @@ function App() {
               }
             />
 
-
             {/* withdrow end */}
 
             <Route
@@ -264,7 +263,7 @@ function App() {
               element={
                 <>
                   <PageTitle title="deposit Methods" />
-                  <Suspense fallback={<div>Loading...</div>}>
+                  <Suspense fallback={<Lazyloding />}>
                     <ProtectedRoute>
                       <DepositMethods />
                     </ProtectedRoute>
@@ -290,7 +289,7 @@ function App() {
               element={
                 <>
                   <PageTitle title="Profile" />
-                  <Suspense fallback={<div>Loading...</div>}>
+                  <Suspense fallback={<Lazyloding />}>
                     <ProtectedRoute>
                       <Profile />
                     </ProtectedRoute>
@@ -404,7 +403,7 @@ function App() {
               element={
                 <>
                   <PageTitle title="Buttons" />
-                  <Suspense fallback={<div>Loading...</div>}>
+                  <Suspense fallback={<Lazyloding />}>
                     <ProtectedRoute>
                       <Buttons />
                     </ProtectedRoute>
@@ -436,7 +435,7 @@ function App() {
             />
           </Routes>
         </SkeletonTheme>
-      </MyContext.Provider >
+      </MyContext.Provider>
     </>
   );
 }
