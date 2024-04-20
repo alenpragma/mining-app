@@ -20,6 +20,7 @@ const PackageList = () => {
   const openModal = (packageItem: IPackage) => {
     setPackageItem(packageItem);
     setIsModalOpen(true);
+    setIsViewModalOpen(false);
   };
 
   const closeModal = () => {
@@ -33,6 +34,7 @@ const PackageList = () => {
   const openViewModal = (data: IPackage) => {
     setIsViewModalOpen(true);
     setUserDetail(data);
+    closeModal();
   };
 
   const fetchData = async () => {

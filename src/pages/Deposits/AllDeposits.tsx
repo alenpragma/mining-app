@@ -8,7 +8,6 @@ import { formatToLocalDate } from '../../hooks/formatDate';
 import Skeleton from 'react-loading-skeleton';
 import { IDeposit } from '../../types/deposit';
 
-
 const AllDeposits = () => {
   const token = localStorage.getItem('biztoken');
   const [depositsData, setDepositData] = useState<IDeposit[]>([]);
@@ -18,7 +17,6 @@ const AllDeposits = () => {
   const [userDetail, setUserDetail] = useState<IDeposit>();
   // view
 
-
   // edit
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [updateItem, setUpdateItem] = useState<IDeposit>();
@@ -27,31 +25,34 @@ const AllDeposits = () => {
   const openEditModal = (data: IDeposit) => {
     setUpdateItem(data);
     setIsEditModalOpen(true);
+    setIsViewModalOpen(false); // close view modal
   };
   const closeEditModal = () => {
     setIsEditModalOpen(false);
   };
 
-
-  // view
+  // view start
   const closeViewModal = () => {
     setIsViewModalOpen(false);
   };
   const openViewModal = (data: IDeposit) => {
     setIsViewModalOpen(true);
     setUserDetail(data);
+    closeEditModal(); // close edit modal
   };
-  //  view
-
+  //  view end
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://biztoken.fecotrade.com/api/usdt-add-request', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+      const response = await axios.get(
+        'https://biztoken.fecotrade.com/api/usdt-add-request',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
       setDepositData(response?.data[0].reverse());
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -67,51 +68,55 @@ const AllDeposits = () => {
       <Breadcrumb pageName="All Deposits" />
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
+          {depositsData.length == 0 ? (
+            <div>
+              <Skeleton height={40} count={6} />
+            </div>
+          ) : (
+            <table className="w-full table-auto">
+              <thead>
+                <tr className="bg-gray-2 text-left dark:bg-meta-4">
+                  <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                    SL NO
+                  </th>
+                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                    Date
+                  </th>
+                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                    User
+                  </th>
+                  <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                    Network
+                  </th>
+                  <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                    GateWay
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Trx ID
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Wallet No
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Amount
+                  </th>
 
-          {
-            depositsData.length == 0 ?
-              <div>
-                <Skeleton height={40} count={6} />
-              </div>
-              :
-              <table className="w-full table-auto">
-                <thead>
-                  <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                    <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      SL NO
-                    </th>
-                    <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      Date
-                    </th>
-                    <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      User
-                    </th>
-                    <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                      Network
-                    </th>
-                    <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                      GateWay
-                    </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Trx ID
-                    </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Wallet No
-                    </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Amount
-                    </th>
-
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Status
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {depositsData.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()).map((depositsItem: IDeposit, key: any) => (
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Status
+                  </th>
+                  <th className="py-4 px-4 font-medium text-black dark:text-white">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {depositsData
+                  .sort(
+                    (a, b) =>
+                      new Date(b.created_at).getTime() -
+                      new Date(a.created_at).getTime(),
+                  )
+                  .map((depositsItem: IDeposit, key: any) => (
                     <tr key={key}>
                       <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                         <h5 className="font-medium text-black dark:text-white">
@@ -158,19 +163,25 @@ const AllDeposits = () => {
 
                       <td className="border-b  border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p
-                          className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${depositsItem.status == 'approved'
-                            ? 'bg-success text-success'
-                            : depositsItem.status === 'rejected'
+                          className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                            depositsItem.status == 'approved'
+                              ? 'bg-success text-success'
+                              : depositsItem.status === 'rejected'
                               ? 'bg-danger text-danger'
                               : 'bg-warning text-warning'
-                            }`}
+                          }`}
                         >
                           {depositsItem.status}
                         </p>
                       </td>
                       <td className="border-b text-white border-[#eee] py-5 px-3 dark:border-strokedark">
                         <div className="flex items-center space-x-3.5">
-                          <button onClick={() => { openViewModal(depositsItem); }} className="hover:text-primary">
+                          <button
+                            onClick={() => {
+                              openViewModal(depositsItem);
+                            }}
+                            className="hover:text-primary"
+                          >
                             <svg
                               className="fill-current"
                               width="18"
@@ -216,42 +227,59 @@ const AllDeposits = () => {
                           />
                         </svg>
                       </button> */}
-                          <button disabled={depositsItem.status != 'pending'} onClick={() => openEditModal(depositsItem)} className={`${depositsItem.status != 'pending' ? "text-zinc-500" : " "}`}>
-                            <svg className="w-6 h-6 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                          <button
+                            disabled={depositsItem.status != 'pending'}
+                            onClick={() => openEditModal(depositsItem)}
+                            className={`${
+                              depositsItem.status != 'pending'
+                                ? 'text-zinc-500'
+                                : ' '
+                            }`}
+                          >
+                            <svg
+                              className="w-6 h-6 text-gray-800  "
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1"
+                                d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                              />
                             </svg>
-
                           </button>
                         </div>
                       </td>
                     </tr>
                   ))}
-                </tbody>
-              </table>
-          }
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
       <div>
-        {
-          isEditModalOpen && (
-            <ApprovedRejectModal
-              closeModal={closeEditModal}
-              updateItem={updateItem}
-              fetchData={fetchData}
-
-            />
-          )}
+        {isEditModalOpen && (
+          <ApprovedRejectModal
+            closeModal={closeEditModal}
+            updateItem={updateItem}
+            fetchData={fetchData}
+          />
+        )}
       </div>
 
       <div>
-        {
-          isViewModalOpen && (
-            <ViewDepositDetailsModal
-              closeModal={closeViewModal}
-              details={userDetail}
-
-            />
-          )}
+        {isViewModalOpen && (
+          <ViewDepositDetailsModal
+            closeModal={closeViewModal}
+            details={userDetail}
+          />
+        )}
       </div>
     </DefaultLayout>
   );
