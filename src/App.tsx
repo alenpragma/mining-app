@@ -61,7 +61,6 @@ function App() {
     colorMode,
     setColorMode,
   };
-  console.log(colorMode);
 
   return (
     <>
@@ -146,7 +145,7 @@ function App() {
               element={
                 <>
                   <PageTitle title="Package Settings" />
-                  <Suspense fallback={<div>Loading...</div>}>
+                  <Suspense fallback={<Lazyloding />}>
                     <ProtectedRoute>
                       <PackageSettings />
                     </ProtectedRoute>
