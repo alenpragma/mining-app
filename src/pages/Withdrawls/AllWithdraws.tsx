@@ -9,7 +9,7 @@ import Skeleton from 'react-loading-skeleton';
 
 const AllWithdraws = () => {
   const token = localStorage.getItem('biztoken');
-  const [withdrawsData, setWithdrawsData] = useState<any>(' ');
+  const [withdrawsData, setWithdrawsData] = useState<any>([]);
 
   // edit
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -63,6 +63,7 @@ const AllWithdraws = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
   console.log(withdrawsData);
 
   return (
@@ -73,7 +74,7 @@ const AllWithdraws = () => {
         <div className="max-w-full overflow-x-auto">
           {withdrawsData == '' ? (
             <div>
-              <Skeleton height={40} count={7} />
+              <Skeleton height={40} count={3} />
             </div>
           ) : (
             <table className="w-full table-auto">

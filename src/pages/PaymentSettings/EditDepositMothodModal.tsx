@@ -83,9 +83,9 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
         <div className="modal rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark overflow-auto">
           <div className="min-w-full w-[400px] lg:w-[600px] border-b border-stroke   pb-4 px-1 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
-              <h2 className="text-xl font-bold text-white">update</h2>
+              <h2 className="text-xl font-bold ">Update</h2>
               <strong
-                className="text-3xl align-center text-white  cursor-pointer "
+                className="text-4xl align-cente cursor-pointer hover:text-black dark:hover:text-white "
                 onClick={closeModal}
               >
                 &times;
