@@ -2,14 +2,14 @@ export const ViewuserModal = ({ closeModal, userDetail }: any) => {
   return (
     <div className="fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5">
       <div
-        className="overflow-auto  max-h-[80%] w-full max-w-fit rounded-lg bg-white   dark:bg-boxdark "
+        className="overflow-auto  max-h-[80%] max-w-fit rounded-lg bg-white   dark:bg-boxdark "
         onClick={(e) => {
           const target = e.target as HTMLDivElement;
           if (target.className === 'modal-container') closeModal();
         }}
       >
         <div className="modal h-fit rounded-sm border border-stroke bg-white shadow-8 dark:border-strokedark dark:bg-boxdark overflow-auto">
-          <div className="min-w-full w-[400px] lg:w-[600px] border-b border-stroke   pb-4 px-1 dark:border-strokedark">
+          <div className=" w-[320px] lg:w-[600px] border-b border-stroke pb-4 px-1 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
               <h2 className="text-xl font-bold text-black dark:text-white">
                 User Details
