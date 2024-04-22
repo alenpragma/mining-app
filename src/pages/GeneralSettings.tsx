@@ -32,7 +32,7 @@ const GeneralSettings = () => {
             />
           </div>
 
-          <Button cs="px-10 my-5" btnName="Update"></Button>
+          <Button cs="px-10 my-5 bg-primary" btnName="Update"></Button>
         </div>
       </div>
       <Transaction />

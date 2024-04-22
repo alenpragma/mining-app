@@ -173,7 +173,7 @@ const AllDeposits = () => {
                           {depositsItem.status}
                         </p>
                       </td>
-                      <td className="border-b text-white border-[#eee] py-5 px-3 dark:border-strokedark">
+                      <td className="border-b text-black dark:text-white  border-[#eee] py-5 px-3 dark:border-strokedark">
                         <div className="flex items-center space-x-3.5">
                           <button
                             onClick={() => {
@@ -231,8 +231,8 @@ const AllDeposits = () => {
                             onClick={() => openEditModal(depositsItem)}
                             className={`${
                               depositsItem.status != 'pending'
-                                ? 'text-zinc-500'
-                                : ' '
+                                ? 'text-zinc-400'
+                                : ' text-black dark:text-white'
                             }`}
                           >
                             <svg

@@ -64,7 +64,7 @@ const Transaction = () => {
       status: data?.status?.value,
       id: transaction[0]?.id,
     };
- 
+
     try {
       const response = await fetch(
         'https://biztoken.fecotrade.com/api/transfer-setting/update',
@@ -159,7 +159,7 @@ const Transaction = () => {
           </div>
         )}
 
-        <Button cs="px-10 w-fit my-5" btnName="Update"></Button>
+        <Button cs="px-10 w-fit my-5 bg-primary" btnName="Update"></Button>
       </form>
     </div>
   );

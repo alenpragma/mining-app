@@ -19,7 +19,7 @@ const ViewpackageModal = ({ closeModal, details }: IPackageDetails) => {
               </h2>
 
               <strong
-                className="text-4xl hover:text-white align-center cursor-pointer"
+                className="text-4xl align-center cursor-pointer  hover:text-black dark:hover:text-white"
                 onClick={closeModal}
               >
                 &times;
