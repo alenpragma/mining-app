@@ -7,12 +7,11 @@ import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
 
 const DepositMethods = () => {
-
   const [wihtdrawMethods, setWihtdrawMethods] = useState([]);
 
   const [isModalOpenAddMethod, setIsModalOpenAddMethod] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [updateData, setUpdateDate] = useState("");
+  const [updateData, setUpdateDate] = useState('');
 
   const openModalAddNew = () => {
     setIsModalOpenAddMethod(true);
@@ -30,18 +29,21 @@ const DepositMethods = () => {
   };
 
   const handleSubmit = (formData: any) => {
-    console.log("Form submitted with data:", formData);
+    console.log('Form submitted with data:', formData);
   };
 
   const fetchData = async () => {
     try {
       const token = localStorage.getItem('biztoken');
-      const response = await axios.get('https://biztoken.fecotrade.com/api/admin-wallets', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+      const response = await axios.get(
+        'https://biztoken.fecotrade.com/api/admin-wallets',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
       setWihtdrawMethods(response?.data[0]);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -54,99 +56,102 @@ const DepositMethods = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Deposit Methods" />
-      <div className='py-3'>
-        <button onClick={() => openModalAddNew()} className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
-          type="submit">
+      <div className="py-3">
+        <button
+          onClick={() => openModalAddNew()}
+          className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
+          type="submit"
+        >
           Add METHOD
         </button>
       </div>
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
-          {
-            wihtdrawMethods.length == 0 ?
-              <div>
-                <Skeleton height={40} count={4} />
-              </div>
-              :
-              <table className="w-full table-auto">
-                <thead>
-                  <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                    <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      SL NO
-                    </th>
-                    <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      Payment Method
-                    </th>
-                    <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                      Network
-                    </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Wallet no
-                    </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Minimum
-                    </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Maximum                </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Status
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {wihtdrawMethods?.map((packageItem: any, key) => (
-                    <tr key={key}>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {key + 1}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {packageItem?.wallet_name}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {packageItem?.network}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {packageItem.wallet_no}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {packageItem?.min_token}
-                        </p>
-                      </td>
+          {wihtdrawMethods.length == 0 ? (
+            <div>
+              <Skeleton height={40} count={4} />
+            </div>
+          ) : (
+            <table className="w-full table-auto">
+              <thead>
+                <tr className="bg-gray-2 text-left dark:bg-meta-4">
+                  <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                    SL NO
+                  </th>
+                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                    Payment Method
+                  </th>
+                  <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                    Network
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Wallet no
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Minimum
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Maximum{' '}
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                    Status
+                  </th>
+                  <th className="py-4 px-4 font-medium text-black dark:text-white">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {wihtdrawMethods?.map((packageItem: any, key) => (
+                  <tr key={key}>
+                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {key + 1}
+                      </h5>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {packageItem?.wallet_name}
+                      </h5>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.network}
+                      </p>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem.wallet_no}
+                      </p>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.min_token}
+                      </p>
+                    </td>
 
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {packageItem?.max_token}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p
-                          className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${packageItem.status === '1'
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p className="text-black dark:text-white">
+                        {packageItem?.max_token}
+                      </p>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p
+                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                          packageItem.status === '1'
                             ? 'bg-success text-success'
                             : packageItem.status === '1'
-                              ? 'bg-danger text-danger'
-                              : 'bg-warning text-warning'
-                            }`}
-                        >
-                          {packageItem.status == '1' ? "Active" : "Inactive"}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
-                        <div className="flex items-center space-x-3.5">
-
-                          {/* delete */}
-                          <button className="hover:text-primary">
+                            ? 'bg-danger text-danger'
+                            : 'bg-warning text-warning'
+                        }`}
+                      >
+                        {packageItem.status == '1' ? 'Active' : 'Inactive'}
+                      </p>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
+                      <div className="flex items-center space-x-3.5">
+                        {/* delete btn */}
+                        {/* <button className="hover:text-primary">
                             <svg
                               className="fill-current"
                               width="18"
@@ -172,21 +177,37 @@ const DepositMethods = () => {
                                 fill=""
                               />
                             </svg>
-                          </button>
-                          {/* edit */}
-                          <button onClick={() => openEditModal(packageItem)} className="hover:text-primary">
-                            <svg className="w-6 h-6 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
-                            </svg>
-                          </button>
-
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-          }
+                          </button> */}
+                        {/* edit */}
+                        <button
+                          onClick={() => openEditModal(packageItem)}
+                          className="hover:text-primary"
+                        >
+                          <svg
+                            className="w-6 h-6 text-gray-800  "
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="1"
+                              d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
       <div className=" ">
