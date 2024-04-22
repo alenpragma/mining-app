@@ -3,9 +3,9 @@ import { IPackageDetails } from '../../types/packages';
 
 const ViewpackageModal = ({ closeModal, details }: IPackageDetails) => {
   return (
-    <div className="flex h-full  justify-center place-items-center">
+    <div className="fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5">
       <div
-        className="modal-container fixed z-50 flex mx-auto overflow-auto"
+        className="modal-container fixed z-50 flex  mx-auto top-25 bottom-5 overflow-x-auto"
         onClick={(e) => {
           const target = e.target as HTMLDivElement;
           if (target.className === 'modal-container') closeModal();
