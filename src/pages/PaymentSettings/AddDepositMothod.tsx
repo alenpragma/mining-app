@@ -66,7 +66,7 @@ const AddDepositMothod = ({ fetchData, closeModal }: any) => {
             <div className="w-full flex justify-between px-3 place-items-center py-3">
               <h2 className="text-xl font-bold text-white">Add New Method</h2>
               <strong
-                className="text-3xl align-center text-white  cursor-pointer "
+                className="text-3xl align-center text-white  cursor-pointer hover:text-black dark:hover:text-white"
                 onClick={closeModal}
               >
                 &times;

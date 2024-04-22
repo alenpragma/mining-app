@@ -80,22 +80,22 @@ export const ApprovedRejectModal = ({
   };
 
   return (
-    <div className="flex justify-center place-items-center">
+    <div className="fixed  left-0  top-0 z-999 flex min-h-screen w-full items-center justify-center bg-black/90 py-5">
       <div
-        className="modal-container h-fit min-h-[420px] pb-10 fixed z-50 flex  mx-auto top-25 bottom-5"
+        className="overflow-auto  max-h-[80%] w-full max-w-fit rounded-lg bg-white   dark:bg-boxdark "
         onClick={(e) => {
           const target = e.target as HTMLDivElement;
           if (target.className === 'modal-container') closeModal();
         }}
       >
-        <div className="modal rounded-sm border border-stroke bg-white shadow-8 dark:border-strokedark dark:bg-boxdark overflow-auto">
-          <div className="min-w-full w-[400px] lg:w-[600px] border-b border-stroke   pb-4 px-1 dark:border-strokedark">
+        <div className="modal  min-h-[400px] rounded-sm border border-stroke bg-white shadow-8 dark:border-strokedark dark:bg-boxdark overflow-auto">
+          <div className="min-w-full w-[400px] lg:w-[600px] pb-4 px-1 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
               <h2 className="text-xl font-bold text-black dark:text-white">
-                UPDATE {formState.email}
+                UPDATE ( {formState.email} )
               </h2>
               <strong
-                className="text-4xl align-center cursor-pointer"
+                className="text-4xl align-center cursor-pointer  hover:text-black dark:hover:text-white"
                 onClick={closeModal}
               >
                 &times;
@@ -106,7 +106,7 @@ export const ApprovedRejectModal = ({
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col w-full gap-5.5 p-6.5"
             >
-              <p className="text-white text-lg font-semibold">
+              <p className="dark:text-white text-black text-lg font-semibold">
                 Amount: {formState.amount}
               </p>
 

@@ -2,7 +2,7 @@ export const ViewuserModal = ({ closeModal, userDetail }: any) => {
   return (
     <div className="fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5">
       <div
-        className="modal-container fixed z-50 flex  mx-auto top-25 bottom-5 overflow-x-auto"
+        className="overflow-auto  max-h-[80%] w-full max-w-fit rounded-lg bg-white   dark:bg-boxdark "
         onClick={(e) => {
           const target = e.target as HTMLDivElement;
           if (target.className === 'modal-container') closeModal();
@@ -15,7 +15,7 @@ export const ViewuserModal = ({ closeModal, userDetail }: any) => {
                 User Details
               </h2>
               <strong
-                className="text-4xl align-center cursor-pointer"
+                className="text-4xl align-center cursor-pointer  hover:text-black dark:hover:text-white"
                 onClick={closeModal}
               >
                 &times;
@@ -25,12 +25,32 @@ export const ViewuserModal = ({ closeModal, userDetail }: any) => {
             <hr />
             <div className="text-black dark:text-white flex flex-col w-full gap-5.5 p-6.5">
               {/* <img src={userDetail.image} alt="" /> */}
-              <p>Name: {userDetail.name}</p>
-              <p>Email: {userDetail.email}</p>
-              <p>Phone: {userDetail.phone}</p>
-              <p>Name: {userDetail.name}</p>
-              <p>Referral code: {userDetail.referral_code}</p>
-              <p>Sponsor: {userDetail.sponsor}</p>
+              <p>
+                {' '}
+                <span className="font-semibold">Name:</span> {userDetail.name}
+              </p>
+              <p>
+                {' '}
+                <span className="font-semibold">Email:</span> {userDetail.email}
+              </p>
+              <p>
+                {' '}
+                <span className="font-semibold">Phone:</span> {userDetail.phone}
+              </p>
+              <p>
+                {' '}
+                <span className="font-semibold">Name:</span> {userDetail.name}
+              </p>
+              <p>
+                {' '}
+                <span className="font-semibold">Referral code:</span>
+                {userDetail.referral_code}
+              </p>
+              <p>
+                {' '}
+                <span className="font-semibold">Sponsor:</span>{' '}
+                {userDetail.sponsor}
+              </p>
             </div>
             <button
               onClick={() => closeModal()}

@@ -1,9 +1,7 @@
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import Button from '../Ui/Button';
-import SelectOptions from '../Ui/SelectOptions';
-import { useForm } from 'react-hook-form';
-import { InputProps } from 'react-select';
+
 import Transaction from '../components/GeneralSettings/Transaction';
 
 const GeneralSettings = () => {
@@ -34,15 +32,50 @@ const GeneralSettings = () => {
             />
           </div>
 
-          <Button cs="px-10 my-5" btnName="Update"></Button>
+          <Button cs="px-10 my-5 bg-primary" btnName="Update"></Button>
         </div>
-
-        <Transaction />
       </div>
+      <Transaction />
 
-      <div className=" ">
+      <div className="hidden">
         <div className="fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5">
-          <div className="md:px-17.5 w-full max-w-142.5 rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:py-15">
+          <div className="overflow-y-scroll max-h-[80%] md:px-17.5 w-full max-w-142.5 rounded-lg bg-white px-8 py-12 text-center dark:bg-boxdark md:py-15">
+            <h3 className="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
+              Your Message Sent Successfully
+            </h3>
+            <span className="mx-auto mb-6 inline-block h-1 w-22.5 rounded bg-primary"></span>
+            <p className="mb-10">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since
+            </p>
+            <h3 className="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
+              Your Message Sent Successfully
+            </h3>
+            <span className="mx-auto mb-6 inline-block h-1 w-22.5 rounded bg-primary"></span>
+            <p className="mb-10">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since
+            </p>
+            <h3 className="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
+              Your Message Sent Successfully
+            </h3>
+            <span className="mx-auto mb-6 inline-block h-1 w-22.5 rounded bg-primary"></span>
+            <p className="mb-10">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since
+            </p>
+            <h3 className="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
+              Your Message Sent Successfully
+            </h3>
+            <span className="mx-auto mb-6 inline-block h-1 w-22.5 rounded bg-primary"></span>
+            <p className="mb-10">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since
+            </p>
             <h3 className="pb-2 text-xl font-bold text-black dark:text-white sm:text-2xl">
               Your Message Sent Successfully
             </h3>
