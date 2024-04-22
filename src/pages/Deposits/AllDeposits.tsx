@@ -135,7 +135,7 @@ const AllDeposits = () => {
                         <p>{depositsItem.email}</p>
                       </td>
 
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark xl:pl-11">
+                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <h5 className="font-medium text-black dark:text-white">
                           {depositsItem.network}
                         </h5>

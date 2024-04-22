@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import SelectOptions from '../../Ui/SelectOptions';
 import { IPackage } from '../../types/packages';
 import { PuffLoader } from 'react-spinners';
+import Button from '../../Ui/Button';
 
 interface IUpdatePackage {
   fetchData: () => void;
@@ -72,9 +73,9 @@ export const UpdatePackageModal = ({
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="fixed left-0 top-0 z-999 flex min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5">
       <div
-        className="modal-container  fixed z-50 flex  mx-auto top-25 bottom-5"
+        className="modal-container  fixed  flex  mx-auto top-25 bottom-5"
         onClick={(e) => {
           const target = e.target as HTMLDivElement;
           if (target.className === 'modal-container') closeModal();
@@ -174,17 +175,27 @@ export const UpdatePackageModal = ({
                   placeholder={'Select...'}
                 />
               </div>
-
-              {lodaing ? (
-                <PuffLoader className="mx-auto" color="#36d7b7" size={40} />
-              ) : (
+              <div className="flex justify-center gap-4">
+                <div>
+                  {lodaing ? (
+                    <PuffLoader className="mx-auto" color="#36d7b7" size={40} />
+                  ) : (
+                    <button
+                      className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
+                      type="submit"
+                    >
+                      Submit
+                    </button>
+                  )}
+                </div>
                 <button
-                  className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
-                  type="submit"
+                  type="button"
+                  onClick={() => closeModal()}
+                  className="btn flex justify-center rounded bg-danger py-2 px-6 font-medium text-gray hover:shadow-1"
                 >
-                  Submit
+                  Cancel
                 </button>
-              )}
+              </div>
             </form>
           </div>
         </div>
