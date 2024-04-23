@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/Biz Favicon legal Dark White-01.png';
 import Logoblack from '../../assets/biz.png';
 import Swal from 'sweetalert2';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { PuffLoader } from 'react-spinners';
 
 type Inputs = {
@@ -36,55 +36,56 @@ const SignIn: React.FC = () => {
       const response = await fetch('https://biztoken.fecotrade.com/api/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
       const responseData = await response.json();
       if (responseData.token) {
         localStorage.setItem('biztoken', responseData.token);
         Swal.fire({
-          title: "success",
-          text: "Login successfull",
-          icon: "success"
+          title: 'success',
+          text: 'Login successfull',
+          icon: 'success',
         }).then(() => {
           navigate('/dashboard');
         });
-      }
-      else {
+      } else {
         Swal.fire({
-          title: "Error",
-          text: "Something wrong",
-          icon: "error"
+          title: 'Error',
+          text: 'Something wrong',
+          icon: 'error',
         });
       }
     } catch (error) {
       console.log(error);
     }
     setLoading(false);
-
   };
   const override: CSSProperties = {
-    display: "block",
-    margin: "10px auto",
-
-    borderColor: "red",
+    display: 'block',
+    margin: '10px auto',
+    borderColor: 'red',
   };
 
   return (
-    <div className='min-h-screen flex justify-center items-center place-items-center '>
-
-      <div className='w-[70%]'>
+    <div className="min-h-screen flex justify-center items-center place-items-center ">
+      <div className="w-[90%] md:w-[80%] lg:w-[70%]">
         {/* <Breadcrumb pageName="Sign In" /> */}
 
         <div className=" rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="flex items-center">
             <div className="hidden w-full lg:block xl:w-1/2">
               <div className="py-17.5 px-4 text-center">
-                <Link className="mb-5.5 flex gap-2 justify-center place-items-center " to="/">
-                  <img className='w-10  hidden dark:block' src={Logo} alt="" />
-                  <img className='w-10 dark:hidden' src={Logoblack} alt="" />
-                  <h2 className='text-2xl font-bold text-black dark:text-white'>BIZ TOKEN</h2>
+                <Link
+                  className="mb-5.5 flex gap-2 justify-center place-items-center "
+                  to="/"
+                >
+                  <img className="w-10  hidden dark:block" src={Logo} alt="" />
+                  <img className="w-10 dark:hidden" src={Logoblack} alt="" />
+                  <h2 className="text-2xl font-bold text-black dark:text-white">
+                    BIZ TOKEN
+                  </h2>
                 </Link>
                 <p className="lg:px-5">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -231,7 +232,7 @@ const SignIn: React.FC = () => {
                     </label>
                     <div className="relative">
                       <input
-                        {...register("email", { required: true })}
+                        {...register('email', { required: true })}
                         type="email"
                         placeholder="Enter your email"
                         className="w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -263,7 +264,7 @@ const SignIn: React.FC = () => {
                     </label>
                     <div className="relative">
                       <input
-                        {...register("password", { required: true })}
+                        {...register('password', { required: true })}
                         type="password"
                         placeholder="Password"
                         className="w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -294,15 +295,19 @@ const SignIn: React.FC = () => {
                   </div>
 
                   <div className="mb-5">
-                    {!loding ?
+                    {!loding ? (
                       <input
                         type="submit"
                         value="Sign In"
                         className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90"
                       />
-                      :
-                      <PuffLoader className='mx-auto' color="#36d7b7" size={40} />
-                    }
+                    ) : (
+                      <PuffLoader
+                        className="mx-auto"
+                        color="#36d7b7"
+                        size={40}
+                      />
+                    )}
                   </div>
                 </form>
               </div>
