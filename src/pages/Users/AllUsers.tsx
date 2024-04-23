@@ -6,6 +6,7 @@ import { formatToLocalDate } from '../../hooks/formatDate';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { ViewuserModal } from './ViewuserModal';
+import PaginationButtons from '../../components/Pagination/PaginationButtons';
 
 export type IUser = {
   id: number;
@@ -68,6 +69,9 @@ const AllUsers = () => {
   );
 
   console.log(filteredUsers);
+  const [pages, setPages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  console.log(Math.ceil(filteredUsers.length / 10));
 
   return (
     <div>
@@ -239,6 +243,15 @@ const AllUsers = () => {
                 </tbody>
               </table>
             )}
+          </div>
+          <div className="my-4">
+            <>
+              <PaginationButtons
+                totalPages={Math.ceil(filteredUsers.length / 10)}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+            </>
           </div>
         </div>
       </DefaultLayout>
