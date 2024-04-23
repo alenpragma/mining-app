@@ -1,11 +1,9 @@
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../layout/DefaultLayout';
-import CoverOne from '../images/cover/cover-01.png';
 import userSix from '../images/user/user-06.png';
-import { Link } from 'react-router-dom';
-import AuthDetails from './Profile/authDetails';
-import BasicDetails from './Profile/basicDetails';
+import AuthDetails from './Profile/AuthDetails';
 import SocialIcons from './Profile/SocialIcons';
+import BasicDetails from './Profile/BasicDetails';
 
 const Profile = () => {
   return (
