@@ -10,6 +10,7 @@ import Skeleton from 'react-loading-skeleton';
 const AllWithdraws = () => {
   const token = localStorage.getItem('biztoken');
   const [withdrawsData, setWithdrawsData] = useState<any>([]);
+  const [loading, setLoading] = useState(false);
 
   // edit
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -43,6 +44,7 @@ const AllWithdraws = () => {
   };
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         'https://biztoken.fecotrade.com/api/biztoken-withdraw-request',
@@ -54,6 +56,7 @@ const AllWithdraws = () => {
         },
       );
       setWithdrawsData(response?.data[0].reverse());
+      setLoading(false);
       console.log(response?.data, 'asadas');
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -72,7 +75,7 @@ const AllWithdraws = () => {
 
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
-          {withdrawsData == '' ? (
+          {loading == true ? (
             <div>
               <Skeleton height={40} count={3} />
             </div>
@@ -252,6 +255,10 @@ const AllWithdraws = () => {
           )}
         </div>
       </div>
+      {withdrawsData.length == 0 && !loading && (
+        <p className="text-center mt-4">No data found</p>
+      )}
+
       <div>
         {isEditModalOpen && (
           <BizApprovedRejectModal
