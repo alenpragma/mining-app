@@ -104,10 +104,7 @@ const Transaction = () => {
       <h2 className="text-title-md2 font-semibold text-black dark:text-white">
         {'Transaction to USDT'}
       </h2>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-5.5 p-6.5"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5.5">
         <div className="w-full xl:w-1/2">
           <label className="mt-2.5 mb-0.5 block text-black dark:text-white">
             Transfer Charge
