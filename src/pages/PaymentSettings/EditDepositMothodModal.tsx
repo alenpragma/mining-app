@@ -17,8 +17,6 @@ type Inputs = {
 };
 
 const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
-  console.log(updateData);
-
   const [formState, setFormState] = useState({ ...updateData });
 
   const { register, handleSubmit, control } = useForm<Inputs>();
@@ -48,11 +46,8 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
       }
 
       const responseData = await response.json();
-      console.log(responseData);
 
       if (responseData.success) {
-        console.log('ddd');
-
         await fetchData();
         Swal.fire({
           title: 'success',
@@ -81,7 +76,7 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
         }}
       >
         <div className="modal rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark overflow-auto">
-          <div className=" w-[370px] md:w-[420px] lg:w-[600px] border-b border-stroke   pb-4 px-1 dark:border-strokedark">
+          <div className=" w-[350px] md:w-[420px] lg:w-[600px] border-b border-stroke   pb-4 px-1 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
               <h2 className="text-xl font-bold ">Update</h2>
               <strong

@@ -89,7 +89,7 @@ export const ApprovedRejectModal = ({
         }}
       >
         <div className="modal  min-h-[400px] rounded-sm border border-stroke bg-white shadow-8 dark:border-strokedark dark:bg-boxdark overflow-auto">
-          <div className="min-w-full w-[400px] lg:w-[600px] pb-4 px-1 dark:border-strokedark">
+          <div className="min-w-full max-w-full w-[400px] lg:w-[600px] pb-4 px-1 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
               <h2 className="text-xl font-bold text-black dark:text-white">
                 UPDATE ( {formState.email} )
