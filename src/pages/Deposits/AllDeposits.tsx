@@ -7,10 +7,12 @@ import ViewDepositDetailsModal from './ViewDepositDetailsModal';
 import { formatToLocalDate } from '../../hooks/formatDate';
 import Skeleton from 'react-loading-skeleton';
 import { IDeposit } from '../../types/deposit';
+import SearchInput from '../../components/SearchInput';
 
 const AllDeposits = () => {
   const token = localStorage.getItem('biztoken');
   const [depositsData, setDepositData] = useState<IDeposit[]>([]);
+  const [search, setSearch] = useState('');
 
   // view
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -63,10 +65,21 @@ const AllDeposits = () => {
     fetchData();
   }, []);
 
+  const filteredDeposits = depositsData?.filter(
+    (deposit) =>
+      deposit?.name?.toLowerCase().includes(search.toLowerCase()) ||
+      deposit?.txn_id?.toLowerCase().includes(search.toLowerCase()) ||
+      deposit?.email?.toLowerCase().includes(search.toLowerCase()),
+  );
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="All Deposits" />
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div className="max-w-full w-100 mb-4">
+          <SearchInput placeholder="Search..." setSearch={setSearch} />
+        </div>
+
         <div className="max-w-full overflow-x-auto">
           {depositsData.length == 0 ? (
             <div>
@@ -109,7 +122,7 @@ const AllDeposits = () => {
                 </tr>
               </thead>
               <tbody>
-                {depositsData
+                {filteredDeposits
                   .sort(
                     (a, b) =>
                       new Date(b.created_at).getTime() -
