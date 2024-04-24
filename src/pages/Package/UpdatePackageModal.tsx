@@ -164,17 +164,7 @@ export const UpdatePackageModal = ({
                 />
 
               </div> */}
-              <div>
-                <SelectOptions
-                  control={control}
-                  options={options}
-                  label="Status"
-                  name="status"
-                  defaultValue={formState.status}
-                  // value={'1'}
-                  placeholder={'Select...'}
-                />
-              </div>
+
               <div className="flex justify-center gap-4">
                 <div>
                   {lodaing ? (

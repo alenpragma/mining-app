@@ -7,6 +7,8 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { ViewuserModal } from './ViewuserModal';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
+import SelectOptions from '../../Ui/SelectOptions';
+import { useForm } from 'react-hook-form';
 
 export type IUser = {
   id: number;
@@ -68,10 +70,20 @@ const AllUsers = () => {
       user?.email?.toLowerCase().includes(search.toLowerCase()),
   );
 
-  console.log(filteredUsers);
-  const [pages, setPages] = useState([]);
+  // pagination calculate
   const [currentPage, setCurrentPage] = useState(0);
-  console.log(Math.ceil(filteredUsers.length / 10));
+  const [perPage, setparePage] = useState(25);
+
+  const from = currentPage * perPage;
+  const to = from + perPage;
+
+  // pagination calculate
+
+  const options = [
+    { value: '25', label: '25' },
+    { value: '50', label: '50' },
+  ];
+  const { control } = useForm();
 
   return (
     <div>
@@ -79,13 +91,35 @@ const AllUsers = () => {
         <Breadcrumb pageName="All Users" />
 
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-          <div className="w-100 mb-4">
-            <input
-              type="text"
-              className="w-full rounded-md border border-stroke bg-transparent px-5 py-2.5 outline-none focus:border-primary dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
-              placeholder="Search..."
-              onChange={(e) => setSearch(e.target.value)}
-            />
+          <div className="flex justify-between">
+            <div className="max-w-full w-100 mb-4">
+              <input
+                type="text"
+                className="w-full max-w-full rounded-md border border-stroke bg-transparent px-5 py-2.5 outline-none focus:border-primary dark:border-strokedark dark:bg-meta-4 dark:focus:border-primary"
+                placeholder="Search..."
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+            <div>
+              <div className="flex items-center font-medium">
+                <SelectOptions
+                  control={control}
+                  options={options}
+                  label=""
+                  name=""
+                  defaultValue={1}
+                  placeholder={'Select...'}
+                />
+                <select className="bg-transparent pl-2">
+                  <option value="5">25</option>
+                  <option value="10">50</option>
+                  <option value="20">75</option>
+                </select>
+                <p className="pl-2 text-black dark:text-white">
+                  Entries Per Page
+                </p>
+              </div>
+            </div>
           </div>
           <div className="max-w-full overflow-x-auto">
             {allUsers.length == 0 ? (
@@ -124,8 +158,9 @@ const AllUsers = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredUsers?.map(
-                    (user: IUser, key: Key | null | undefined) => {
+                  {filteredUsers
+                    .slice(from, to)
+                    ?.map((user: IUser, key: Key | null | undefined) => {
                       return (
                         <tr key={key}>
                           <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
@@ -238,8 +273,7 @@ const AllUsers = () => {
                           </td>
                         </tr>
                       );
-                    },
-                  )}
+                    })}
                 </tbody>
               </table>
             )}
@@ -247,7 +281,7 @@ const AllUsers = () => {
           <div className="my-4">
             <>
               <PaginationButtons
-                totalPages={Math.ceil(filteredUsers.length / 10)}
+                totalPages={Math.ceil(filteredUsers.length / perPage)}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
               />
