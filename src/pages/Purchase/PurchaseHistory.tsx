@@ -2,19 +2,33 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import { IPackage } from '../../types/packages';
-import { formatToLocalDate } from '../../hooks/formatDate';
+import { IPurchaseHistory } from '../../types/purchesHistory';
+import SearchInput from '../../components/SearchInput';
+import Skeleton from 'react-loading-skeleton';
+import PaginationButtons from '../../components/Pagination/PaginationButtons';
+import { userToken } from '../../hooks/getTokenFromstorage';
 
 const PurchaseHistory = () => {
-  const [purchaseHistorys, setPurchaseHistorys] = useState<IPackage[]>([]);
-  const token = localStorage.getItem('biztoken');
+  const [purchaseHistorys, setPurchaseHistorys] = useState<IPurchaseHistory[]>(
+    [],
+  );
+
+  // pagination calculate
+  const [currentPage, setCurrentPage] = useState(0);
+  const [perPage, setparePage] = useState(25);
+
+  const from = currentPage * perPage;
+  const to = from + perPage;
+  //  pagination end
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [purchaseHistory, setpurchaseHistory] = useState<IPackage>();
 
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [userDetail, setUserDetail] = useState<IPackage>();
+
+  const [search, setSearch] = useState('');
 
   const openModal = (purchaseHistory: IPackage) => {
     setpurchaseHistory(purchaseHistory);
@@ -40,7 +54,7 @@ const PurchaseHistory = () => {
         'https://biztoken.fecotrade.com/api/admin/package-purchase-history',
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${userToken}`,
             'Content-Type': 'application/json',
           },
         },
@@ -65,33 +79,36 @@ const PurchaseHistory = () => {
       console.error('Invalid date format for givenDate');
       return 0; // Or handle the error in a different way
     }
-
     // Get the current date
     const currentDate = new Date();
-
     // Calculate the difference in milliseconds
     const differenceMs = currentDate.getTime() - parsedGivenDate.getTime();
-
     // Convert milliseconds to days
     const differenceDays = Math.floor(differenceMs / (1000 * 60 * 60 * 24));
-
     return differenceDays;
   };
 
   // Example usage
-  console.log(getPasDay('2024-04-01T05:44:59.000000Z')); // Output should be the number of days since the given date
+  // console.log(getPasDay('2024-04-01T05:44:59.000000Z')); // Output should be the number of days since the given date
+
+  const filteredPurchaseHistorys = purchaseHistorys?.filter(
+    (purchaseHistory) =>
+      purchaseHistory?.email?.toLowerCase().includes(search.toLowerCase()),
+  );
 
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Purchase History" />
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div className="max-w-full w-100 mb-4">
+          <SearchInput placeholder="Search..." setSearch={setSearch} />
+        </div>
         <div className="max-w-full overflow-x-auto">
-          {
-            // packages.length == 0 ?
-            //   <div>
-            //     <Skeleton height={40} count={6} />
-            //   </div>
-            //   :
+          {purchaseHistorys.length == 0 ? (
+            <div>
+              <Skeleton height={40} count={6} />
+            </div>
+          ) : (
             <table className="w-full table-auto">
               <thead>
                 <tr className="bg-gray-2 text-left dark:bg-meta-4">
@@ -125,58 +142,60 @@ const PurchaseHistory = () => {
                 </tr>
               </thead>
               <tbody>
-                {purchaseHistorys?.map((purchaseHistory: any, key: any) => (
-                  <tr key={key}>
-                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                      <h5 className="font-medium text-black dark:text-white">
-                        {key + 1}
-                      </h5>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
-                      <h5 className="font-medium text-black dark:text-white">
-                        {purchaseHistory?.date}
-                      </h5>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
-                      <h5 className="font-medium text-black dark:text-white">
-                        {purchaseHistory?.email}
-                      </h5>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
-                      <h5 className="font-medium text-black dark:text-white">
-                        {purchaseHistory.package_name}
-                      </h5>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {purchaseHistory.package_price}
-                      </p>
-                    </td>
+                {filteredPurchaseHistorys
+                  ?.slice(from, to)
+                  ?.map((purchaseHistory: any, key: any) => (
+                    <tr key={key}>
+                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                        <h5 className="font-medium text-black dark:text-white">
+                          {key + 1}
+                        </h5>
+                      </td>
+                      <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
+                        <h5 className="font-medium text-black dark:text-white">
+                          {purchaseHistory?.date}
+                        </h5>
+                      </td>
+                      <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
+                        <h5 className="font-medium text-black dark:text-white">
+                          {purchaseHistory?.email}
+                        </h5>
+                      </td>
+                      <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
+                        <h5 className="font-medium text-black dark:text-white">
+                          {purchaseHistory.package_name}
+                        </h5>
+                      </td>
+                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                        <p className="text-black dark:text-white">
+                          {purchaseHistory.package_price}
+                        </p>
+                      </td>
 
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {Number(purchaseHistory.daily_token)}
-                      </p>
-                    </td>
+                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                        <p className="text-black dark:text-white">
+                          {Number(purchaseHistory.daily_token)}
+                        </p>
+                      </td>
 
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {getPasDay(purchaseHistory?.created_at)}
-                      </p>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {purchaseHistory?.duration -
-                          getPasDay(purchaseHistory?.created_at)}
-                      </p>
-                    </td>
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p className="text-black dark:text-white">
-                        {purchaseHistory.status == 1 ? 'Running' : 'Expired'}
-                      </p>
-                    </td>
+                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                        <p className="text-black dark:text-white">
+                          {getPasDay(purchaseHistory?.created_at)}
+                        </p>
+                      </td>
+                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                        <p className="text-black dark:text-white">
+                          {purchaseHistory?.duration -
+                            getPasDay(purchaseHistory?.created_at)}
+                        </p>
+                      </td>
+                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                        <p className="text-black dark:text-white">
+                          {purchaseHistory.status == 1 ? 'Running' : 'Expired'}
+                        </p>
+                      </td>
 
-                    {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                       <p
                         className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${purchaseHistory.status === 'Paid'
                           ? 'bg-success text-success'
@@ -188,11 +207,18 @@ const PurchaseHistory = () => {
                         {purchaseHistory.status}
                       </p>
                     </td> */}
-                  </tr>
-                ))}
+                    </tr>
+                  ))}
               </tbody>
             </table>
-          }
+          )}
+        </div>
+        <div className="my-4">
+          <PaginationButtons
+            totalPages={Math.ceil(filteredPurchaseHistorys.length / perPage)}
+            currentPage={2}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
       {/* <div>

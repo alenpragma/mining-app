@@ -7,10 +7,13 @@ import ViewDepositDetailsModal from './ViewDepositDetailsModal';
 import { formatToLocalDate } from '../../hooks/formatDate';
 import Skeleton from 'react-loading-skeleton';
 import { IDeposit } from '../../types/deposit';
+import SearchInput from '../../components/SearchInput';
+import PaginationButtons from '../../components/Pagination/PaginationButtons';
 
 const AllDeposits = () => {
   const token = localStorage.getItem('biztoken');
   const [depositsData, setDepositData] = useState<IDeposit[]>([]);
+  const [search, setSearch] = useState('');
 
   // view
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -63,10 +66,29 @@ const AllDeposits = () => {
     fetchData();
   }, []);
 
+  const filteredDeposits = depositsData?.filter(
+    (deposit) =>
+      deposit?.name?.toLowerCase().includes(search.toLowerCase()) ||
+      deposit?.txn_id?.toLowerCase().includes(search.toLowerCase()) ||
+      deposit?.email?.toLowerCase().includes(search.toLowerCase()),
+  );
+
+  // pagination calculate
+  const [currentPage, setCurrentPage] = useState(0);
+  const [perPage, setparePage] = useState(25);
+
+  const from = currentPage * perPage;
+  const to = from + perPage;
+  //  pagination end
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="All Deposits" />
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div className="max-w-full w-100 mb-4">
+          <SearchInput placeholder="Search..." setSearch={setSearch} />
+        </div>
+
         <div className="max-w-full overflow-x-auto">
           {depositsData.length == 0 ? (
             <div>
@@ -109,8 +131,9 @@ const AllDeposits = () => {
                 </tr>
               </thead>
               <tbody>
-                {depositsData
-                  .sort(
+                {filteredDeposits
+                  ?.slice(from, to)
+                  ?.sort(
                     (a, b) =>
                       new Date(b.created_at).getTime() -
                       new Date(a.created_at).getTime(),
@@ -260,6 +283,13 @@ const AllDeposits = () => {
               </tbody>
             </table>
           )}
+        </div>
+        <div className="my-4">
+          <PaginationButtons
+            totalPages={Math.ceil(filteredDeposits.length / perPage)}
+            currentPage={2}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
       <div>
