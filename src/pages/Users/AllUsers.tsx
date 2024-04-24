@@ -129,7 +129,7 @@ const AllUsers = () => {
                 </thead>
                 <tbody>
                   {filteredUsers
-                    .slice(from, to)
+                    ?.slice(from, to)
                     ?.map((user: IUser, key: Key | null | undefined) => {
                       return (
                         <tr key={key}>
@@ -249,13 +249,11 @@ const AllUsers = () => {
             )}
           </div>
           <div className="my-4">
-            <>
-              <PaginationButtons
-                totalPages={Math.ceil(filteredUsers.length / perPage)}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-              />
-            </>
+            <PaginationButtons
+              totalPages={Math.ceil(filteredUsers.length / perPage)}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
         </div>
       </DefaultLayout>

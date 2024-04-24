@@ -2,17 +2,25 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import { IPackage } from '../../types/packages';
-import { formatToLocalDate } from '../../hooks/formatDate';
 import { IPurchaseHistory } from '../../types/purchesHistory';
 import SearchInput from '../../components/SearchInput';
+import Skeleton from 'react-loading-skeleton';
+import PaginationButtons from '../../components/Pagination/PaginationButtons';
+import { userToken } from '../../hooks/getTokenFromstorage';
 
 const PurchaseHistory = () => {
   const [purchaseHistorys, setPurchaseHistorys] = useState<IPurchaseHistory[]>(
     [],
   );
-  const token = localStorage.getItem('biztoken');
+
+  // pagination calculate
+  const [currentPage, setCurrentPage] = useState(0);
+  const [perPage, setparePage] = useState(25);
+
+  const from = currentPage * perPage;
+  const to = from + perPage;
+  //  pagination end
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [purchaseHistory, setpurchaseHistory] = useState<IPackage>();
@@ -46,7 +54,7 @@ const PurchaseHistory = () => {
         'https://biztoken.fecotrade.com/api/admin/package-purchase-history',
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${userToken}`,
             'Content-Type': 'application/json',
           },
         },
@@ -71,21 +79,17 @@ const PurchaseHistory = () => {
       console.error('Invalid date format for givenDate');
       return 0; // Or handle the error in a different way
     }
-
     // Get the current date
     const currentDate = new Date();
-
     // Calculate the difference in milliseconds
     const differenceMs = currentDate.getTime() - parsedGivenDate.getTime();
-
     // Convert milliseconds to days
     const differenceDays = Math.floor(differenceMs / (1000 * 60 * 60 * 24));
-
     return differenceDays;
   };
 
   // Example usage
-  console.log(getPasDay('2024-04-01T05:44:59.000000Z')); // Output should be the number of days since the given date
+  // console.log(getPasDay('2024-04-01T05:44:59.000000Z')); // Output should be the number of days since the given date
 
   const filteredPurchaseHistorys = purchaseHistorys?.filter(
     (purchaseHistory) =>
@@ -100,12 +104,11 @@ const PurchaseHistory = () => {
           <SearchInput placeholder="Search..." setSearch={setSearch} />
         </div>
         <div className="max-w-full overflow-x-auto">
-          {
-            // packages.length == 0 ?
-            //   <div>
-            //     <Skeleton height={40} count={6} />
-            //   </div>
-            //   :
+          {purchaseHistorys.length == 0 ? (
+            <div>
+              <Skeleton height={40} count={6} />
+            </div>
+          ) : (
             <table className="w-full table-auto">
               <thead>
                 <tr className="bg-gray-2 text-left dark:bg-meta-4">
@@ -139,8 +142,9 @@ const PurchaseHistory = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredPurchaseHistorys?.map(
-                  (purchaseHistory: any, key: any) => (
+                {filteredPurchaseHistorys
+                  ?.slice(from, to)
+                  ?.map((purchaseHistory: any, key: any) => (
                     <tr key={key}>
                       <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                         <h5 className="font-medium text-black dark:text-white">
@@ -204,11 +208,17 @@ const PurchaseHistory = () => {
                       </p>
                     </td> */}
                     </tr>
-                  ),
-                )}
+                  ))}
               </tbody>
             </table>
-          }
+          )}
+        </div>
+        <div className="my-4">
+          <PaginationButtons
+            totalPages={Math.ceil(filteredPurchaseHistorys.length / perPage)}
+            currentPage={2}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
       {/* <div>

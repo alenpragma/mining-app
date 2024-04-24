@@ -8,6 +8,7 @@ import { formatToLocalDate } from '../../hooks/formatDate';
 import Skeleton from 'react-loading-skeleton';
 import { IDeposit } from '../../types/deposit';
 import SearchInput from '../../components/SearchInput';
+import PaginationButtons from '../../components/Pagination/PaginationButtons';
 
 const AllDeposits = () => {
   const token = localStorage.getItem('biztoken');
@@ -72,6 +73,14 @@ const AllDeposits = () => {
       deposit?.email?.toLowerCase().includes(search.toLowerCase()),
   );
 
+  // pagination calculate
+  const [currentPage, setCurrentPage] = useState(0);
+  const [perPage, setparePage] = useState(25);
+
+  const from = currentPage * perPage;
+  const to = from + perPage;
+  //  pagination end
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="All Deposits" />
@@ -123,7 +132,8 @@ const AllDeposits = () => {
               </thead>
               <tbody>
                 {filteredDeposits
-                  .sort(
+                  ?.slice(from, to)
+                  ?.sort(
                     (a, b) =>
                       new Date(b.created_at).getTime() -
                       new Date(a.created_at).getTime(),
@@ -273,6 +283,13 @@ const AllDeposits = () => {
               </tbody>
             </table>
           )}
+        </div>
+        <div className="my-4">
+          <PaginationButtons
+            totalPages={Math.ceil(filteredDeposits.length / perPage)}
+            currentPage={2}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
       <div>
