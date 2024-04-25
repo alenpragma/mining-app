@@ -33,7 +33,13 @@ export const UpdatePackageModal = ({
   const onSubmit: SubmitHandler<IPackage> = async (data: IPackage) => {
     setLoading(true);
 
-    const newData = { ...data, id: packageItem.id, status: data.status.value };
+    const newData = {
+      ...data,
+      id: packageItem?.id,
+      status: data?.status?.value,
+    };
+
+    console.log(newData);
 
     try {
       const token = localStorage.getItem('biztoken');
@@ -154,6 +160,15 @@ export const UpdatePackageModal = ({
                   onChange={handleChange}
                 />
               </div>
+
+              <SelectOptions
+                control={control}
+                options={options}
+                label="Status"
+                name="status"
+                defaultValue={formState.status}
+                placeholder={'Select...'}
+              />
 
               {/* <div>
                 <p>status</p>
