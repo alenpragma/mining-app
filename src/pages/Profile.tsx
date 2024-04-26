@@ -54,7 +54,7 @@ const Profile = () => {
             <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
               Danish Heilium
             </h3>
-            <p className="font-medium">software Developer</p>
+            <p className="font-medium">Super Admin</p>
 
             <div className="mt-5 mx-auto ">
               <h4 className="font-semibold text-black dark:text-white">

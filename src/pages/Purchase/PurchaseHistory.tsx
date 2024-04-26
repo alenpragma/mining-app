@@ -10,6 +10,7 @@ import PaginationButtons from '../../components/Pagination/PaginationButtons';
 import { userToken } from '../../hooks/getTokenFromstorage';
 
 const PurchaseHistory = () => {
+  const [search, setSearch] = useState('');
   const [purchaseHistorys, setPurchaseHistorys] = useState<IPurchaseHistory[]>(
     [],
   );
@@ -21,32 +22,6 @@ const PurchaseHistory = () => {
   const from = currentPage * perPage;
   const to = from + perPage;
   //  pagination end
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [purchaseHistory, setpurchaseHistory] = useState<IPackage>();
-
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-  const [userDetail, setUserDetail] = useState<IPackage>();
-
-  const [search, setSearch] = useState('');
-
-  const openModal = (purchaseHistory: IPackage) => {
-    setpurchaseHistory(purchaseHistory);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const closeViewModal = () => {
-    setIsViewModalOpen(false);
-  };
-
-  const openViewModal = (data: IPackage) => {
-    setIsViewModalOpen(true);
-    setUserDetail(data);
-  };
 
   const fetchData = async () => {
     try {
@@ -69,6 +44,7 @@ const PurchaseHistory = () => {
     fetchData();
   }, []);
 
+  // convart date to day for  Received	Remaining field
   const getPasDay = (dateString: string) => {
     // Convert the provided date string to a Date object
     const providedDate = new Date(dateString);
@@ -182,19 +158,6 @@ const PurchaseHistory = () => {
                           {purchaseHistory.status == 1 ? 'Running' : 'Expired'}
                         </p>
                       </td>
-
-                      {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p
-                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${purchaseHistory.status === 'Paid'
-                          ? 'bg-success text-success'
-                          : purchaseHistory.status === 'Unpaid'
-                            ? 'bg-danger text-danger'
-                            : 'bg-warning text-warning'
-                          }`}
-                      >
-                        {purchaseHistory.status}
-                      </p>
-                    </td> */}
                     </tr>
                   ))}
               </tbody>
@@ -209,28 +172,6 @@ const PurchaseHistory = () => {
           />
         </div>
       </div>
-      {/* <div>
-        {
-          isModalOpen && (
-            <UpdatePackageModal
-              closeModal={closeModal}
-              purchaseHistory={purchaseHistory}
-              fetchData={fetchData}
-            />
-          )}
-
-      </div> */}
-
-      {/*  details view modal */}
-      {/* <div>
-        {
-          isViewModalOpen && (
-            <ViewpackageModal
-              closeModal={closeViewModal}
-              details={userDetail}
-            />
-          )}
-      </div> */}
     </DefaultLayout>
   );
 };
