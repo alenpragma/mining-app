@@ -1,15 +1,13 @@
-import { useState } from "react";
-import Breadcrumb from "../../components/Breadcrumbs/Breadcrumb";
-import DefaultLayout from "../../layout/DefaultLayout";
-import { Modal } from "../../components/ModalSettings";
-
+import { useState } from 'react';
+import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+import DefaultLayout from '../../layout/DefaultLayout';
+import { Modal } from '../../components/ModalSettings';
 
 const InacticeUser = () => {
-
   const packageData: any[] = [
     {
       name: 'user name',
-      email: "example@gmail.com",
+      email: 'example@gmail.com',
       price: 0.0,
       invoiceDate: `0156666666`,
       refarence: '34522323',
@@ -17,7 +15,7 @@ const InacticeUser = () => {
     },
     {
       name: 'user name',
-      email: "example@gmail.com",
+      email: 'example@gmail.com',
       price: 59.0,
       invoiceDate: `0156666666`,
       refarence: '34522323',
@@ -25,7 +23,7 @@ const InacticeUser = () => {
     },
     {
       name: 'user name',
-      email: "example@gmail.com",
+      email: 'example@gmail.com',
       price: 99.0,
       invoiceDate: `0156666666`,
       refarence: '34522323',
@@ -33,7 +31,7 @@ const InacticeUser = () => {
     },
     {
       name: 'user name',
-      email: "example@gmail.com",
+      email: 'example@gmail.com',
       price: 59.0,
       invoiceDate: `0156666666`,
       refarence: '34522323',
@@ -52,15 +50,12 @@ const InacticeUser = () => {
 
   const handleSubmit = (formData: any) => {
     // Handle form submission logic here
-    console.log("Form submitted with data:", formData);
+    console.log('Form submitted with data:', formData);
   };
-
-
 
   return (
     <DefaultLayout>
       <Breadcrumb pageName={'Inactive Users'} />
-
 
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
@@ -121,31 +116,31 @@ const InacticeUser = () => {
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      36
-                    </p>
+                    <p className="text-black dark:text-white">36</p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      01/03/24
-                    </p>
+                    <p className="text-black dark:text-white">01/03/24</p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p
-                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${packageItem.status === 'Active'
-                        ? 'bg-success text-success'
-                        : packageItem.status === 'Inactive'
+                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                        packageItem.status === 'Active'
+                          ? 'bg-success text-success'
+                          : packageItem.status === 'Inactive'
                           ? 'bg-danger text-danger'
                           : 'bg-warning text-warning'
-                        }`}
+                      }`}
                     >
                       {packageItem.status}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
-                      <button onClick={() => openModal()} className="hover:text-primary">
+                      <button
+                        onClick={() => openModal()}
+                        className="hover:text-primary"
+                      >
                         <svg
                           className="fill-current"
                           width="18"
@@ -192,8 +187,22 @@ const InacticeUser = () => {
                         </svg>
                       </button>
                       <button className="hover:text-primary">
-                        <svg className="w-6 h-6 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                        <svg
+                          className="w-6 h-6 text-gray-800  "
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="1"
+                            d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                          />
                         </svg>
                       </button>
                     </div>
@@ -209,7 +218,13 @@ const InacticeUser = () => {
           <Modal
             closeModal={closeModal}
             onSubmit={handleSubmit}
-            defaultValue={{ id: "exampleId", para: "price", criterion: "0", value: "", type: "0" }}
+            defaultValue={{
+              id: 'exampleId',
+              para: 'price',
+              criterion: '0',
+              value: '',
+              type: '0',
+            }}
           />
         )}
       </div>
