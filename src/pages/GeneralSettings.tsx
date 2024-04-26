@@ -3,8 +3,13 @@ import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import Button from '../Ui/Button';
 
 import Transaction from '../components/GeneralSettings/Transaction';
+import { useContext } from 'react';
+import MyContext from '../hooks/MyContext';
 
 const GeneralSettings = () => {
+  const data = useContext(MyContext);
+  console.log(data);
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="General Settings" />

@@ -55,12 +55,19 @@ function App() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 100);
   }, []);
-  const [colorMode, setColorMode] = useColorMode();
+
+  const [colorMode] = useColorMode();
+
+  const [theme, setTheme] = useState<string | any>(colorMode);
 
   const contextValues = {
-    colorMode,
-    setColorMode,
+    theme,
+    setTheme,
   };
+
+  useEffect(() => {
+    setTheme(colorMode);
+  }, []);
 
   return (
     <>
