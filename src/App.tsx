@@ -40,26 +40,28 @@ const DepositMethods = lazy(
 
 import MyContext from './hooks/MyContext';
 import { SkeletonTheme } from 'react-loading-skeleton';
-import useLocalStorage from './hooks/useLocalStorage';
 import useColorMode from './hooks/useColorMode';
 import Lazyloding from './components/Lazyloding';
 
 function App() {
-  const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 100);
-  }, []);
-  const [colorMode, setColorMode] = useColorMode();
+  // useEffect(() => {
+  //   setTimeout(() => setLoading(false), 100);
+  // }, []);
+
+  const [colorMode] = useColorMode();
+
+  const [theme, setTheme] = useState<string | any>(colorMode);
+  console.log(theme);
 
   const contextValues = {
-    colorMode,
-    setColorMode,
+    theme,
+    setTheme,
   };
 
   return (

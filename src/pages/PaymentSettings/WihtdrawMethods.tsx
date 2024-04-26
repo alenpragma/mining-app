@@ -6,14 +6,13 @@ import EditWihtdrawMethod from './EditWihtdrawMethod';
 import AddWithdrowMethod from './AddWithdrowMethod';
 
 const WihtdrawMethods = () => {
-
   const [isModalOpenAddMethod, setIsModalOpenAddMethod] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [updateItem, setUpdateItem] = useState('');
 
   const [wihtdrawMethods, setWihtdrawMethods] = useState([]);
 
-  // add new method 
+  // add new method
   const openModalAddNew = () => {
     setIsModalOpenAddMethod(true);
   };
@@ -32,31 +31,24 @@ const WihtdrawMethods = () => {
     setIsModalEditOpen(false);
   };
 
-
-
-
-
-
-
-
   const handleSubmit = (formData: any) => {
     // Handle form submission logic here
-    console.log("Form submitted with data:", formData);
+    console.log('Form submitted with data:', formData);
   };
-
-
 
   const fetchData = async () => {
     try {
       const token = localStorage.getItem('biztoken');
-      const response = await axios.get('https://biztoken.fecotrade.com/api/withdrawal-setting', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+      const response = await axios.get(
+        'https://biztoken.fecotrade.com/api/withdrawal-setting',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
       console.log(response?.data[0]);
-
 
       setWihtdrawMethods(response?.data[0]);
     } catch (error) {
@@ -72,9 +64,12 @@ const WihtdrawMethods = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Wihtdraw Method" />
-      <div className='py-3'>
-        <button onClick={() => openModalAddNew()} className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
-          type="submit">
+      <div className="py-3">
+        <button
+          onClick={() => openModalAddNew()}
+          className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
+          type="submit"
+        >
           Add METHOD
         </button>
       </div>
@@ -102,7 +97,8 @@ const WihtdrawMethods = () => {
                   Minimum
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Maximum                </th>
+                  Maximum{' '}
+                </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Status
                 </th>
@@ -125,9 +121,7 @@ const WihtdrawMethods = () => {
                     </h5>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      .
-                    </p>
+                    <p className="text-black dark:text-white">.</p>
                   </td>
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -149,19 +143,19 @@ const WihtdrawMethods = () => {
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p
-                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${method.status === 'Active'
-                        ? 'bg-success text-success'
-                        : method.status === 'Inactive'
+                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                        method.status === 'Active'
+                          ? 'bg-success text-success'
+                          : method.status === 'Inactive'
                           ? 'bg-danger text-danger'
                           : 'bg-warning text-warning'
-                        }`}
+                      }`}
                     >
-                      {method.status == '0' ? "Active" : "Inactive"}
+                      {method.status == '0' ? 'Active' : 'Inactive'}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
-
                       {/* delete */}
                       <button className="hover:text-primary">
                         <svg
@@ -191,9 +185,26 @@ const WihtdrawMethods = () => {
                         </svg>
                       </button>
                       {/* edit */}
-                      <button onClick={() => openEditModal(method)} className="hover:text-primary">
-                        <svg className="w-6 h-6 text-gray-800  " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                      <button
+                        onClick={() => openEditModal(method)}
+                        className="hover:text-primary"
+                      >
+                        <svg
+                          className="w-6 h-6 text-gray-800  "
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="1"
+                            d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"
+                          />
                         </svg>
                       </button>
                     </div>
@@ -204,7 +215,6 @@ const WihtdrawMethods = () => {
           </table>
         </div>
       </div>
-
 
       <div className=" ">
         {isModalOpenAddMethod && (
@@ -224,8 +234,6 @@ const WihtdrawMethods = () => {
           />
         )}
       </div>
-
-
     </DefaultLayout>
   );
 };

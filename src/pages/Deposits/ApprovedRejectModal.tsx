@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import SelectOptions from '../../Ui/SelectOptions';
 import { userToken } from '../../hooks/getTokenFromstorage';
+import { PuffLoader } from 'react-spinners';
 
 type status = {
   label: string;
@@ -24,6 +25,8 @@ export const ApprovedRejectModal = ({
   closeModal,
   updateItem,
 }: any) => {
+  const [lodaing, setLoading] = useState(false);
+
   const options = [
     { value: '0', label: 'Rejected' },
     { value: '1', label: 'Approved' },
@@ -45,6 +48,8 @@ export const ApprovedRejectModal = ({
 
     const newData = { id: updateItem.id, status: data.status.value };
     try {
+      setLoading(true);
+
       const response = await fetch(
         'https://biztoken.fecotrade.com/api/usdt-add-request/approve',
         {
@@ -56,6 +61,8 @@ export const ApprovedRejectModal = ({
           body: JSON.stringify(newData),
         },
       );
+      setLoading(false);
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -127,12 +134,18 @@ export const ApprovedRejectModal = ({
                 />
               </div>
 
-              <button
-                className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
-                type="submit"
-              >
-                Update
-              </button>
+              <div>
+                {lodaing ? (
+                  <PuffLoader className="mx-auto" color="#36d7b7" size={40} />
+                ) : (
+                  <button
+                    className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+                )}
+              </div>
             </form>
           </div>
         </div>

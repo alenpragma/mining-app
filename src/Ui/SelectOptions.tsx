@@ -1,9 +1,7 @@
-
 import { useContext, useEffect } from 'react';
-import { Controller, } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 import MyContext from '../hooks/MyContext';
-
 
 export type IOptions = {
   label: string;
@@ -18,17 +16,20 @@ type selectType = {
   options: IOptions | any;
 };
 
-
-const SelectOptions = ({ name,
-  control, label, options, defaultValue, placeholder = 'Select...' }: selectType) => {
-
-  const { colorMode, setColorMode } = useContext(MyContext);
+const SelectOptions = ({
+  name,
+  control,
+  label,
+  options,
+  defaultValue,
+  placeholder = 'Select...',
+}: selectType) => {
+  const { theme } = useContext(MyContext);
 
   let currentColor: string;
   useEffect(() => {
-    currentColor = colorMode == 'dark' ? "#fff" : '#000';
+    currentColor = theme == 'dark' ? '#fff' : '#000';
   }, []);
-
 
   const customStyles = {
     control: (baseStyles: any, state: any) => ({
@@ -38,7 +39,7 @@ const SelectOptions = ({ name,
       height: 'full',
       padding: '5px',
       backgroundColor: 'transparent',
-      color: currentColor
+      color: currentColor,
     }),
     option: (provided: any, state: any) => ({
       ...provided,
@@ -46,15 +47,13 @@ const SelectOptions = ({ name,
       color: state.isSelected ? '#3d4d60' : 'black',
       '&:hover': {
         backgroundColor: '#2E3A47',
-        color: 'white'
-      }
-    })
+        color: 'white',
+      },
+    }),
   };
   return (
     <div>
-      <label className="mt-2 mb-1 block   dark:text-white">
-        {label}
-      </label>
+      <label className="mt-2 mb-1 block   dark:text-white">{label}</label>
       <Controller
         name={name}
         control={control}
@@ -70,7 +69,7 @@ const SelectOptions = ({ name,
               borderRadius: 0,
               colors: {
                 ...theme.colors,
-                neutral80: `{${currentColor}}`
+                neutral80: `{${currentColor}}`,
               },
             })}
           />

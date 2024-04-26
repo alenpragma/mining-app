@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import SelectOptions from '../../Ui/SelectOptions';
 import { options } from '../options';
+import { PuffLoader } from 'react-spinners';
 
 type Inputs = {
   wallet_name: string;
@@ -17,11 +18,12 @@ type Inputs = {
 };
 
 const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
+  const [lodaing, setLoading] = useState(false);
   const [formState, setFormState] = useState({ ...updateData });
 
   const { register, handleSubmit, control } = useForm<Inputs>();
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
   };
@@ -29,6 +31,8 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     const newData = { ...data, id: updateData.id, status: data.status.value }; // Make a copy of the data object
     try {
+      setLoading(true);
+
       const token = localStorage.getItem('biztoken');
       const response = await fetch(
         'https://biztoken.fecotrade.com/api/admin-wallet/update',
@@ -46,6 +50,7 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
       }
 
       const responseData = await response.json();
+      setLoading(false);
 
       if (responseData.success) {
         await fetchData();
@@ -171,12 +176,16 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
                 placeholder="status"
               />
 
-              <button
-                className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
-                type="submit"
-              >
-                Update
-              </button>
+              {lodaing ? (
+                <PuffLoader className="mx-auto" color="#36d7b7" size={40} />
+              ) : (
+                <button
+                  className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
+                  type="submit"
+                >
+                  Update
+                </button>
+              )}
             </form>
           </div>
         </div>

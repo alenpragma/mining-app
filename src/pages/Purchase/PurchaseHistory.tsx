@@ -10,6 +10,7 @@ import PaginationButtons from '../../components/Pagination/PaginationButtons';
 import { userToken } from '../../hooks/getTokenFromstorage';
 
 const PurchaseHistory = () => {
+  const [search, setSearch] = useState('');
   const [purchaseHistorys, setPurchaseHistorys] = useState<IPurchaseHistory[]>(
     [],
   );
@@ -21,32 +22,6 @@ const PurchaseHistory = () => {
   const from = currentPage * perPage;
   const to = from + perPage;
   //  pagination end
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [purchaseHistory, setpurchaseHistory] = useState<IPackage>();
-
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-  const [userDetail, setUserDetail] = useState<IPackage>();
-
-  const [search, setSearch] = useState('');
-
-  const openModal = (purchaseHistory: IPackage) => {
-    setpurchaseHistory(purchaseHistory);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const closeViewModal = () => {
-    setIsViewModalOpen(false);
-  };
-
-  const openViewModal = (data: IPackage) => {
-    setIsViewModalOpen(true);
-    setUserDetail(data);
-  };
 
   const fetchData = async () => {
     try {
@@ -69,27 +44,18 @@ const PurchaseHistory = () => {
     fetchData();
   }, []);
 
-  const getPasDay = (givenDate: string): number => {
-    // Parse the given date
-    const parsedGivenDate = new Date(givenDate);
+  // convart date to day for  Received	Remaining field
+  const getPasDay = (dateString: string) => {
+    // Convert the provided date string to a Date object
+    const providedDate = new Date(dateString);
 
-    // Check if the parsed date is valid
-    if (isNaN(parsedGivenDate.getTime())) {
-      // If the given date is not valid, return an error or handle it as needed
-      console.error('Invalid date format for givenDate');
-      return 0; // Or handle the error in a different way
-    }
-    // Get the current date
     const currentDate = new Date();
     // Calculate the difference in milliseconds
-    const differenceMs = currentDate.getTime() - parsedGivenDate.getTime();
+    const differenceMs = currentDate.getTime() - providedDate.getTime();
     // Convert milliseconds to days
     const differenceDays = Math.floor(differenceMs / (1000 * 60 * 60 * 24));
     return differenceDays;
   };
-
-  // Example usage
-  // console.log(getPasDay('2024-04-01T05:44:59.000000Z')); // Output should be the number of days since the given date
 
   const filteredPurchaseHistorys = purchaseHistorys?.filter(
     (purchaseHistory) =>
@@ -171,22 +137,20 @@ const PurchaseHistory = () => {
                           {purchaseHistory.package_price}
                         </p>
                       </td>
-
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p className="text-black dark:text-white">
                           {Number(purchaseHistory.daily_token)}
                         </p>
                       </td>
-
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p className="text-black dark:text-white">
-                          {getPasDay(purchaseHistory?.created_at)}
+                          {getPasDay(purchaseHistory?.date)}
                         </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p className="text-black dark:text-white">
                           {purchaseHistory?.duration -
-                            getPasDay(purchaseHistory?.created_at)}
+                            getPasDay(purchaseHistory?.date)}
                         </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -194,19 +158,6 @@ const PurchaseHistory = () => {
                           {purchaseHistory.status == 1 ? 'Running' : 'Expired'}
                         </p>
                       </td>
-
-                      {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p
-                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${purchaseHistory.status === 'Paid'
-                          ? 'bg-success text-success'
-                          : purchaseHistory.status === 'Unpaid'
-                            ? 'bg-danger text-danger'
-                            : 'bg-warning text-warning'
-                          }`}
-                      >
-                        {purchaseHistory.status}
-                      </p>
-                    </td> */}
                     </tr>
                   ))}
               </tbody>
@@ -221,28 +172,6 @@ const PurchaseHistory = () => {
           />
         </div>
       </div>
-      {/* <div>
-        {
-          isModalOpen && (
-            <UpdatePackageModal
-              closeModal={closeModal}
-              purchaseHistory={purchaseHistory}
-              fetchData={fetchData}
-            />
-          )}
-
-      </div> */}
-
-      {/*  details view modal */}
-      {/* <div>
-        {
-          isViewModalOpen && (
-            <ViewpackageModal
-              closeModal={closeViewModal}
-              details={userDetail}
-            />
-          )}
-      </div> */}
     </DefaultLayout>
   );
 };
