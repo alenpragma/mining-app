@@ -9,7 +9,7 @@ const ViewDepositDetailsModal = ({ closeModal, details }: any) => {
         }}
       >
         <div className="modal h-fit rounded-sm border border-stroke bg-white shadow-8 dark:border-strokedark dark:bg-boxdark overflow-auto">
-          <div className="min-w-full max-w-[320px] lg:w-[600px] border-b border-stroke px-1 pb-5 dark:border-strokedark">
+          <div className="min-w-full w-[320px]  lg:w-[600px] border-b border-stroke px-1 pb-5 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
               <h2 className="text-xl font-bold text-black dark:text-white">
                 Deposit Details

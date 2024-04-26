@@ -32,9 +32,6 @@ const AllUsers = () => {
   // searching
   const [search, setSearch] = useState('');
 
-  // searching
-  console.log(search);
-
   const openModal = (data: IUser) => {
     setIsModalOpen(true);
     setUserDetail(data);

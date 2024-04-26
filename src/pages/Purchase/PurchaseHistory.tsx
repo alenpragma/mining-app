@@ -69,27 +69,17 @@ const PurchaseHistory = () => {
     fetchData();
   }, []);
 
-  const getPasDay = (givenDate: string): number => {
-    // Parse the given date
-    const parsedGivenDate = new Date(givenDate);
+  const getPasDay = (dateString: string) => {
+    // Convert the provided date string to a Date object
+    const providedDate = new Date(dateString);
 
-    // Check if the parsed date is valid
-    if (isNaN(parsedGivenDate.getTime())) {
-      // If the given date is not valid, return an error or handle it as needed
-      console.error('Invalid date format for givenDate');
-      return 0; // Or handle the error in a different way
-    }
-    // Get the current date
     const currentDate = new Date();
     // Calculate the difference in milliseconds
-    const differenceMs = currentDate.getTime() - parsedGivenDate.getTime();
+    const differenceMs = currentDate.getTime() - providedDate.getTime();
     // Convert milliseconds to days
     const differenceDays = Math.floor(differenceMs / (1000 * 60 * 60 * 24));
     return differenceDays;
   };
-
-  // Example usage
-  // console.log(getPasDay('2024-04-01T05:44:59.000000Z')); // Output should be the number of days since the given date
 
   const filteredPurchaseHistorys = purchaseHistorys?.filter(
     (purchaseHistory) =>
@@ -171,22 +161,20 @@ const PurchaseHistory = () => {
                           {purchaseHistory.package_price}
                         </p>
                       </td>
-
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p className="text-black dark:text-white">
                           {Number(purchaseHistory.daily_token)}
                         </p>
                       </td>
-
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p className="text-black dark:text-white">
-                          {getPasDay(purchaseHistory?.created_at)}
+                          {getPasDay(purchaseHistory?.date)}
                         </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p className="text-black dark:text-white">
                           {purchaseHistory?.duration -
-                            getPasDay(purchaseHistory?.created_at)}
+                            getPasDay(purchaseHistory?.date)}
                         </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">

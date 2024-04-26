@@ -7,6 +7,7 @@ import axios from 'axios';
 import { PuffLoader } from 'react-spinners';
 import { userToken } from '../hooks/getTokenFromstorage';
 import Data from '../components/Pagination/data';
+import DropdownDefault from '../components/Dropdowns/DropdownDefault';
 
 interface IInput {
   free_mining_rewards: string;
@@ -203,8 +204,6 @@ const BonusSettings = () => {
           </form>
         }
       </div>
-
-      <Data />
     </DefaultLayout>
   );
 };
