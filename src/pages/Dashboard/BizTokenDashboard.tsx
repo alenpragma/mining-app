@@ -5,6 +5,11 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import UserIcon from '../../assets/icon/UserIcon';
 import { Link } from 'react-router-dom';
 import LatestPurchaseHistory from './LatestPurchaseHistory';
+import { FaUserCheck } from 'react-icons/fa6';
+import { PiPackage } from 'react-icons/pi';
+import { MdDownloading, MdOutlineDateRange, MdToday } from 'react-icons/md';
+import { BiMoneyWithdraw } from 'react-icons/bi';
+import { LuListEnd } from 'react-icons/lu';
 
 const BizTokenDashboard: React.FC = () => {
   return (
@@ -28,7 +33,7 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <UserIcon />
+            <FaUserCheck className="text-xl dark:text-white text-primary" />
           </CardDataStats>
         </Link>
 
@@ -39,7 +44,7 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <UserIcon />
+            <PiPackage className="text-2xl dark:text-white text-primary" />
           </CardDataStats>
         </Link>
 
@@ -50,7 +55,23 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <UserIcon />
+            <svg
+              className="w-6 h-6 text-xl dark:text-white text-primary"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+                d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"
+              />
+            </svg>
           </CardDataStats>
         </Link>
 
@@ -61,7 +82,7 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <UserIcon />
+            <MdDownloading className="text-2xl dark:text-white text-primary " />
           </CardDataStats>
         </Link>
 
@@ -72,7 +93,7 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <UserIcon />
+            <BiMoneyWithdraw className="text-2xl text-xl dark:text-white text-primary " />
           </CardDataStats>
         </Link>
 
@@ -83,7 +104,7 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <UserIcon />
+            <MdDownloading className="text-2xl text-xl dark:text-white text-primary " />
           </CardDataStats>
         </Link>
 
@@ -94,7 +115,7 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <UserIcon />
+            <LuListEnd className="text-2xl text-xl dark:text-white text-primary " />
           </CardDataStats>
         </Link>
       </div>
@@ -108,7 +129,7 @@ const BizTokenDashboard: React.FC = () => {
           // rate="0.95%"
           // levelDown
         >
-          <UserIcon />
+          <MdToday className="text-2xl text-xl dark:text-white text-primary " />
         </CardDataStats>
 
         <CardDataStats
@@ -117,7 +138,7 @@ const BizTokenDashboard: React.FC = () => {
           // rate="0.95%"
           // levelDown
         >
-          <UserIcon />
+          <MdOutlineDateRange className="text-2xl text-xl dark:text-white text-primary " />
         </CardDataStats>
       </div>
 

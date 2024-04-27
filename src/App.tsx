@@ -256,9 +256,6 @@ function App() {
                 </>
               }
             />
-
-            {/* withdrow end */}
-
             <Route
               path="/payment-settings/deposit-methods"
               element={
@@ -272,7 +269,6 @@ function App() {
                 </>
               }
             />
-
             <Route
               path="/payment-settings/withdraw-methods"
               element={
@@ -284,7 +280,6 @@ function App() {
                 </>
               }
             />
-
             <Route
               path="/profile"
               element={
@@ -299,18 +294,6 @@ function App() {
               }
             />
             <Route
-              path="/forms/form-elements"
-              element={
-                <>
-                  <PageTitle title="Form Elements" />
-                  <ProtectedRoute>
-                    <FormElements />
-                  </ProtectedRoute>
-                </>
-              }
-            />
-
-            <Route
               path="/general-settings"
               element={
                 <>
@@ -321,7 +304,6 @@ function App() {
                 </>
               }
             />
-
             <Route
               path="/bonus-settings"
               element={
@@ -334,39 +316,6 @@ function App() {
               }
             />
             <Route
-              path="/forms/form-layout"
-              element={
-                <>
-                  <PageTitle title="Form Layout" />
-                  <ProtectedRoute>
-                    <FormLayout />
-                  </ProtectedRoute>
-                </>
-              }
-            />
-            <Route
-              path="/calendar"
-              element={
-                <>
-                  <PageTitle title="Calendar" />
-                  <ProtectedRoute>
-                    <Calendar />
-                  </ProtectedRoute>
-                </>
-              }
-            />
-            <Route
-              path="/tables"
-              element={
-                <>
-                  <PageTitle title="Tables " />
-                  <ProtectedRoute>
-                    <Tables />
-                  </ProtectedRoute>
-                </>
-              }
-            />
-            <Route
               path="/settings"
               element={
                 <>
@@ -374,41 +323,6 @@ function App() {
                   <ProtectedRoute>
                     <Settings />
                   </ProtectedRoute>
-                </>
-              }
-            />
-            <Route
-              path="/chart"
-              element={
-                <>
-                  <PageTitle title="Basic Chart" />
-                  <ProtectedRoute>
-                    <Chart />
-                  </ProtectedRoute>
-                </>
-              }
-            />
-            <Route
-              path="/ui/alerts"
-              element={
-                <>
-                  <PageTitle title="Alerts " />
-                  <ProtectedRoute>
-                    <Alerts />
-                  </ProtectedRoute>
-                </>
-              }
-            />
-            <Route
-              path="/buttons"
-              element={
-                <>
-                  <PageTitle title="Buttons" />
-                  <Suspense fallback={<Lazyloding />}>
-                    <ProtectedRoute>
-                      <Buttons />
-                    </ProtectedRoute>
-                  </Suspense>
                 </>
               }
             />
