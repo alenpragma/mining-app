@@ -56,7 +56,7 @@ const BizTokenDashboard: React.FC = () => {
             // levelDown
           >
             <svg
-              className="w-6 h-6 text-gray-800 "
+              className="w-6 h-6 text-xl dark:text-white text-primary"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -82,7 +82,7 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <MdDownloading className="text-2xl text-gray-800 " />
+            <MdDownloading className="text-2xl dark:text-white text-primary " />
           </CardDataStats>
         </Link>
 
@@ -93,7 +93,7 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <BiMoneyWithdraw className="text-2xl text-gray-800 " />
+            <BiMoneyWithdraw className="text-2xl text-xl dark:text-white text-primary " />
           </CardDataStats>
         </Link>
 
@@ -104,7 +104,7 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <MdDownloading className="text-2xl text-gray-800 " />
+            <MdDownloading className="text-2xl text-xl dark:text-white text-primary " />
           </CardDataStats>
         </Link>
 
@@ -115,7 +115,7 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <LuListEnd className="text-2xl text-gray-800 " />
+            <LuListEnd className="text-2xl text-xl dark:text-white text-primary " />
           </CardDataStats>
         </Link>
       </div>
@@ -129,7 +129,7 @@ const BizTokenDashboard: React.FC = () => {
           // rate="0.95%"
           // levelDown
         >
-          <MdToday className="text-2xl text-gray-800 " />
+          <MdToday className="text-2xl text-xl dark:text-white text-primary " />
         </CardDataStats>
 
         <CardDataStats
@@ -138,7 +138,7 @@ const BizTokenDashboard: React.FC = () => {
           // rate="0.95%"
           // levelDown
         >
-          <MdOutlineDateRange className="text-2xl text-gray-800 " />
+          <MdOutlineDateRange className="text-2xl text-xl dark:text-white text-primary " />
         </CardDataStats>
       </div>
 
