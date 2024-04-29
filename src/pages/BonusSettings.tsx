@@ -150,7 +150,7 @@ const BonusSettings = () => {
 
             <div>
               <h2 className="text-2xl font-bold pb-3 text-black dark:text-white">
-                Level Commission
+                Level Commission (Package purchase purpose)
               </h2>
 
               <div>
@@ -194,6 +194,54 @@ const BonusSettings = () => {
                 </div>
               </div>
             </div>
+
+            <div>
+              <h2 className="text-2xl font-bold pb-3 text-black dark:text-white">
+                Level Commission (free purpose)
+              </h2>
+
+              <div>
+                <div>
+                  <label className="mt-3 block text-black dark:text-white">
+                    Level one (%)
+                  </label>
+                  <input
+                    type="text"
+                    // {...register('level_comission_1')}
+                    placeholder="Level-1"
+                    defaultValue={bonusData[0]?.level_comission_1}
+                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  />
+                </div>
+
+                <div>
+                  <label className="mt-3 block text-black dark:text-white">
+                    Level two (%)
+                  </label>
+                  <input
+                    type="text"
+                    // {...register('level_comission_2')}
+                    placeholder="Level-2"
+                    defaultValue={bonusData[0]?.level_comission_2}
+                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  />
+                </div>
+
+                <div>
+                  <label className="mt-3 block text-black dark:text-white">
+                    Level three (%)
+                  </label>
+                  <input
+                    type="text"
+                    // {...register('level_comission_3')}
+                    placeholder="Level-3"
+                    defaultValue={bonusData[0]?.level_comission_3}
+                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  />
+                </div>
+              </div>
+            </div>
+
             {updateLodaing ? (
               <PuffLoader className="mx-auto" color="#36d7b7" size={40} />
             ) : (
