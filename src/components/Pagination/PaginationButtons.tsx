@@ -18,7 +18,7 @@ const PaginationButtons = ({
         breakLabel={<span className="mr-0.5 lg:mr-4">...</span>}
         nextLabel={
           showNextButton ? (
-            <span className="paginationButton flex items-center justify-center bg-success text-black rounded-md">
+            <span className="paginationButton flex items-center justify-center bg-success text-white rounded-md">
               <BsChevronRight />
             </span>
           ) : null
