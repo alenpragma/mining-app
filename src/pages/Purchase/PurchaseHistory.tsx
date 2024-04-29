@@ -167,7 +167,7 @@ const PurchaseHistory = () => {
         <div className="my-4">
           <PaginationButtons
             totalPages={Math.ceil(filteredPurchaseHistorys.length / perPage)}
-            currentPage={2}
+            currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
         </div>

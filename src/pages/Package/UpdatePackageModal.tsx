@@ -95,7 +95,7 @@ export const UpdatePackageModal = ({
               </h2>
 
               <strong
-                className="text-4xl align-center hover:text-white cursor-pointer  hover:text-black dark:hover:text-white"
+                className="text-4xl align-center cursor-pointer  hover:text-black dark:hover:text-white"
                 onClick={closeModal}
               >
                 &times;

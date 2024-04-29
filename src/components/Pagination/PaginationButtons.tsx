@@ -9,24 +9,9 @@ const PaginationButtons = ({
   const handlePageClick = ({ selected }: any) => {
     setCurrentPage(selected);
   };
-  const paginationVariants = {
-    hidden: {
-      opacity: 0,
-      y: 200,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 260,
-        damping: 20,
-        duration: 2,
-      },
-    },
-  };
   const showNextButton = currentPage !== totalPages - 1;
   const showPrevButton = currentPage !== 0;
+
   return (
     <div>
       <ReactPaginate
