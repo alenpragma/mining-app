@@ -3,13 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
-import Calendar from './pages/Calendar';
-import Chart from './pages/Chart';
-import FormElements from './pages/Form/FormElements';
-import FormLayout from './pages/Form/FormLayout';
 import Settings from './pages/Settings';
-import Tables from './pages/Tables';
-import Alerts from './pages/UiElements/Alerts';
 import AllUsers from './pages/Users/AllUsers';
 import ActiveUser from './pages/Users/ActiveUser';
 import InacticeUser from './pages/Users/InacticeUser';
@@ -19,19 +13,16 @@ import SuccessDeposits from './pages/Deposits/SuccessDeposits';
 import AllWithdraws from './pages/Withdrawls/AllWithdraws';
 import PendingWithdraws from './pages/Withdrawls/PendingWithdraws';
 import SuccessWithdraws from './pages/Withdrawls/SuccessWithdraws';
-import GeneralSettings from './pages/GeneralSettings';
 import BonusSettings from './pages/BonusSettings';
 import DepositSettings from './pages/Deposits/DepositSettings';
 import WihtdrawMethods from './pages/PaymentSettings/WihtdrawMethods';
-// import DepositMethods from './pages/PaymentSettings/DepositMethods';
 import BizTokenDashboard from './pages/Dashboard/BizTokenDashboard';
 import PurchaseHistory from './pages/Purchase/PurchaseHistory';
 import ProtectedRoute from './hooks/ProtectedRoute';
-// import PackageSettings from './pages/Package/PackageSettings';
 
 const Profile = lazy(() => import('./pages/Profile'));
+const GeneralSettings = lazy(() => import('./pages/GeneralSettings'));
 
-const Buttons = lazy(() => import('./pages/UiElements/Buttons'));
 const AllDeposits = lazy(() => import('./pages/Deposits/AllDeposits'));
 const PackageSettings = lazy(() => import('./pages/Package/PackageSettings'));
 const DepositMethods = lazy(
@@ -298,9 +289,11 @@ function App() {
               element={
                 <>
                   <PageTitle title="General Settings" />
-                  <ProtectedRoute>
-                    <GeneralSettings />
-                  </ProtectedRoute>
+                  <Suspense fallback={<Lazyloding />}>
+                    <ProtectedRoute>
+                      <GeneralSettings />
+                    </ProtectedRoute>
+                  </Suspense>
                 </>
               }
             />
