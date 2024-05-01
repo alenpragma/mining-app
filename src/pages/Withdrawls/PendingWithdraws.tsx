@@ -69,7 +69,7 @@ const PendingWithdraws = () => {
                   GateWay
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                  Trx ID
+                  Txn ID
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                   Amount
