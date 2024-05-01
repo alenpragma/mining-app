@@ -96,18 +96,17 @@ const AllWithdraws = () => {
                     GateWay
                   </th>
                   <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                    network
+                    Network
                   </th>
                   <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                    Trx ID
+                    Tnx ID
                   </th>
                   <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                     Amount
                   </th>
                   <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                    charge
+                    Charge
                   </th>
-
                   <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                     Status
                   </th>
