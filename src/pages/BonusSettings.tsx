@@ -6,8 +6,6 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import { PuffLoader } from 'react-spinners';
 import { userToken } from '../hooks/getTokenFromstorage';
-import Data from '../components/Pagination/data';
-import DropdownDefault from '../components/Dropdowns/DropdownDefault';
 
 interface IInput {
   free_mining_rewards: string;
@@ -15,7 +13,11 @@ interface IInput {
   level_comission_1: string;
   level_comission_2: string;
   level_comission_3: string;
+  free_level_1: string;
+  free_level_2: string;
+  free_level_3: string;
 }
+
 const BonusSettings = () => {
   const [lodaing, setLoading] = useState(false);
   const [updateLodaing, setUpdateLodaing] = useState(false);
@@ -207,9 +209,9 @@ const BonusSettings = () => {
                   </label>
                   <input
                     type="text"
-                    // {...register('level_comission_1')}
+                    {...register('free_level_1')}
                     placeholder="Level-1"
-                    // defaultValue={bonusData[0]?.level_comission_1}
+                    defaultValue={bonusData[0]?.free_level_1}
                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
@@ -220,9 +222,9 @@ const BonusSettings = () => {
                   </label>
                   <input
                     type="text"
-                    // {...register('level_comission_2')}
+                    {...register('free_level_2')}
                     placeholder="Level-2"
-                    // defaultValue={bonusData[0]?.level_comission_2}
+                    defaultValue={bonusData[0]?.free_level_2}
                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
@@ -233,9 +235,9 @@ const BonusSettings = () => {
                   </label>
                   <input
                     type="text"
-                    // {...register('level_comission_3')}
+                    {...register('free_level_3')}
                     placeholder="Level-3"
-                    // defaultValue={bonusData[0]?.level_comission_3}
+                    defaultValue={bonusData[0]?.free_level_3}
                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>

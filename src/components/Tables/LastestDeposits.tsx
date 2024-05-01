@@ -173,7 +173,7 @@ const LastestDeposits = () => {
                           {depositsItem.status}
                         </p>
                       </td>
-                      <td className="border-b text-white border-[#eee] py-5 px-3 dark:border-strokedark">
+                      <td className="border-b dark:text-white border-[#eee] py-5 px-3 dark:border-strokedark">
                         <div className="flex items-center space-x-3.5">
                           <button
                             onClick={() => {
@@ -206,8 +206,8 @@ const LastestDeposits = () => {
                             className={`${
                               depositsItem.status != 'pending'
                                 ? 'text-zinc-500'
-                                : ' '
-                            }`}
+                                : 'hover:text-primary '
+                            } `}
                           >
                             <svg
                               className="w-6 h-6 text-gray-800  "
