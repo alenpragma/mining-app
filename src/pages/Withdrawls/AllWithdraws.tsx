@@ -99,7 +99,7 @@ const AllWithdraws = () => {
                     Network
                   </th>
                   <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                    Tnx ID
+                    Txn ID
                   </th>
                   <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                     Amount
