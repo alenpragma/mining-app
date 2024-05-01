@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardDataStats from '../../components/CardDataStats';
 import LastestDeposits from '../../components/Tables/LastestDeposits';
 import DefaultLayout from '../../layout/DefaultLayout';
@@ -10,15 +10,90 @@ import { PiPackage } from 'react-icons/pi';
 import { MdDownloading, MdOutlineDateRange, MdToday } from 'react-icons/md';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { LuListEnd } from 'react-icons/lu';
+import { IUser } from '../Users/AllUsers';
+import axios from 'axios';
+import { IPackage } from '../../types/packages';
+import { userToken } from '../../hooks/getTokenFromstorage';
+import { IDeposit } from '../../types/deposit';
 
 const BizTokenDashboard: React.FC = () => {
+  const [allUsers, setAllUsers] = useState<IUser[]>([]);
+  const [packages, setPackages] = useState<IPackage[]>([]);
+  const [depositsData, setDepositData] = useState<IDeposit[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'https://biztoken.fecotrade.com/api/user-lists',
+          {
+            headers: {
+              Authorization: `Bearer ${userToken}`,
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+        setAllUsers(response?.data[0].users);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        'https://biztoken.fecotrade.com/api/packages',
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      setPackages(response?.data[0]);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const depositData = async () => {
+    try {
+      const response = await axios.get(
+        'https://biztoken.fecotrade.com/api/usdt-add-request',
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      setDepositData(response?.data[0].reverse());
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    depositData();
+  }, []);
+
+  const pending = depositsData?.filter(
+    (deposit) => deposit?.status.includes('pending'),
+  );
+
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <Link to={'/users/all-user'}>
           <CardDataStats
             title="Total Users"
-            total="24"
+            total={allUsers.length}
             // rate="0.95%"
             // levelDown
           >
@@ -29,7 +104,7 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/users/active-user'}>
           <CardDataStats
             title="Active Users"
-            total="05"
+            total="0"
             // rate="0.95%"
             // levelDown
           >
@@ -40,7 +115,7 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/package/package-list'}>
           <CardDataStats
             title="Packages"
-            total="03"
+            total={packages.length}
             // rate="0.95%"
             // levelDown
           >
@@ -51,7 +126,7 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/deposits/all-deposit'}>
           <CardDataStats
             title="Total Deposits"
-            total="80"
+            total={depositsData.length}
             // rate="0.95%"
             // levelDown
           >
@@ -78,7 +153,7 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/deposits/pending-deposit'}>
           <CardDataStats
             title="Pending Deposits"
-            total="05"
+            total={pending?.length}
             // rate="0.95%"
             // levelDown
           >
@@ -89,22 +164,22 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/withdraw/all-withdraws'}>
           <CardDataStats
             title="Total Withdrawls"
-            total="80"
+            total="0"
             // rate="0.95%"
             // levelDown
           >
-            <BiMoneyWithdraw className="text-2xl text-xl dark:text-white text-primary " />
+            <BiMoneyWithdraw className="lg:text-2xl text-xl dark:text-white text-primary " />
           </CardDataStats>
         </Link>
 
         <Link to={'/withdraw/pending-withdraws'}>
           <CardDataStats
             title="Pending Withdrawls"
-            total="80"
+            total="0"
             // rate="0.95%"
             // levelDown
           >
-            <MdDownloading className="text-2xl text-xl dark:text-white text-primary " />
+            <MdDownloading className="lg:text-2xl text-xl dark:text-white text-primary " />
           </CardDataStats>
         </Link>
 
@@ -115,7 +190,7 @@ const BizTokenDashboard: React.FC = () => {
             // rate="0.95%"
             // levelDown
           >
-            <LuListEnd className="text-2xl text-xl dark:text-white text-primary " />
+            <LuListEnd className="lg:text-2xl text-xl dark:text-white text-primary " />
           </CardDataStats>
         </Link>
       </div>
@@ -129,17 +204,17 @@ const BizTokenDashboard: React.FC = () => {
           // rate="0.95%"
           // levelDown
         >
-          <MdToday className="text-2xl text-xl dark:text-white text-primary " />
+          <MdToday className="lg:text-2xl text-xl dark:text-white text-primary " />
         </CardDataStats>
 
-        <CardDataStats
+        {/* <CardDataStats
           title="Last day's Deposit"
           total="24234"
           // rate="0.95%"
           // levelDown
         >
-          <MdOutlineDateRange className="text-2xl text-xl dark:text-white text-primary " />
-        </CardDataStats>
+          <MdOutlineDateRange className="lg:text-2xl text-xl dark:text-white text-primary " />
+        </CardDataStats> */}
       </div>
 
       <div className="mt-5">

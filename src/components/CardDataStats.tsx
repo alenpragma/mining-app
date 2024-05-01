@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 interface CardDataStatsProps {
   title: string;
-  total: string;
+  total: string | number;
   rate?: string;
   levelUp?: boolean;
   levelDown?: boolean;
@@ -20,7 +20,6 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
   return (
     <div className="rounded-sm cursor-pointer border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
       {/* icon */}
-
 
       <div className="mt-4 flex items-end justify-between">
         <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
