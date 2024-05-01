@@ -8,6 +8,7 @@ import SearchInput from '../../components/SearchInput';
 import Skeleton from 'react-loading-skeleton';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
 import { userToken } from '../../hooks/getTokenFromstorage';
+import { getPasDay } from './dateToDay';
 
 const PurchaseHistory = () => {
   const [search, setSearch] = useState('');
@@ -44,19 +45,6 @@ const PurchaseHistory = () => {
     fetchData();
   }, []);
 
-  // convart date to day for  Received	Remaining field
-  const getPasDay = (dateString: string) => {
-    // Convert the provided date string to a Date object
-    const providedDate = new Date(dateString);
-
-    const currentDate = new Date();
-    // Calculate the difference in milliseconds
-    const differenceMs = currentDate.getTime() - providedDate.getTime();
-    // Convert milliseconds to days
-    const differenceDays = Math.floor(differenceMs / (1000 * 60 * 60 * 24));
-    return differenceDays;
-  };
-
   const filteredPurchaseHistorys = purchaseHistorys?.filter(
     (purchaseHistory) =>
       purchaseHistory?.email?.toLowerCase().includes(search.toLowerCase()),
@@ -88,7 +76,7 @@ const PurchaseHistory = () => {
                     Email
                   </th>
                   <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                    package name
+                    Package Name
                   </th>
                   <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                     Price
