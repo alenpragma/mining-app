@@ -62,7 +62,7 @@ const Stack = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Stack" />
+      <Breadcrumb pageName="Stake" />
 
       <div className="py-3">
         <button

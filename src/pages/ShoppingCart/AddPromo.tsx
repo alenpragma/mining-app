@@ -109,31 +109,6 @@ const AddNewPromo = ({ fetchData, closeModal }: any) => {
                   className="mb-2 block text-sm font-medium text-black dark:text-white"
                   htmlFor="type"
                 >
-                  Minimum
-                </label>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('min_token', { required: true })}
-                />
-              </div>
-
-              <div>
-                <label
-                  className="mb-2 block text-sm font-medium text-black dark:text-white"
-                  htmlFor="type"
-                >
-                  Maximum
-                </label>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('max_token', { required: true })}
-                />
-              </div>
-              <div>
-                <label
-                  className="mb-2 block text-sm font-medium text-black dark:text-white"
-                  htmlFor="type"
-                >
                   Validity
                 </label>
                 <input
