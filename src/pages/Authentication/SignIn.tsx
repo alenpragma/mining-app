@@ -40,7 +40,9 @@ const SignIn: React.FC = () => {
         },
         body: JSON.stringify(data),
       });
+
       const responseData = await response.json();
+      console.log(responseData);
       if (responseData.token) {
         localStorage.setItem('biztoken', responseData.token);
         Swal.fire({

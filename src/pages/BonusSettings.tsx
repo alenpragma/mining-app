@@ -23,8 +23,11 @@ const BonusSettings = () => {
   const [updateLodaing, setUpdateLodaing] = useState(false);
 
   const [bonusData, setBonusData] = useState<any>([]);
+  console.log(userToken);
 
   const fetchData = async () => {
+    const userToken = localStorage.getItem('biztoken');
+
     try {
       setLoading(true);
       const response = await axios.get(
@@ -37,6 +40,7 @@ const BonusSettings = () => {
         },
       );
       setLoading(false);
+
       setBonusData(response?.data[0]);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -84,11 +88,11 @@ const BonusSettings = () => {
         throw new Error('Network response was not ok');
       }
       const responseData = await response.json();
-
+      setUpdateLodaing(false);
       if (responseData.success) {
         reset();
         fetchData();
-        setUpdateLodaing(false);
+
         Swal.fire({
           title: 'success',
           text: 'Successfully Update Bonus Settings',
@@ -103,7 +107,6 @@ const BonusSettings = () => {
       });
     }
   };
-  console.log(bonusData);
 
   return (
     <DefaultLayout>
