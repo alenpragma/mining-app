@@ -33,6 +33,8 @@ import MyContext from './hooks/MyContext';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import useColorMode from './hooks/useColorMode';
 import Lazyloding from './components/Lazyloding';
+import ShoppingCart from './pages/ShoppingCart/ShoppingCart';
+import Stack from './pages/Stack/Stack';
 
 function App() {
   const { pathname } = useLocation();
@@ -78,8 +80,9 @@ function App() {
               element={
                 <>
                   <PageTitle title="BIZ Token Dashboard" />
-                  <ProtectedRoute></ProtectedRoute>
-                  <BizTokenDashboard />
+                  <ProtectedRoute>
+                    <BizTokenDashboard />
+                  </ProtectedRoute>
                 </>
               }
             />
@@ -267,6 +270,29 @@ function App() {
                   <PageTitle title="deposit Methods" />
                   <ProtectedRoute>
                     <WihtdrawMethods />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/shopping-cart"
+              element={
+                <>
+                  <PageTitle title="Profile" />
+                  <ProtectedRoute>
+                    <ShoppingCart />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/stack"
+              element={
+                <>
+                  <PageTitle title="stack" />
+                  <ProtectedRoute>
+                    <Stack />
                   </ProtectedRoute>
                 </>
               }
