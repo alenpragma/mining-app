@@ -1,11 +1,8 @@
 import axios from 'axios';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { userToken } from '../../hooks/getTokenFromstorage';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { IShopingCart } from '../../types/shoppingCart';
-import Button from '../../Ui/Button';
 import AddNewPromo from './AddPromo';
 import EditModal from './EditModal';
 
@@ -24,6 +21,8 @@ const ShoppingCart = () => {
   };
 
   const openEditModal = (updateItem: any) => {
+    console.log(updateItem);
+
     setIsEditModalOpen(true);
     setUpdateDate(updateItem);
   };
@@ -54,7 +53,7 @@ const ShoppingCart = () => {
   };
 
   useEffect(() => {
-    // fetchData();
+    fetchData();
   }, []);
 
   return (

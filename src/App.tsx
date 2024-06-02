@@ -35,6 +35,7 @@ import useColorMode from './hooks/useColorMode';
 import Lazyloding from './components/Lazyloding';
 import ShoppingCart from './pages/ShoppingCart/ShoppingCart';
 import Stack from './pages/Stack/Stack';
+import LeadershipSetting from './pages/LeadershipSetting/LeadershipSetting';
 
 function App() {
   const { pathname } = useLocation();
@@ -341,6 +342,17 @@ function App() {
                   <PageTitle title="Settings" />
                   <ProtectedRoute>
                     <Settings />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/leadership-setting"
+              element={
+                <>
+                  <PageTitle title="leadership-setting" />
+                  <ProtectedRoute>
+                    <LeadershipSetting />
                   </ProtectedRoute>
                 </>
               }
