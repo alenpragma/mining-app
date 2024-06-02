@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PuffLoader } from 'react-spinners';
 
-const AddNewThreeModal = ({ fetchData, closeModal, updateData }: any) => {
+const AddNewThreeModal = ({ closeModal }: any) => {
   const [lodaing, setLoading] = useState(false);
 
   return (

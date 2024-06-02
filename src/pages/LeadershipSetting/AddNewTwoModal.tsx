@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PuffLoader } from 'react-spinners';
 
-const AddNewTwoModal = ({ fetchData, closeModal, updateData }: any) => {
-  const [lodaing, setLoading] = useState(false);
+const AddNewTwoModal = ({ closeModal }: any) => {
+  const [lodaing] = useState(false);
 
   return (
     <div className="fixed left-0 top-0 z-999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 py-5">
