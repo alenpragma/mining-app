@@ -56,7 +56,7 @@ const EditDepositMothodModal = ({ fetchData, closeModal, updateData }: any) => {
         await fetchData();
         Swal.fire({
           title: 'success',
-          text: 'Successfully updated package',
+          text: 'Successfully updated Deposit method',
           icon: 'success',
         }).then(() => {
           closeModal();

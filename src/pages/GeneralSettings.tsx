@@ -5,6 +5,7 @@ import Button from '../Ui/Button';
 import Transaction from '../components/GeneralSettings/Transaction';
 import { useContext } from 'react';
 import MyContext from '../hooks/MyContext';
+import Conversion from '../components/GeneralSettings/Conversion';
 
 const GeneralSettings = () => {
   const data = useContext(MyContext);
@@ -40,7 +41,8 @@ const GeneralSettings = () => {
           <Button cs="px-10 my-5 bg-primary" btnName="Update"></Button>
         </div>
       </div>
-      <Transaction />
+      {/* <Transaction /> */}
+      <Conversion />
 
       <div className="hidden">
         <div className="fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5">
