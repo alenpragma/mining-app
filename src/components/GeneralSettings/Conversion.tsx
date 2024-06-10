@@ -72,7 +72,7 @@ const Conversion = () => {
         </h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-5.5"
+          className="flex flex-col gap-5.5 lg:w-1/2"
         >
           <InputField
             label="Minimum Convert (BIZ)"

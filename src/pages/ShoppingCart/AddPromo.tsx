@@ -1,53 +1,36 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import Button from '../../Ui/Button';
-
-type Inputs = {
-  wallet_name: string;
-  wallet_no: string;
-  network: string;
-  min_token: string;
-  max_token: string;
-};
+import InputField from '../../components/Forms/InputField';
+import axiosInstance from '../../utils/axiosConfig';
+import { IVoucher } from './ShoppingCart';
 
 const AddNewPromo = ({ fetchData, closeModal }: any) => {
-  const { register, handleSubmit } = useForm<Inputs>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<IVoucher>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
-    const newData = { ...data };
-    return;
-    // console.log(newData);
+  const onSubmit: SubmitHandler<IVoucher> = async (data: IVoucher) => {
+    const newData = { ...data, status: 1 };
+    console.log(newData);
+
     try {
-      const token = localStorage.getItem('biztoken');
-      const response = await fetch(
-        'https://biztoken.fecotrade.com/api/admin-wallet/store',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(newData),
-        },
-      );
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const responseData = await response.json();
-      if (responseData.success) {
-        fetchData();
-        Swal.fire({
-          title: 'success',
-          text: 'Successfully updated package',
-          icon: 'success',
-        }).then(() => {
-          closeModal();
-        });
-      }
-    } catch (error) {
+      const response = await axiosInstance.post('/voucher/store', newData);
+      console.log('Response:', response.data);
+      fetchData();
       Swal.fire({
-        title: 'error',
-        text: 'Something wrong',
+        title: 'Success',
+        text: 'Successfully added voucher',
+        icon: 'success',
+      });
+    } catch (error) {
+      console.error('Error updating:', error);
+      Swal.fire({
+        title: 'Failed',
+        text: 'Failed to added voucher',
         icon: 'error',
       });
     }
@@ -65,7 +48,7 @@ const AddNewPromo = ({ fetchData, closeModal }: any) => {
         <div className="modal rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark overflow-auto">
           <div className="min-w-full w-[350px] md-w-[420px] lg:w-[600px] border-b border-stroke   pb-4 px-1 dark:border-strokedark">
             <div className="w-full flex justify-between px-3 place-items-center py-3">
-              <h2 className="text-xl font-bold text-white">Add New Promo</h2>
+              <h2 className="text-xl font-bold text-white">Add New Voucher</h2>
               <strong
                 className="text-3xl align-center text-white  cursor-pointer hover:text-black dark:hover:text-white"
                 onClick={closeModal}
@@ -78,63 +61,35 @@ const AddNewPromo = ({ fetchData, closeModal }: any) => {
               onSubmit={handleSubmit(onSubmit)}
               className="flex  flex-col w-full gap-5.5 p-6.5"
             >
-              <div>
-                <label
-                  className="mb-2 block text-sm font-medium text-black dark:text-white"
-                  htmlFor="type"
-                >
-                  Name
-                </label>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('min_token', { required: true })}
-                />
-              </div>
-
-              <div>
-                <label
-                  className="mb-2 block text-sm font-medium text-black dark:text-white"
-                  htmlFor="type"
-                >
-                  Amount
-                </label>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('min_token', { required: true })}
-                />
-              </div>
-
-              <div>
-                <label
-                  className="mb-2 block text-sm font-medium text-black dark:text-white"
-                  htmlFor="type"
-                >
-                  Validity
-                </label>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('min_token', { required: true })}
-                />
-              </div>
-              <div>
-                <label
-                  className="mb-2 block text-sm font-medium text-black dark:text-white"
-                  htmlFor="type"
-                >
-                  Charge
-                </label>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-2 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('min_token', { required: true })}
-                />
-              </div>
-
-              <Button btnName="Submit" />
-
-              {/* <button className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
-                type="submit">
-                Update
-              </button> */}
+              <InputField
+                name="name"
+                label="Name"
+                placeholder="Name"
+                register={register}
+                required={true}
+              />
+              <InputField
+                name="price"
+                label="price"
+                placeholder="price"
+                register={register}
+                required={true}
+              />
+              <InputField
+                name="validity"
+                label="validity"
+                placeholder="validity"
+                register={register}
+                required={true}
+              />
+              <InputField
+                name="charge"
+                label="charge"
+                placeholder="charge"
+                register={register}
+                required={true}
+              />
+              <Button btnName="submit" />
             </form>
           </div>
         </div>
