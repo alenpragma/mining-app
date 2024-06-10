@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import UpdateModal from './UpdateOneModal';
 import UpdateOneModal from './UpdateOneModal';
+import TableRow from '../../components/TableRow';
 
 const datas = [
   {
@@ -66,11 +67,8 @@ const TableOne = () => {
                     </h5>
                   </td>
 
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {packageItem?.PersonalFreeDirectRefer}
-                    </p>
-                  </td>
+                  <TableRow data={packageItem?.PersonalFreeDirectRefer} />
+
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <p className="text-black dark:text-white">
                       {packageItem?.Bonus}

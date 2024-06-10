@@ -36,6 +36,7 @@ import Lazyloding from './components/Lazyloding';
 import ShoppingCart from './pages/ShoppingCart/ShoppingCart';
 import Stack from './pages/Stack/Stack';
 import LeadershipSetting from './pages/LeadershipSetting/LeadershipSetting';
+import VoucherPurchesHistory from './pages/ShoppingCart/VoucherPurchesHistory';
 
 function App() {
   const { pathname } = useLocation();
@@ -282,6 +283,18 @@ function App() {
                   <PageTitle title="Profile" />
                   <ProtectedRoute>
                     <ShoppingCart />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/voucher-purches-history"
+              element={
+                <>
+                  <PageTitle title="Purches History" />
+                  <ProtectedRoute>
+                    <VoucherPurchesHistory />
                   </ProtectedRoute>
                 </>
               }
