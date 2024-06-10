@@ -9,8 +9,6 @@ import InputField from '../../components/Forms/InputField';
 import axiosInstance from '../../utils/axiosConfig';
 
 const EditModal = ({ fetchData, closeModal, updateData }: any) => {
-  console.log(updateData);
-
   const [lodaing, setLoading] = useState(false);
   const [formState] = useState({ ...updateData });
 

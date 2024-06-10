@@ -9,7 +9,6 @@ const AddNewPromo = ({ fetchData, closeModal }: any) => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<IVoucher>();
 

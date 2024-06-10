@@ -8,6 +8,7 @@ import axiosInstance from '../../utils/axiosConfig';
 import TableRow from '../../components/TableRow';
 import UpdateIcon from '../../components/Table/UpdateIcon';
 import { formatToLocalDate } from '../../hooks/formatDate';
+import DeleteIcon from '../../components/Table/DeleteIcon';
 
 export type IVoucher = {
   name: 'string';
@@ -54,8 +55,7 @@ const ShoppingCart = () => {
   const handleSubmit = (formData: any) => {
     console.log('Form submitted with data:', formData);
   };
-  console.log(vouchers);
-  const Icon = <UpdateIcon />;
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Shopping Cart" />
@@ -122,19 +122,15 @@ const ShoppingCart = () => {
 
                     <TableRow data={''}>
                       <div className="flex items-center space-x-3.5">
-                        <button
-                          onClick={() => openEditModal(voucher)}
-                          className="hover:text-primary"
-                        >
+                        <div onClick={() => openEditModal(voucher)}>
                           <UpdateIcon />
-                        </button>
+                        </div>
 
-                        {/* <button
-                          onClick={() => openEditModal(voucher)}
-                          className="hover:text-primary"
+                        <div
+                        // onClick={() => openEditModal(voucher)}
                         >
-                          <UpdateIcon />
-                        </button> */}
+                          <DeleteIcon />
+                        </div>
                       </div>
                     </TableRow>
                   </tr>
@@ -147,7 +143,11 @@ const ShoppingCart = () => {
 
       <div className=" ">
         {isModalOpenAddMethod && (
-          <AddNewPromo closeModal={closeModalAddNew} onSubmit={handleSubmit} />
+          <AddNewPromo
+            fetchData={fetchData}
+            closeModal={closeModalAddNew}
+            onSubmit={handleSubmit}
+          />
         )}
       </div>
 
@@ -155,7 +155,6 @@ const ShoppingCart = () => {
         {isEditModalOpen && (
           <EditModal
             closeModal={closeEditModal}
-            onSubmit={handleSubmit}
             updateData={updateData}
             fetchData={fetchData}
           />
