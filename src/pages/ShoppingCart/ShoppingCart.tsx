@@ -53,7 +53,7 @@ const ShoppingCart = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
   }, []);
 
   return (

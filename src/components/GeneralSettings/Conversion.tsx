@@ -1,51 +1,29 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import SelectOptions from '../../Ui/SelectOptions';
 import Button from '../../Ui/Button';
 import { userToken } from '../../hooks/getTokenFromstorage';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
-
-type IStatus = {
-  status: {
-    value: string;
-    lavle: string;
-  };
-};
+import InputField from '../Forms/InputField';
+import axiosInstance from '../../utils/axiosConfig';
 
 interface IInput {
-  transfer_charge: string;
-  min_transfer: string;
-  max_transfer: string;
-  status: string | IStatus | any;
+  id: string;
+  minimum_convert: string;
+  maximum_convert: string;
+  charge: string;
+  duration: string;
+  created_at: string;
+  updated_at: string;
 }
 
 const Conversion = () => {
   const [lodaing, setLoading] = useState(false);
-  const [transaction, setTransaction] = useState<any>([]);
-  const { register, handleSubmit, reset, control } = useForm<IInput>();
-  const options = [
-    { value: '0', label: 'Disable' },
-    { value: '1', label: 'Enable' },
-  ];
+  const [conversion, setConversion] = useState<any>([]);
+  const { register, handleSubmit } = useForm<IInput>();
 
   const fetchData = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        'https://biztoken.fecotrade.com/api/transfer-setting',
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      setLoading(false);
-      setTransaction(response?.data[0]);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+    const response = await axiosInstance.get('/convert-setting');
+    setConversion(response?.data[0]);
   };
 
   useEffect(() => {
@@ -55,44 +33,31 @@ const Conversion = () => {
   const onSubmit: SubmitHandler<IInput> = async (data: IInput) => {
     for (const key in data) {
       if (data[key as keyof IInput] === '') {
-        data[key as keyof IInput] = transaction[0][key];
+        data[key as keyof IInput] = conversion[0][key];
       }
     }
 
     const newData = {
       ...data,
-      status: data?.status?.value,
-      id: transaction[0]?.id,
+      id: conversion[0]?.id,
     };
 
     try {
-      const response = await fetch(
-        'https://biztoken.fecotrade.com/api/transfer-setting/update',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${userToken}`,
-          },
-          body: JSON.stringify(newData),
-        },
+      const response = await axiosInstance.post(
+        '/convert-setting/update',
+        newData,
       );
+      console.log('Response:', response.data);
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const responseData = await response.json();
-
-      if (responseData.success) {
-        Swal.fire({
-          title: 'success',
-          text: 'Successfully Update',
-          icon: 'success',
-        });
-      }
-    } catch (error) {
       Swal.fire({
-        title: 'Faield',
+        title: 'Success',
+        text: 'Successfully Updated',
+        icon: 'success',
+      });
+    } catch (error) {
+      console.error('Error updating:', error);
+      Swal.fire({
+        title: 'Failed',
         text: 'Failed to update',
         icon: 'error',
       });
@@ -109,68 +74,39 @@ const Conversion = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-5.5"
         >
-          <div className="w-full xl:w-1/2">
-            <label className="mt-2.5 mb-0.5 block text-black dark:text-white">
-              Minimum Convert (BIZ)
-            </label>
-            <input
-              type="text"
-              placeholder="Minimum"
-              {...register('transfer_charge')}
-              // defaultValue={transaction[0]?.transfer_charge}
-              className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-            />
-          </div>
+          <InputField
+            label="Minimum Convert (BIZ)"
+            name="minimum_convert"
+            register={register}
+            placeholder="Minimum"
+            defaultValue={
+              conversion && (conversion[0]?.minimum_convert as string)
+            }
+          />
 
-          <div className="w-full xl:w-1/2">
-            <label className="mt-2.5 mb-0.5 block text-black dark:text-white">
-              Maximum Convert (BIZ)
-            </label>
-            <input
-              type="text"
-              placeholder="Maximum"
-              // {...register('min_transfer')}
-              // defaultValue={transaction[0]?.min_transfer}
-              className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-            />
-          </div>
-          <div className="w-full xl:w-1/2">
-            <label className="mt-2.5 mb-0.5 block text-black dark:text-white">
-              Charge (%)
-            </label>
-            <input
-              type="text"
-              placeholder="Charge"
-              // {...register('max_transfer')}
-              // defaultValue={transaction[0]?.max_transfer}
-              className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-            />
-          </div>
-          <div className="w-full xl:w-1/2">
-            <label className="mt-2.5 mb-0.5 block text-black dark:text-white">
-              Convert Day
-            </label>
-            <input
-              type="text"
-              placeholder="Convert Day"
-              // {...register('max_transfer')}
-              // defaultValue={transaction[0]?.max_transfer}
-              className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-            />
-          </div>
-          {/* {transaction[0]?.status && (
-            <div className="w-full xl:w-1/2">
-              <SelectOptions
-                control={control}
-                options={options}
-                label="Status"
-                name="status"
-                defaultValue={Number(transaction[0]?.status)}
-                // defaultValue={'active'}
-                placeholder={'Select...'}
-              />
-            </div>
-          )} */}
+          <InputField
+            label="Maximum Convert (BIZ)"
+            name="maximum_convert"
+            register={register}
+            placeholder="Max"
+            defaultValue={conversion && conversion[0]?.maximum_convert}
+          />
+
+          <InputField
+            label="charge %"
+            name="charge"
+            register={register}
+            placeholder="charge"
+            defaultValue={conversion && conversion[0]?.charge}
+          />
+
+          <InputField
+            label="Convert Day"
+            name="duration"
+            register={register}
+            placeholder="duration"
+            defaultValue={conversion && conversion[0]?.duration}
+          />
 
           <Button cs="px-10 w-fit my-5 bg-primary" btnName="Update"></Button>
         </form>

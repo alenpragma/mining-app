@@ -32,6 +32,9 @@ const EditModal = ({ fetchData, closeModal, updateData }: any) => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     const newData = { ...data, id: updateData.id, status: data.status.value }; // Make a copy of the data object
+
+    // console.log(newData);
+
     try {
       setLoading(true);
 
@@ -47,12 +50,14 @@ const EditModal = ({ fetchData, closeModal, updateData }: any) => {
           body: JSON.stringify(newData),
         },
       );
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      setLoading(false);
+      // if (!response.ok) {
+      //   throw new Error('Network response was not ok');
+      // }
+      console.log(response);
 
       const responseData = await response.json();
-      setLoading(false);
+      console.log(responseData);
 
       if (responseData.success) {
         await fetchData();
