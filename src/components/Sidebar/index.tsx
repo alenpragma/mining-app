@@ -8,6 +8,7 @@ import ArrowIcon from '../../images/sidebarIcon/ArrowIcon';
 import PHistory from '../../images/sidebarIcon/PHistory';
 import DepositIcon from '../../images/sidebarIcon/DepositIcon';
 import WithdrowIcon from '../../images/sidebarIcon/WithdrowIcon';
+import logo from '../../assets/biz-text-logo-removebg-preview.png';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -69,9 +70,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
-      <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
+      <div className="flex items-center justify-between gap-2 px-6 py-2 lg:py-3">
         <NavLink to="/dashboard">
-          <h1 className="text-3xl font-semibold text-white">BIZ TOKEN</h1>
+          {/* <h1 className="text-3xl font-semibold text-white">BIZ TOKEN</h1> */}
+          <img className="w-45" src={logo} alt="" />
         </NavLink>
 
         <button
@@ -300,50 +302,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               Add New Package
                             </NavLink>
                           </li>
-                        </ul>
-                      </div>
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
-              {/* Package */}
 
-              {/* Purchase History */}
-
-              <SidebarLinkGroup
-                activeCondition={
-                  pathname === '/purchase' || pathname.includes('purchase')
-                }
-              >
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <NavLink
-                        to="#"
-                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                          (pathname === '/package' ||
-                            pathname.includes('purchase')) &&
-                          'bg-graydark dark:bg-meta-4'
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
-                      >
-                        <PHistory />
-                        Purchase History
-                        <ArrowIcon open={open} />
-                      </NavLink>
-                      {/* <!-- Dropdown Menu Start --> */}
-                      <div
-                        className={`translate transform overflow-hidden ${
-                          !open && 'hidden'
-                        }`}
-                      >
-                        <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                           <li>
                             <NavLink
                               to="/purchase/purchase-history"
@@ -352,7 +311,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              Purchase List
+                              Package Purchase History
                             </NavLink>
                           </li>
                         </ul>
@@ -362,6 +321,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   );
                 }}
               </SidebarLinkGroup>
+              {/* Package */}
+
               {/* Purchase History */}
 
               {/* Deposits */}
@@ -662,7 +623,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             : setSidebarExpanded(true);
                         }}
                       >
-                        <TbSettingsDown className="text-xl dark:bg-meta-4" />
+                        <PHistory />
+                        {/* <TbSettingsDown className="text-xl dark:bg-meta-4" /> */}
                         Shopping cart
                         <ArrowIcon open={open} />
                       </NavLink>

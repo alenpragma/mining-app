@@ -156,7 +156,7 @@ function App() {
               path="/purchase/purchase-history"
               element={
                 <>
-                  <PageTitle title="Purchase History" />
+                  <PageTitle title="Packace Purchase History" />
                   <ProtectedRoute>
                     <PurchaseHistory />
                   </ProtectedRoute>
@@ -292,7 +292,7 @@ function App() {
               path="/voucher-purches-history"
               element={
                 <>
-                  <PageTitle title="Purches History" />
+                  <PageTitle title="Voucher Purches History" />
                   <ProtectedRoute>
                     <VoucherPurchesHistory />
                   </ProtectedRoute>
