@@ -4,11 +4,10 @@ import { logout } from './auth';
 import getTizaraAdminToken, { userToken } from '../hooks/getTokenFromstorage';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://biztoken.fecotrade.com/api', // Replace with your API base URL
+  baseURL: 'https://biztoken.fecotrade.com/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
-    // Add any additional headers here
   },
 });
 

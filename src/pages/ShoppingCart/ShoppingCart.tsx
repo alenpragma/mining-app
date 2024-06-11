@@ -9,6 +9,7 @@ import TableRow from '../../components/TableRow';
 import UpdateIcon from '../../components/Table/UpdateIcon';
 import { formatToLocalDate } from '../../hooks/formatDate';
 import DeleteIcon from '../../components/Table/DeleteIcon';
+import Swal from 'sweetalert2';
 
 export type IVoucher = {
   name: 'string';
@@ -32,8 +33,6 @@ const ShoppingCart = () => {
   };
 
   const openEditModal = (updateItem: any) => {
-    console.log(updateItem);
-
     setIsEditModalOpen(true);
     setUpdateDate(updateItem);
   };
@@ -54,6 +53,52 @@ const ShoppingCart = () => {
 
   const handleSubmit = (formData: any) => {
     console.log('Form submitted with data:', formData);
+  };
+
+  const deleteData = async (id: number) => {
+    console.log(id);
+
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    });
+
+    if (result.isConfirmed) {
+      try {
+        // Show loading
+        Swal.fire({
+          title: 'Deleting...',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        const response = await axiosInstance.get(`/voucher/delete/${id}`);
+
+        fetchData();
+
+        // Hide loading
+        Swal.close();
+
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Your file has been deleted.',
+          icon: 'success',
+        });
+      } catch (error) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'There was a problem deleting your file.',
+          icon: 'error',
+        });
+      }
+    }
   };
 
   return (
@@ -77,8 +122,8 @@ const ShoppingCart = () => {
               <Skeleton height={40} count={6} />
             </div>
           ) : (
-            <table className="w-full table-auto">
-              <thead>
+            <table className="w-full table-auto ">
+              <thead className="">
                 <tr className="bg-gray-2 text-left dark:bg-meta-4">
                   <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                     SL NO
@@ -125,10 +170,8 @@ const ShoppingCart = () => {
                         <div onClick={() => openEditModal(voucher)}>
                           <UpdateIcon />
                         </div>
-
-                        <div
-                        // onClick={() => openEditModal(voucher)}
-                        >
+                        {/*  delete item */}
+                        <div onClick={() => deleteData(voucher?.id)}>
                           <DeleteIcon />
                         </div>
                       </div>

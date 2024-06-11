@@ -52,7 +52,7 @@ function App() {
   const [colorMode] = useColorMode();
 
   const [theme, setTheme] = useState<string | any>(colorMode);
-  console.log(theme);
+  // console.log(theme);
 
   const contextValues = {
     theme,
@@ -153,10 +153,10 @@ function App() {
             />
 
             <Route
-              path="/purchase/purchase-history"
+              path="/package/purchase-history"
               element={
                 <>
-                  <PageTitle title="Purchase History" />
+                  <PageTitle title="Packace Purchase History" />
                   <ProtectedRoute>
                     <PurchaseHistory />
                   </ProtectedRoute>
@@ -292,7 +292,7 @@ function App() {
               path="/voucher-purches-history"
               element={
                 <>
-                  <PageTitle title="Purches History" />
+                  <PageTitle title="Voucher Purches History" />
                   <ProtectedRoute>
                     <VoucherPurchesHistory />
                   </ProtectedRoute>

@@ -4,8 +4,12 @@ import Button from '../../Ui/Button';
 import InputField from '../../components/Forms/InputField';
 import axiosInstance from '../../utils/axiosConfig';
 import { IVoucher } from './ShoppingCart';
+import { useState } from 'react';
+import { PuffLoader } from 'react-spinners';
 
 const AddNewPromo = ({ fetchData, closeModal }: any) => {
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -13,8 +17,8 @@ const AddNewPromo = ({ fetchData, closeModal }: any) => {
   } = useForm<IVoucher>();
 
   const onSubmit: SubmitHandler<IVoucher> = async (data: IVoucher) => {
+    setLoading(true);
     const newData = { ...data, status: 1 };
-    console.log(newData);
 
     try {
       const response = await axiosInstance.post('/voucher/store', newData);
@@ -25,6 +29,8 @@ const AddNewPromo = ({ fetchData, closeModal }: any) => {
         text: 'Successfully added voucher',
         icon: 'success',
       });
+      setLoading(false);
+      closeModal();
     } catch (error) {
       console.error('Error updating:', error);
       Swal.fire({
@@ -88,7 +94,12 @@ const AddNewPromo = ({ fetchData, closeModal }: any) => {
                 register={register}
                 required={true}
               />
-              <Button btnName="submit" />
+
+              {!loading ? (
+                <Button btnName="submit" />
+              ) : (
+                <PuffLoader className="mx-auto" color="#36d7b7" size={40} />
+              )}
             </form>
           </div>
         </div>

@@ -6,6 +6,7 @@ import SelectOptions from '../../Ui/SelectOptions';
 import { options } from '../options';
 import { IPackage } from '../../types/packages';
 import RequiredInput from '../../components/RequiredInput';
+import axiosInstance from '../../utils/axiosConfig';
 
 type Inputs = {
   package_name: string;
@@ -28,38 +29,25 @@ const PackageSettings = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<IPackage> = async (data: IPackage) => {
-    console.log(data);
-
     const { status, ...rest } = data;
     const newPackage = { ...rest, status: data?.status?.value };
 
-    return;
-
     try {
-      const token = localStorage.getItem('biztoken');
-      const response = await fetch(
-        'https://biztoken.fecotrade.com/api/package/store',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(newPackage),
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const responseData = await response.json();
+      const response = await axiosInstance.post('/package/store', newPackage);
+      console.log('Response:', response.data);
       Swal.fire({
-        title: 'success',
+        title: 'Success',
         text: 'Successfully added new package',
         icon: 'success',
       });
+      // setLoading(false);
     } catch (error) {
-      console.error('Error occurred while making POST request:', error);
+      console.error('Error updating:', error);
+      Swal.fire({
+        title: 'Failed',
+        text: 'Failed to added package',
+        icon: 'error',
+      });
     }
   };
 
