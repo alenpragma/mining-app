@@ -8,6 +8,7 @@ import Skeleton from 'react-loading-skeleton';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
 import { userToken } from '../../hooks/getTokenFromstorage';
 import { getPasDay } from './dateToDay';
+import TableRow from '../../components/TableRow';
 
 const PurchaseHistory = () => {
   const [search, setSearch] = useState('');
@@ -99,52 +100,24 @@ const PurchaseHistory = () => {
                   ?.slice(from, to)
                   ?.map((purchaseHistory: any, key: any) => (
                     <tr key={key}>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {key + 1}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {purchaseHistory?.date}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {purchaseHistory?.email}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-4 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {purchaseHistory.package_name}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {purchaseHistory.package_price}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {Number(purchaseHistory.daily_token)}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {getPasDay(purchaseHistory?.date)}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {purchaseHistory?.duration -
-                            getPasDay(purchaseHistory?.date)}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {purchaseHistory.status == 1 ? 'Running' : 'Expired'}
-                        </p>
-                      </td>
+                      <TableRow data={key + 1} />
+                      <TableRow data={purchaseHistory?.date} />
+                      <TableRow data={purchaseHistory?.email} />
+                      <TableRow data={purchaseHistory?.package_name} />
+                      <TableRow data={purchaseHistory?.package_price} />
+                      <TableRow data={purchaseHistory?.daily_token} />
+                      <TableRow data={getPasDay(purchaseHistory?.date)} />
+                      <TableRow
+                        data={
+                          purchaseHistory?.duration -
+                          getPasDay(purchaseHistory?.date)
+                        }
+                      />
+                      <TableRow
+                        data={
+                          purchaseHistory.status == 1 ? 'Running' : 'Expired'
+                        }
+                      />
                     </tr>
                   ))}
               </tbody>
