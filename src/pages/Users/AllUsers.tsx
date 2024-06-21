@@ -65,12 +65,14 @@ const AllUsers = () => {
   const filteredUsers = allUsers?.filter(
     (user) =>
       user?.name?.toLowerCase().includes(search.toLowerCase()) ||
+      user?.sponsor?.toLowerCase().includes(search.toLowerCase()) ||
+      user?.referral_code?.toLowerCase().includes(search.toLowerCase()) ||
       user?.email?.toLowerCase().includes(search.toLowerCase()),
   );
 
   // pagination calculate
   const [currentPage, setCurrentPage] = useState(0);
-  const [perPage, setparePage] = useState(25);
+  const [perPage, setparePage] = useState(50);
 
   const from = currentPage * perPage;
   const to = from + perPage;
