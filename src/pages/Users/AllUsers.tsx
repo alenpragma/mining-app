@@ -16,13 +16,17 @@ export type IUser = {
   name: string;
   email: string;
   phone: string;
-  email_verified_at: null | string;
-  is_admin: string;
-  referral_code: string | null;
   status: string;
   sponsor: string;
+  is_admin: string;
+
   created_at: string;
   updated_at: string;
+
+  is_verified: string;
+  activation_status: string;
+  referral_code: string | null;
+  email_verified_at: null | string;
 };
 
 const AllUsers = () => {
@@ -78,6 +82,7 @@ const AllUsers = () => {
   const to = from + perPage;
 
   // pagination calculate
+  console.log(filteredUsers);
 
   return (
     <div>
@@ -114,7 +119,9 @@ const AllUsers = () => {
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                       Sponsor
                     </th>
-
+                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                      verified
+                    </th>
                     <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white">
                       Join date
                     </th>
@@ -142,20 +149,25 @@ const AllUsers = () => {
                           <TableRow data={user.referral_code} />
                           <TableRow data={user.sponsor} />
                           <TableRow
+                            data={user.is_verified == '1' ? 'verified' : ''}
+                          />
+                          <TableRow
                             data={formatToLocalDate(user?.created_at)}
                           />
 
                           <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                             <p
                               className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                                user?.status === 'Active'
+                                user?.activation_status === '1'
                                   ? 'bg-success text-success'
-                                  : user?.status === 'Inactive'
+                                  : user?.activation_status === '0'
                                   ? 'bg-danger text-danger'
                                   : 'bg-warning text-warning'
                               }`}
                             >
-                              {user?.status} Active
+                              {user?.activation_status == '1'
+                                ? 'Active'
+                                : 'Inactive'}
                             </p>
                           </td>
 

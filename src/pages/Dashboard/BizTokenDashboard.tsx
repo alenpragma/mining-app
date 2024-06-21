@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import LatestPurchaseHistory from './LatestPurchaseHistory';
 import { FaUserCheck } from 'react-icons/fa6';
 import { PiPackage } from 'react-icons/pi';
-import { MdDownloading, MdOutlineDateRange, MdToday } from 'react-icons/md';
+import { MdDownloading, MdToday } from 'react-icons/md';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { LuListEnd } from 'react-icons/lu';
 import { IUser } from '../Users/AllUsers';
@@ -87,6 +87,19 @@ const BizTokenDashboard: React.FC = () => {
     (deposit) => deposit?.status.includes('pending'),
   );
 
+  let activeUser = 0;
+  let inactiveUser = 0;
+
+  for (let i = 0; i < allUsers.length; i++) {
+    if (allUsers[i].activation_status == '1') {
+      activeUser += 1; // Increment activeUser by 1
+    } else {
+      inactiveUser += 1; // Increment inactiveUser by 1
+    }
+  }
+  console.log(activeUser);
+  console.log(inactiveUser);
+
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
@@ -104,7 +117,18 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/users/active-user'}>
           <CardDataStats
             title="Active Users"
-            total="0"
+            total={activeUser}
+            // rate="0.95%"
+            // levelDown
+          >
+            <FaUserCheck className="text-xl dark:text-white text-primary" />
+          </CardDataStats>
+        </Link>
+
+        <Link to={'/users/inactive-user'}>
+          <CardDataStats
+            title="Inactive Users"
+            total={inactiveUser}
             // rate="0.95%"
             // levelDown
           >
