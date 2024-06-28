@@ -47,7 +47,7 @@ const AllWithdraws = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        'https://biztoken.fecotrade.com/api/biztoken-withdraw-request',
+        'https://mining.bizex.io/api/biztoken-withdraw-request',
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -50,7 +50,7 @@ const AllUsers = () => {
       try {
         const token = localStorage.getItem('biztoken');
         const response = await axios.get(
-          'https://biztoken.fecotrade.com/api/user-lists',
+          'https://mining.bizex.io/api/user-lists',
           {
             headers: {
               Authorization: `Bearer ${token}`,

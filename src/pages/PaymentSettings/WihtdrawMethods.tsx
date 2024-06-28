@@ -40,7 +40,7 @@ const WihtdrawMethods = () => {
     try {
       const token = localStorage.getItem('biztoken');
       const response = await axios.get(
-        'https://biztoken.fecotrade.com/api/withdrawal-setting',
+        'https://mining.bizex.io/api/withdrawal-setting',
         {
           headers: {
             Authorization: `Bearer ${token}`,

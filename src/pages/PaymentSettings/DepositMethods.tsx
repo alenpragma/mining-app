@@ -36,7 +36,7 @@ const DepositMethods = () => {
     try {
       const token = localStorage.getItem('biztoken');
       const response = await axios.get(
-        'https://biztoken.fecotrade.com/api/admin-wallets',
+        'https://mining.bizex.io/api/admin-wallets',
         {
           headers: {
             Authorization: `Bearer ${token}`,

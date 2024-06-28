@@ -33,7 +33,7 @@ const Transaction = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        'https://biztoken.fecotrade.com/api/transfer-setting',
+        'https://mining.bizex.io/api/transfer-setting',
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -67,7 +67,7 @@ const Transaction = () => {
 
     try {
       const response = await fetch(
-        'https://biztoken.fecotrade.com/api/transfer-setting/update',
+        'https://mining.bizex.io/api/transfer-setting/update',
         {
           method: 'POST',
           headers: {

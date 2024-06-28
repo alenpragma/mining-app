@@ -4,7 +4,7 @@ import { logout } from './auth';
 import getTizaraAdminToken, { userToken } from '../hooks/getTokenFromstorage';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://biztoken.fecotrade.com/api',
+  baseURL: 'https://mining.bizex.io/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
