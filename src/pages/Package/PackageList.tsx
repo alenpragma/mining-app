@@ -39,15 +39,12 @@ const PackageList = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        'https://biztoken.fecotrade.com/api/packages',
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-            'Content-Type': 'application/json',
-          },
+      const response = await axios.get('https://mining.bizex.io/api/packages', {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          'Content-Type': 'application/json',
         },
-      );
+      });
       setPackages(response?.data[0]);
     } catch (error) {
       console.error('Error fetching data:', error);

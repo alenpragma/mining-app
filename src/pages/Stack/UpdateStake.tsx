@@ -36,7 +36,7 @@ const UpdateStake = ({ fetchData, closeModal, updateData }: any) => {
 
       const token = localStorage.getItem('biztoken');
       const response = await fetch(
-        'https://biztoken.fecotrade.com/api/admin-wallet/update',
+        'https://mining.bizex.io/api/admin-wallet/update',
         {
           method: 'POST',
           headers: {

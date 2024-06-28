@@ -10,7 +10,7 @@ const LatestPurchaseHistory = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        'https://biztoken.fecotrade.com/api/admin/package-purchase-history',
+        'https://mining.bizex.io/api/admin/package-purchase-history',
         {
           headers: {
             Authorization: `Bearer ${userToken}`,

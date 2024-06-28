@@ -44,7 +44,7 @@ export const UpdatePackageModal = ({
     try {
       const token = localStorage.getItem('biztoken');
       const response = await fetch(
-        'https://biztoken.fecotrade.com/api/package/update',
+        'https://mining.bizex.io/api/package/update',
         {
           method: 'POST',
           headers: {

@@ -51,7 +51,7 @@ export const ApprovedRejectModal = ({
       setLoading(true);
 
       const response = await fetch(
-        'https://biztoken.fecotrade.com/api/usdt-add-request/approve',
+        'https://mining.bizex.io/api/usdt-add-request/approve',
         {
           method: 'POST',
           headers: {

@@ -31,7 +31,7 @@ const BonusSettings = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        'https://biztoken.fecotrade.com/api/comission-setting',
+        'https://mining.bizex.io/api/comission-setting',
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
@@ -73,7 +73,7 @@ const BonusSettings = () => {
 
     try {
       const response = await fetch(
-        'https://biztoken.fecotrade.com/api/comission-setting/update',
+        'https://mining.bizex.io/api/comission-setting/update',
         {
           method: 'POST',
           headers: {

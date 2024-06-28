@@ -58,7 +58,7 @@ const SuccessDeposits = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        'https://biztoken.fecotrade.com/api/usdt-add-request',
+        'https://mining.bizex.io/api/usdt-add-request',
         {
           headers: {
             Authorization: `Bearer ${token}`,
