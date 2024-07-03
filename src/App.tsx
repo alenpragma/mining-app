@@ -37,6 +37,7 @@ import ShoppingCart from './pages/ShoppingCart/ShoppingCart';
 import Stack from './pages/Stack/Stack';
 import LeadershipSetting from './pages/LeadershipSetting/LeadershipSetting';
 import VoucherPurchesHistory from './pages/ShoppingCart/VoucherPurchesHistory';
+import PopUp from './pages/PopUp';
 
 function App() {
   const { pathname } = useLocation();
@@ -366,6 +367,17 @@ function App() {
                   <PageTitle title="leadership-setting" />
                   <ProtectedRoute>
                     <LeadershipSetting />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/pop-up"
+              element={
+                <>
+                  <PageTitle title="pop up" />
+                  <ProtectedRoute>
+                    <PopUp />
                   </ProtectedRoute>
                 </>
               }
