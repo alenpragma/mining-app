@@ -965,6 +965,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Bonus Settings
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  to="/pop-up"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('pop-up') && 'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  <MdOutlineSettingsSuggest className="text-xl dark:bg-meta-4" />
+                  Pop Up
+                </NavLink>
+              </li>
 
               {/* <li>
                 <NavLink
