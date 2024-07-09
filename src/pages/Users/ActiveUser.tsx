@@ -51,7 +51,7 @@ const ActiveUser = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Inactive User" />
+      <Breadcrumb pageName="Active User" />
 
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
@@ -88,47 +88,43 @@ const ActiveUser = () => {
               </tr>
             </thead>
             <tbody>
-              {allUsers?.map((user: IUser, key: Key | null | undefined) => {
-                return (
-                  <tr key={key}>
-                    <div className="pl-6 py-4 px-4">
-                      <TableRow data={Number(key) + 1} />
-                    </div>
-                    <TableRow data={user.name}>
-                      <p className="text-sm">{user.phone}</p>
-                    </TableRow>
-                    <TableRow data={user.email} />
-                    <TableRow data={user.referral_code} />
-                    <TableRow data={user.sponsor} />
-                    <TableRow
-                      data={user.is_verified == '1' ? 'verified' : ''}
-                    />
-                    <TableRow data={formatToLocalDate(user?.created_at)} />
+              {allUsers?.map((user: IUser, key: Key | null | undefined) => (
+                <tr key={key}>
+                  <div className="pl-6 py-4 px-4">
+                    <TableRow data={currentPage * perPage + Number(key) + 1} />
+                  </div>
+                  <TableRow data={user.name}>
+                    <p className="text-sm">{user.phone}</p>
+                  </TableRow>
+                  <TableRow data={user.email} />
+                  <TableRow data={user.referral_code} />
+                  <TableRow data={user.sponsor} />
+                  <TableRow data={user.is_verified == '1' ? 'verified' : ''} />
+                  <TableRow data={formatToLocalDate(user?.created_at)} />
 
-                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                      <p
-                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                          user?.activation_status === '1'
-                            ? 'bg-success text-success'
-                            : user?.activation_status === '0'
-                            ? 'bg-danger text-danger'
-                            : 'bg-warning text-warning'
-                        }`}
-                      >
-                        {user?.activation_status == '1' ? 'Active' : 'Inactive'}
-                      </p>
-                    </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p
+                      className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                        user?.activation_status === '1'
+                          ? 'bg-success text-success'
+                          : user?.activation_status === '0'
+                          ? 'bg-danger text-danger'
+                          : 'bg-warning text-warning'
+                      }`}
+                    >
+                      {user?.activation_status == '1' ? 'Active' : 'Inactive'}
+                    </p>
+                  </td>
 
-                    <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
-                      <div className="flex items-center space-x-3.5">
-                        <div onClick={() => openModal(user)}>
-                          <ViewIcon />
-                        </div>
+                  <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
+                    <div className="flex items-center space-x-3.5">
+                      <div onClick={() => openModal(user)}>
+                        <ViewIcon />
                       </div>
-                    </td>
-                  </tr>
-                );
-              })}
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
