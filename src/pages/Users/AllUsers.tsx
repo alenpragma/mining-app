@@ -10,6 +10,7 @@ import PaginationButtons from '../../components/Pagination/PaginationButtons';
 import SearchInput from '../../components/SearchInput';
 import TableRow from '../../components/TableRow';
 import ViewIcon from '../../components/Table/ViewIcon';
+import axiosInstance from '../../utils/axiosConfig';
 
 export type IUser = {
   id: number;
@@ -33,8 +34,10 @@ const AllUsers = () => {
   const [allUsers, setAllUsers] = useState<IUser[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userDetail, setUserDetail] = useState<IUser>();
+  const [total, setTotal] = useState(0);
+
   // searching
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
 
   const openModal = (data: IUser) => {
     setIsModalOpen(true);
@@ -45,44 +48,26 @@ const AllUsers = () => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('biztoken');
-        const response = await axios.get(
-          'https://mining.bizex.io/api/user-lists',
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-          },
-        );
-        setAllUsers(response?.data[0].users.reverse());
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const filteredUsers = allUsers?.filter(
-    (user) =>
-      user?.name?.toLowerCase().includes(search.toLowerCase()) ||
-      user?.sponsor?.toLowerCase().includes(search.toLowerCase()) ||
-      user?.referral_code?.toLowerCase().includes(search.toLowerCase()) ||
-      user?.email?.toLowerCase().includes(search.toLowerCase()),
-  );
-
   // pagination calculate
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage, setparePage] = useState(50);
 
-  const from = currentPage * perPage;
-  const to = from + perPage;
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get(
+        `/user-lists?per_page=${perPage}&page=${currentPage + 1}`,
+      );
 
-  // pagination calculate
-  console.log(filteredUsers);
+      setAllUsers(response?.data?.data);
+      setTotal(response?.data?.total);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [currentPage]);
 
   return (
     <div>
@@ -92,7 +77,10 @@ const AllUsers = () => {
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
           <div className="flex justify-between">
             <div className="max-w-full w-100 mb-4">
-              <SearchInput placeholder="Search..." setSearch={setSearch} />
+              <SearchInput
+                placeholder="Search..."
+                // setSearch={setSearch}
+              />
             </div>
           </div>
           <div className="max-w-full overflow-x-auto">
@@ -134,60 +122,56 @@ const AllUsers = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredUsers
-                    ?.slice(from, to)
-                    ?.map((user: IUser, key: Key | null | undefined) => {
-                      return (
-                        <tr key={key}>
-                          <div className="pl-6 py-4 px-4">
-                            <TableRow data={Number(key) + 1} />
-                          </div>
-                          <TableRow data={user.name}>
-                            <p className="text-sm">{user.phone}</p>
-                          </TableRow>
-                          <TableRow data={user.email} />
-                          <TableRow data={user.referral_code} />
-                          <TableRow data={user.sponsor} />
-                          <TableRow
-                            data={user.is_verified == '1' ? 'verified' : ''}
-                          />
-                          <TableRow
-                            data={formatToLocalDate(user?.created_at)}
-                          />
+                  {allUsers?.map((user: IUser, key: Key | null | undefined) => {
+                    return (
+                      <tr key={key}>
+                        <div className="pl-6 py-4 px-4">
+                          <TableRow data={Number(key) + 1} />
+                        </div>
+                        <TableRow data={user.name}>
+                          <p className="text-sm">{user.phone}</p>
+                        </TableRow>
+                        <TableRow data={user.email} />
+                        <TableRow data={user.referral_code} />
+                        <TableRow data={user.sponsor} />
+                        <TableRow
+                          data={user.is_verified == '1' ? 'verified' : ''}
+                        />
+                        <TableRow data={formatToLocalDate(user?.created_at)} />
 
-                          <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                            <p
-                              className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                                user?.activation_status === '1'
-                                  ? 'bg-success text-success'
-                                  : user?.activation_status === '0'
-                                  ? 'bg-danger text-danger'
-                                  : 'bg-warning text-warning'
-                              }`}
-                            >
-                              {user?.activation_status == '1'
-                                ? 'Active'
-                                : 'Inactive'}
-                            </p>
-                          </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <p
+                            className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                              user?.activation_status === '1'
+                                ? 'bg-success text-success'
+                                : user?.activation_status === '0'
+                                ? 'bg-danger text-danger'
+                                : 'bg-warning text-warning'
+                            }`}
+                          >
+                            {user?.activation_status == '1'
+                              ? 'Active'
+                              : 'Inactive'}
+                          </p>
+                        </td>
 
-                          <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
-                            <div className="flex items-center space-x-3.5">
-                              <div onClick={() => openModal(user)}>
-                                <ViewIcon />
-                              </div>
+                        <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
+                          <div className="flex items-center space-x-3.5">
+                            <div onClick={() => openModal(user)}>
+                              <ViewIcon />
                             </div>
-                          </td>
-                        </tr>
-                      );
-                    })}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             )}
           </div>
           <div className="my-4">
             <PaginationButtons
-              totalPages={Math.ceil(filteredUsers.length / perPage)}
+              totalPages={Math.ceil(total / perPage)}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />
