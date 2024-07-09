@@ -126,7 +126,9 @@ const AllUsers = () => {
                     return (
                       <tr key={key}>
                         <div className="pl-6 py-4 px-4">
-                          <TableRow data={Number(key) + 1} />
+                          <TableRow
+                            data={currentPage * perPage + Number(key) + 1}
+                          />
                         </div>
                         <TableRow data={user.name}>
                           <p className="text-sm">{user.phone}</p>
