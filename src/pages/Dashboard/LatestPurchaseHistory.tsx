@@ -1,24 +1,19 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
-import { userToken } from '../../hooks/getTokenFromstorage';
 import { getPasDay } from '../Purchase/dateToDay';
+import { baseUrl } from '../../utils/api';
+import axiosInstance from '../../utils/axiosConfig';
 
 const LatestPurchaseHistory = () => {
   const [purchaseHistorys, setPurchaseHistorys] = useState<any>([]);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        'https://mining.bizex.io/api/admin/package-purchase-history',
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-            'Content-Type': 'application/json',
-          },
-        },
+      const response = await axiosInstance.get(
+        `${baseUrl}/admin/package-purchase-history`,
       );
-      setPurchaseHistorys(response?.data?.purchase_history);
+
+      setPurchaseHistorys(response?.data?.purchase_history?.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }

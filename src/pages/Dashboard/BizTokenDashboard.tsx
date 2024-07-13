@@ -15,35 +15,34 @@ import axios from 'axios';
 import { IPackage } from '../../types/packages';
 import { userToken } from '../../hooks/getTokenFromstorage';
 import { IDeposit } from '../../types/deposit';
+import { baseUrl } from '../../utils/api';
 
 const BizTokenDashboard: React.FC = () => {
   const [allUsers, setAllUsers] = useState<IUser[]>([]);
   const [packages, setPackages] = useState<IPackage[]>([]);
   const [depositsData, setDepositData] = useState<IDeposit[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'https://mining.bizex.io/api/user-lists',
-          {
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-              'Content-Type': 'application/json',
-            },
-          },
-        );
-        setAllUsers(response?.data[0].users);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []);
+  const getData = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/user-lists`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      setAllUsers(response?.data[0].users);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://mining.bizex.io/api/packages', {
+      const response = await axios.get(`${baseUrl}/packages`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
           'Content-Type': 'application/json',
@@ -55,21 +54,18 @@ const BizTokenDashboard: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const depositData = async () => {
     try {
-      const response = await axios.get(
-        'https://mining.bizex.io/api/usdt-add-request',
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-            'Content-Type': 'application/json',
-          },
+      const response = await axios.get(`${baseUrl}/usdt-add-request`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          'Content-Type': 'application/json',
         },
-      );
+      });
       setDepositData(response?.data[0].reverse());
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -94,8 +90,6 @@ const BizTokenDashboard: React.FC = () => {
       inactiveUser += 1; // Increment inactiveUser by 1
     }
   }
-  console.log(activeUser);
-  console.log(inactiveUser);
 
   return (
     <DefaultLayout>

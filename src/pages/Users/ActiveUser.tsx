@@ -4,9 +4,9 @@ import { Key, useEffect, useState } from 'react';
 import { IUser } from './AllUsers';
 import TableRow from '../../components/TableRow';
 import { formatToLocalDate } from '../../hooks/formatDate';
-import ViewIcon from '../../components/Table/ViewIcon';
 import axiosInstance from '../../utils/axiosConfig';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
+import ViewIcon from '../../assets/icon/ViewIcon';
 
 const ActiveUser = () => {
   const [allUsers, setAllUsers] = useState<IUser[]>([]);

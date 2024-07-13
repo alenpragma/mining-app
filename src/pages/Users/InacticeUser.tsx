@@ -5,8 +5,8 @@ import axiosInstance from '../../utils/axiosConfig';
 import { IUser } from './AllUsers';
 import TableRow from '../../components/TableRow';
 import { formatToLocalDate } from '../../hooks/formatDate';
-import ViewIcon from '../../components/Table/ViewIcon';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
+import ViewIcon from '../../assets/icon/ViewIcon';
 
 const InacticeUser = () => {
   const [allUsers, setAllUsers] = useState<IUser[]>([]);

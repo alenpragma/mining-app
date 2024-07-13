@@ -9,8 +9,8 @@ import { ViewuserModal } from './ViewuserModal';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
 import SearchInput from '../../components/SearchInput';
 import TableRow from '../../components/TableRow';
-import ViewIcon from '../../components/Table/ViewIcon';
 import axiosInstance from '../../utils/axiosConfig';
+import ViewIcon from '../../assets/icon/ViewIcon';
 
 export type IUser = {
   id: number;
