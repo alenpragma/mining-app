@@ -25,16 +25,16 @@ type ttt = {
 };
 
 const VoucherPurchesHistory = () => {
-  const [purchesHistorys, setPurchesHistorys] = useState<[]>([]);
+  const [purchesHistorys, setPurchesHistorys] = useState<any>([{}, {}]);
 
   const fetchData = async () => {
     const response = await axiosInstance.get('/admin/package-purchase-history');
     setPurchesHistorys(response?.data?.purchase_history);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   return (
     <DefaultLayout>

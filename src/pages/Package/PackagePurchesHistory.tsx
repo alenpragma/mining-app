@@ -1,4 +1,3 @@
-import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import PackagePurchesHistorys from '../../components/PackagePurchesHistory/PackagePurchesHistorys';
 

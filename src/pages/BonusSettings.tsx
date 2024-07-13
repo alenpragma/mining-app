@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import { PuffLoader } from 'react-spinners';
 import { userToken } from '../hooks/getTokenFromstorage';
+import { baseUrl } from '../utils/api';
 
 interface IInput {
   free_mining_rewards: string;
@@ -72,17 +73,14 @@ const BonusSettings = () => {
     const newData = { ...data, id: bonusData[0]?.id };
 
     try {
-      const response = await fetch(
-        'https://mining.bizex.io/api/comission-setting/update',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${userToken}`,
-          },
-          body: JSON.stringify(newData),
+      const response = await fetch(`${baseUrl}/comission-setting/update`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userToken}`,
         },
-      );
+        body: JSON.stringify(newData),
+      });
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
