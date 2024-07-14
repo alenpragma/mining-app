@@ -10,94 +10,33 @@ import { PiPackage } from 'react-icons/pi';
 import { MdDownloading, MdToday } from 'react-icons/md';
 import { BiMoneyWithdraw } from 'react-icons/bi';
 import { LuListEnd } from 'react-icons/lu';
-import { IUser } from '../Users/AllUsers';
-import axios from 'axios';
-import { IPackage } from '../../types/packages';
-import { userToken } from '../../hooks/getTokenFromstorage';
-import { IDeposit } from '../../types/deposit';
 import { baseUrl } from '../../utils/api';
+import axiosInstance from '../../utils/axiosConfig';
 
 const BizTokenDashboard: React.FC = () => {
-  const [allUsers, setAllUsers] = useState<IUser[]>([]);
-  const [packages, setPackages] = useState<IPackage[]>([]);
-  const [depositsData, setDepositData] = useState<IDeposit[]>([]);
-
-  const getData = async () => {
-    try {
-      const response = await axios.get(`${baseUrl}/user-lists`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      setAllUsers(response?.data[0].users);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  const [counts, setCounts] = useState<any>([]);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${baseUrl}/packages`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      setPackages(response?.data[0]);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+      const response = await axiosInstance.get(`${baseUrl}/dashboard-data`);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  const depositData = async () => {
-    try {
-      const response = await axios.get(`${baseUrl}/usdt-add-request`, {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      setDepositData(response?.data[0].reverse());
+      setCounts(response?.data?.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
   useEffect(() => {
-    depositData();
+    fetchData();
   }, []);
-
-  const pending = depositsData?.filter(
-    (deposit) => deposit?.status.includes('pending'),
-  );
-
-  let activeUser = 0;
-  let inactiveUser = 0;
-
-  for (let i = 0; i < allUsers.length; i++) {
-    if (allUsers[i].activation_status == '1') {
-      activeUser += 1; // Increment activeUser by 1
-    } else {
-      inactiveUser += 1; // Increment inactiveUser by 1
-    }
-  }
 
   return (
     <DefaultLayout>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 md:gap-6 2xl:grid-cols-4 2xl:gap-7.5">
         <Link to={'/users/all-user'}>
           <CardDataStats
             title="Total Users"
-            total={allUsers.length}
+            total={counts?.total_users}
             // rate="0.95%"
             // levelDown
           >
@@ -108,7 +47,7 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/users/active-user'}>
           <CardDataStats
             title="Active Users"
-            total={activeUser}
+            total={counts.active_users}
             // rate="0.95%"
             // levelDown
           >
@@ -119,7 +58,7 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/users/inactive-user'}>
           <CardDataStats
             title="Inactive Users"
-            total={inactiveUser}
+            total={counts.inactive_users}
             // rate="0.95%"
             // levelDown
           >
@@ -130,7 +69,7 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/package/package-list'}>
           <CardDataStats
             title="Packages"
-            total={packages.length}
+            total={counts.packages}
             // rate="0.95%"
             // levelDown
           >
@@ -140,10 +79,34 @@ const BizTokenDashboard: React.FC = () => {
 
         <Link to={'/deposits/all-deposit'}>
           <CardDataStats
-            title="Total Deposits"
-            total={depositsData.length}
+            title="All Deposits"
+            total={counts.total_deposits_count}
             // rate="0.95%"
             // levelDown
+          >
+            <svg
+              className="w-6 h-6 text-xl dark:text-white text-primary"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+                d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"
+              />
+            </svg>
+          </CardDataStats>
+        </Link>
+        <Link to={'/deposits/all-deposit'}>
+          <CardDataStats
+            title="Total Deposits"
+            total={counts?.total_deposits_amount?.toFixed(6)}
           >
             <svg
               className="w-6 h-6 text-xl dark:text-white text-primary"
@@ -167,8 +130,19 @@ const BizTokenDashboard: React.FC = () => {
 
         <Link to={'/deposits/pending-deposit'}>
           <CardDataStats
-            title="Pending Deposits"
-            total={pending?.length}
+            title="Pending Deposits Amount"
+            total={counts?.total_deposits_amount_pending}
+            // rate="0.95%"
+            // levelDown
+          >
+            <MdDownloading className="text-2xl dark:text-white text-primary " />
+          </CardDataStats>
+        </Link>
+
+        <Link to={'/deposits/pending-deposit'}>
+          <CardDataStats
+            title="All Pending Deposits"
+            total={counts?.total_deposits_count_pending}
             // rate="0.95%"
             // levelDown
           >
@@ -201,7 +175,7 @@ const BizTokenDashboard: React.FC = () => {
         <Link to={'/payment-settings/deposit-methods'}>
           <CardDataStats
             title="Deposit Methods"
-            total="03"
+            total={counts?.total_deposit_methods}
             // rate="0.95%"
             // levelDown
           >
@@ -214,22 +188,18 @@ const BizTokenDashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <CardDataStats
-          title="Today's Deposit"
-          total="99999"
-          // rate="0.95%"
-          // levelDown
+          title="Today's Total Deposit"
+          total={counts?.today_total_deposits_amount}
         >
           <MdToday className="lg:text-2xl text-xl dark:text-white text-primary " />
         </CardDataStats>
 
-        {/* <CardDataStats
-          title="Last day's Deposit"
-          total="24234"
-          // rate="0.95%"
-          // levelDown
+        <CardDataStats
+          title="Today's Deposit"
+          total={counts?.today_total_deposits_count}
         >
-          <MdOutlineDateRange className="lg:text-2xl text-xl dark:text-white text-primary " />
-        </CardDataStats> */}
+          <MdToday className="lg:text-2xl text-xl dark:text-white text-primary " />
+        </CardDataStats>
       </div>
 
       <div className="mt-5">

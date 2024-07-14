@@ -1,6 +1,5 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { IPurchaseHistory } from '../../types/purchesHistory';
 import SearchInput from '../../components/SearchInput';

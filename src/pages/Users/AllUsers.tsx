@@ -11,6 +11,7 @@ import SearchInput from '../../components/SearchInput';
 import TableRow from '../../components/TableRow';
 import axiosInstance from '../../utils/axiosConfig';
 import ViewIcon from '../../assets/icon/ViewIcon';
+import SearchIcon from '../../assets/icon/SearchIcon';
 
 export type IUser = {
   id: number;
@@ -35,6 +36,7 @@ const AllUsers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userDetail, setUserDetail] = useState<IUser>();
   const [total, setTotal] = useState(0);
+  const [search, setSearch] = useState('');
 
   // searching
   // const [search, setSearch] = useState('');
@@ -55,7 +57,9 @@ const AllUsers = () => {
   const fetchData = async () => {
     try {
       const response = await axiosInstance.get(
-        `/user-lists?per_page=${perPage}&page=${currentPage + 1}`,
+        `/user-lists?per_page=${perPage}&page=${
+          currentPage + 1
+        }&search=${search}`,
       );
 
       setAllUsers(response?.data?.data);
@@ -65,9 +69,18 @@ const AllUsers = () => {
     }
   };
 
+  // useEffect(() => {
+  //   fetchData();
+  // }, [currentPage]);
+
+  const searchData = () => {
+    fetchData();
+    setCurrentPage(0);
+  };
+
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, [search, currentPage]);
 
   return (
     <div>
@@ -76,11 +89,15 @@ const AllUsers = () => {
 
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
           <div className="flex justify-between">
-            <div className="max-w-full w-100 mb-4">
+            <div className="max-w-full w-100 mb-4 relative">
               <SearchInput
                 placeholder="Search..."
-                // setSearch={setSearch}
+                search={search}
+                setSearch={setSearch}
               />
+              <div onClick={() => searchData()}>
+                <SearchIcon />
+              </div>
             </div>
           </div>
           <div className="max-w-full overflow-x-auto">
@@ -125,11 +142,11 @@ const AllUsers = () => {
                   {allUsers?.map((user: IUser, key: Key | null | undefined) => {
                     return (
                       <tr key={key}>
-                        <div className="pl-6 py-4 px-4">
+                        <h4 className="pl-6 py-4 px-4">
                           <TableRow
                             data={currentPage * perPage + Number(key) + 1}
                           />
-                        </div>
+                        </h4>
                         <TableRow data={user.name}>
                           <p className="text-sm">{user.phone}</p>
                         </TableRow>
@@ -158,11 +175,11 @@ const AllUsers = () => {
                         </td>
 
                         <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
-                          <div className="flex items-center space-x-3.5">
-                            <div onClick={() => openModal(user)}>
+                          <span className="flex items-center space-x-3.5">
+                            <button onClick={() => openModal(user)}>
                               <ViewIcon />
-                            </div>
-                          </div>
+                            </button>
+                          </span>
                         </td>
                       </tr>
                     );
