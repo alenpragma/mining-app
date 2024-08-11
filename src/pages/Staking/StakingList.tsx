@@ -71,11 +71,12 @@ const StakingList = () => {
                 <tr className="bg-gray-2 text-left dark:bg-meta-4">
                   <TableHead data="SL NO" />
                   <TableHead data="Package Name" />
-                  <TableHead data="Price" />
-                  <TableHead data="Daily Token" />
-                  <TableHead data="A2i Token" />
+                  <TableHead data="Minimum" />
+                  <TableHead data="Maximum" />
                   <TableHead data="Duration" />
-                  <TableHead data="Hash Power" />
+                  <TableHead data="APY(%)" />
+                  <TableHead data="Monthly RIO" />
+                  <TableHead data="Cancel Stake" />
                   <TableHead data="Status" />
                   <TableHead data="Actions" />
                 </tr>
@@ -88,8 +89,9 @@ const StakingList = () => {
                     <TableRow data={packageItem?.package_price} />
                     <TableRow data={packageItem?.daily_token} />
                     <TableRow data={packageItem?.a2i_token} />
+                    <TableRow data={packageItem?.a2i_token} />
                     <TableRow data={packageItem?.duration + ' ' + 'd'} />
-                    <TableRow data={packageItem?.hashpower + ' ' + 'hz'} />
+                    <TableRow data="Yes" />
                     <TableRow
                       data={packageItem?.status == '1' ? 'Active' : 'Inactive'}
                     />
