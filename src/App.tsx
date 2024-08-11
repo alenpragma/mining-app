@@ -38,6 +38,7 @@ import Stack from './pages/Stack/Stack';
 import LeadershipSetting from './pages/LeadershipSetting/LeadershipSetting';
 import VoucherPurchesHistory from './pages/ShoppingCart/VoucherPurchesHistory';
 import PopUp from './pages/PopUp';
+import StakingList from './pages/Staking/StakingList';
 
 function App() {
   const { pathname } = useLocation();
@@ -166,6 +167,20 @@ function App() {
             />
 
             {/* Packages */}
+
+            {/* staking start */}
+            <Route
+              path="/staking/staking-list"
+              element={
+                <>
+                  <PageTitle title="Staking List" />
+                  <ProtectedRoute>
+                    <StakingList />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            {/* staking end */}
 
             {/* Deposits start */}
 

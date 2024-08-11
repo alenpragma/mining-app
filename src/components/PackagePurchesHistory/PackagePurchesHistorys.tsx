@@ -8,6 +8,7 @@ const PackagePurchesHistorys = () => {
   const fetchData = async () => {
     const response = await axiosInstance.get('/admin/package-purchase-history');
     console.log(response);
+    console.log(purchesHistorys);
 
     setPurchesHistorys(response?.data);
   };
