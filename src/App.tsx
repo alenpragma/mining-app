@@ -39,6 +39,7 @@ import LeadershipSetting from './pages/LeadershipSetting/LeadershipSetting';
 import VoucherPurchesHistory from './pages/ShoppingCart/VoucherPurchesHistory';
 import PopUp from './pages/PopUp';
 import StakingList from './pages/Staking/StakingList';
+import StakingSettings from './pages/Staking/StakingSettings';
 
 function App() {
   const { pathname } = useLocation();
@@ -176,6 +177,17 @@ function App() {
                   <PageTitle title="Staking List" />
                   <ProtectedRoute>
                     <StakingList />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/staking/staking-settings"
+              element={
+                <>
+                  <PageTitle title="Staking Settings" />
+                  <ProtectedRoute>
+                    <StakingSettings />
                   </ProtectedRoute>
                 </>
               }

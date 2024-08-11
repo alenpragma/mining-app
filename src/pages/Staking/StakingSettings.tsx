@@ -1,82 +1,64 @@
-import { ChangeEvent, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import DefaultLayout from '../../layout/DefaultLayout';
+import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import SelectOptions from '../../Ui/SelectOptions';
+import { options } from '../options';
 import { IPackage } from '../../types/packages';
+import RequiredInput from '../../components/RequiredInput';
+import axiosInstance from '../../utils/axiosConfig';
 import { PuffLoader } from 'react-spinners';
-import Button from '../../Ui/Button';
+import { useState } from 'react';
 
-interface IUpdatePackage {
-  fetchData: () => void;
-  closeModal: () => void;
-  packageItem: IPackage | any;
-}
+type Inputs = {
+  package_name: string;
+  package_price: string;
+  daily_token: string;
+  a2i_token: string;
+  duration: string;
+  hashpower: string;
+  status: string;
+  image: string;
+  is_deleted: string;
+};
 
-export const UpdateStakingModal = ({
-  fetchData,
-  closeModal,
-  packageItem,
-}: IUpdatePackage) => {
+
+const optionss = [
+  { value: '0', label: 'Inactive' },
+  { value: '1', label: 'Active' },
+];
+const stacOptions = [
+  { value: '0', label: 'Yes' },
+  { value: '1', label: 'No' },
+];
+
+const StakingSettings = () => {
   const [lodaing, setLoading] = useState(false);
-  const [formState, setFormState] = useState({ ...packageItem });
-  const { register, handleSubmit, control } = useForm<IPackage>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
 
-  const options = [
-    { value: '0', label: 'Inactive' },
-    { value: '1', label: 'Active' },
-  ];
-  const stacOptions = [
-    { value: '0', label: 'Yes' },
-    { value: '1', label: 'No' },
-  ];
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormState({ ...formState, [name]: value });
-  };
   // const onSubmit: SubmitHandler<IPackage> = async (data: IPackage) => {
-  //   setLoading(true);
-
-  //   const newData = {
-  //     ...data,
-  //     id: packageItem?.id,
-  //     status: data?.status?.value,
-  //   };
-
-  //   console.log(newData);
+  //   const { status, ...rest } = data;
+  //   const newPackage = { ...rest, status: data?.status?.value };
 
   //   try {
-  //     const token = localStorage.getItem('biztoken');
-  //     const response = await fetch(
-  //       'https://mining.bizex.io/api/package/update',
-  //       {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         body: JSON.stringify(newData),
-  //       },
-  //     );
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  //     const responseData = await response.json();
-  //     if (responseData.success) {
-  //       setLoading(false);
-  //       fetchData();
-  //       Swal.fire({
-  //         title: 'success',
-  //         text: 'Successfully updated package',
-  //         icon: 'success',
-  //       }).then(() => {
-  //         closeModal();
-  //       });
-  //     }
-  //   } catch (error) {
+  //     const response = await axiosInstance.post('/package/store', newPackage);
+  //     console.log('Response:', response.data);
   //     Swal.fire({
-  //       title: 'error',
-  //       text: 'Something wrong',
+  //       title: 'Success',
+  //       text: 'Successfully added new package',
+  //       icon: 'success',
+  //     });
+  //     // setLoading(false);
+  //   } catch (error) {
+  //     console.error('Error updating:', error);
+  //     Swal.fire({
+  //       title: 'Failed',
+  //       text: 'Failed to added package',
   //       icon: 'error',
   //     });
   //   }
@@ -87,30 +69,11 @@ export const UpdateStakingModal = ({
   };
 
   return (
-    <div className="fixed left-0 top-0 z-999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 py-5">
-      <div
-        className="overflow-auto hide-scrollbar max-h-[80%] w-full max-w-fit rounded-lg bg-white   dark:bg-boxdark "
-        onClick={(e) => {
-          const target = e.target as HTMLDivElement;
-          if (target.className === 'modal-container') closeModal();
-        }}
-      >
-        <div className="modal rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark overflow-auto">
-          <div className="min-w-full w-[370px] lg:w-[600px] border-b border-stroke py-4 px-1 dark:border-strokedark">
-            <div className="w-full flex justify-between px-3 place-items-center py-3">
-              <h2 className="text-xl font-bold text-black dark:text-white">
-                Update Staking
-              </h2>
-
-              <strong
-                className="text-4xl align-center cursor-pointer  hover:text-black dark:hover:text-white"
-                onClick={closeModal}
-              >
-                &times;
-              </strong>
-            </div>
-            <hr />
-            <form
+    <DefaultLayout>
+      <Breadcrumb pageName="Add Staking" />
+      <div className="lg:w-[60%] mx-auto">
+        <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <form
               onSubmit={handleSubmit(onSubmit)}
               className="flex  flex-col w-full gap-5.5 p-6.5"
             >
@@ -119,8 +82,8 @@ export const UpdateStakingModal = ({
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register('package_name', { required: true })}
-                  value={formState.package_name}
-                  onChange={handleChange}
+                  placeholder={"Enter Packege Name"}
+                
                 />
               </div>
               <div>
@@ -128,8 +91,8 @@ export const UpdateStakingModal = ({
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register('package_price', { required: true })}
-                  value={formState.package_price}
-                  onChange={handleChange}
+                  placeholder={"100"}
+                
                 />
               </div>
               <div>
@@ -137,8 +100,8 @@ export const UpdateStakingModal = ({
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register('daily_token', { required: true })}
-                  value={parseFloat(formState.daily_token)}
-                  onChange={handleChange}
+                  placeholder={parseFloat("50")}
+                
                 />
               </div>
               <div>
@@ -146,8 +109,8 @@ export const UpdateStakingModal = ({
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register('a2i_token', { required: true })}
-                  value={parseFloat(formState.a2i_token)}
-                  onChange={handleChange}
+                  placeholder={parseFloat("150")}
+                
                 />
               </div>
               <div>
@@ -155,8 +118,8 @@ export const UpdateStakingModal = ({
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register('duration', { required: true })}
-                  value={formState.duration}
-                  onChange={handleChange}
+                  placeholder={"12"}
+                
                 />
               </div>
               <div>
@@ -164,8 +127,8 @@ export const UpdateStakingModal = ({
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register('hashpower', { required: true })}
-                  value={formState.hashpower}
-                  onChange={handleChange}
+                  placeholder={"6"}
+                
                 />
               </div>
               <SelectOptions
@@ -173,7 +136,7 @@ export const UpdateStakingModal = ({
                 options={stacOptions}
                 label="Cancel Stake"
                 name="cancel"
-                defaultValue={formState.status}
+                defaultValue={"Select an option"}
                 placeholder={'Select...'}
               />
               <div>
@@ -181,16 +144,16 @@ export const UpdateStakingModal = ({
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register('hashpower', { required: true })}
-                  value={formState.hashpower}
-                  onChange={handleChange}
+                  placeholder={"20"}
+                
                 />
               </div>
               <SelectOptions
                 control={control}
-                options={options}
+                options={optionss}
                 label="Status"
                 name="status"
-                defaultValue={formState.status}
+                defaultValue={"Select an option"}
                 placeholder={'Select...'}
               />
 
@@ -199,7 +162,7 @@ export const UpdateStakingModal = ({
                 <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register("status", { required: true })}
                   value={formState.status}
-                  onChange={handleChange}
+                
                 />
 
               </div> */}
@@ -213,22 +176,23 @@ export const UpdateStakingModal = ({
                       className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
                       type="submit"
                     >
-                      Update
+                      Submit
                     </button>
                   )}
                 </div>
-                <button
+                {/* <button
                   type="button"
                   onClick={() => closeModal()}
                   className="btn flex justify-center rounded bg-danger py-2 px-6 font-medium text-gray hover:shadow-1"
                 >
                   Cancel
-                </button>
+                </button> */}
               </div>
             </form>
-          </div>
         </div>
       </div>
-    </div>
+    </DefaultLayout>
   );
 };
+
+export default StakingSettings;
