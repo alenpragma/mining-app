@@ -2,14 +2,14 @@ import { ChangeEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import SelectOptions from '../../Ui/SelectOptions';
-import { IPackage } from '../../types/packages';
 import { PuffLoader } from 'react-spinners';
 import Button from '../../Ui/Button';
+import { IStaking } from '../../types/Staking';
 
 interface IUpdatePackage {
   fetchData: () => void;
   closeModal: () => void;
-  packageItem: IPackage | any;
+  packageItem: IStaking | any;
 }
 
 export const UpdateStakingModal = ({
@@ -19,71 +19,63 @@ export const UpdateStakingModal = ({
 }: IUpdatePackage) => {
   const [lodaing, setLoading] = useState(false);
   const [formState, setFormState] = useState({ ...packageItem });
-  const { register, handleSubmit, control } = useForm<IPackage>();
+  const { register, handleSubmit, control } = useForm<IStaking>();
 
   const options = [
     { value: '0', label: 'Inactive' },
     { value: '1', label: 'Active' },
   ];
-  const stacOptions = [
-    { value: '0', label: 'Yes' },
-    { value: '1', label: 'No' },
-  ];
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
   };
-  // const onSubmit: SubmitHandler<IPackage> = async (data: IPackage) => {
-  //   setLoading(true);
+  const onSubmit: SubmitHandler<IStaking> = async (data: IStaking) => {
+    setLoading(true);
 
-  //   const newData = {
-  //     ...data,
-  //     id: packageItem?.id,
-  //     status: data?.status?.value,
-  //   };
+    const newData = {
+      ...data,
+      id: packageItem?.id,
+      status: data?.status?.value,
+    };
 
-  //   console.log(newData);
+    console.log(newData);
 
-  //   try {
-  //     const token = localStorage.getItem('biztoken');
-  //     const response = await fetch(
-  //       'https://mining.bizex.io/api/package/update',
-  //       {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         body: JSON.stringify(newData),
-  //       },
-  //     );
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  //     const responseData = await response.json();
-  //     if (responseData.success) {
-  //       setLoading(false);
-  //       fetchData();
-  //       Swal.fire({
-  //         title: 'success',
-  //         text: 'Successfully updated package',
-  //         icon: 'success',
-  //       }).then(() => {
-  //         closeModal();
-  //       });
-  //     }
-  //   } catch (error) {
-  //     Swal.fire({
-  //       title: 'error',
-  //       text: 'Something wrong',
-  //       icon: 'error',
-  //     });
-  //   }
-  // };
-
-  const onSubmit: SubmitHandler<IPackage> = async (data: IPackage) => {
-    console.log(data);
+    try {
+      const token = localStorage.getItem('biztoken');
+      const response = await fetch(
+        'https://mining.bizex.io/api/staking/update',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(newData),
+        },
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const responseData = await response.json();
+      if (responseData.success) {
+        setLoading(false);
+        fetchData();
+        Swal.fire({
+          title: 'success',
+          text: 'Successfully updated package',
+          icon: 'success',
+        }).then(() => {
+          closeModal();
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        title: 'error',
+        text: 'Something wrong',
+        icon: 'error',
+      });
+    }
   };
 
   return (
@@ -115,29 +107,29 @@ export const UpdateStakingModal = ({
               className="flex  flex-col w-full gap-5.5 p-6.5"
             >
               <div>
-                <p>Name</p>
+                <p>Staking Name</p>
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('package_name', { required: true })}
-                  value={formState.package_name}
+                  {...register('staking_name', { required: true })}
+                  value={formState.staking_name}
                   onChange={handleChange}
                 />
               </div>
               <div>
-                <p>Minimum BIZT Coin</p>
+                <p>Min Staking</p>
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('package_price', { required: true })}
-                  value={formState.package_price}
+                  {...register('min_staking', { required: true })}
+                  value={formState.min_staking}
                   onChange={handleChange}
                 />
               </div>
               <div>
-                <p>Maximum BIZT Coin</p>
+                <p>Max Staking</p>
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('daily_token', { required: true })}
-                  value={parseFloat(formState.daily_token)}
+                  {...register('max_staking', { required: true })}
+                  value={parseFloat(formState.max_staking)}
                   onChange={handleChange}
                 />
               </div>
@@ -145,8 +137,8 @@ export const UpdateStakingModal = ({
                 <p>Duration Days</p>
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('a2i_token', { required: true })}
-                  value={parseFloat(formState.a2i_token)}
+                  {...register('duration', { required: true })}
+                  value={parseFloat(formState.duration)}
                   onChange={handleChange}
                 />
               </div>
@@ -154,8 +146,8 @@ export const UpdateStakingModal = ({
                 <p>APY(%)</p>
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('duration', { required: true })}
-                  value={formState.duration}
+                  {...register('apy', { required: true })}
+                  value={formState.apy}
                   onChange={handleChange}
                 />
               </div>
@@ -163,16 +155,16 @@ export const UpdateStakingModal = ({
                 <p>Monthly RIO</p>
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('hashpower', { required: true })}
-                  value={formState.hashpower}
+                  {...register('monthly_roi', { required: true })}
+                  value={formState.monthly_roi}
                   onChange={handleChange}
                 />
               </div>
               <SelectOptions
                 control={control}
-                options={stacOptions}
-                label="Cancel Stake"
-                name="cancel"
+                options={options}
+                label="Unstake Status"
+                name="unstake_status"
                 defaultValue={formState.status}
                 placeholder={'Select...'}
               />
@@ -180,30 +172,19 @@ export const UpdateStakingModal = ({
                 <p>Cancel Charge(%)</p>
                 <input
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('hashpower', { required: true })}
-                  value={formState.hashpower}
+                  {...register('unstake_charge', { required: true })}
+                  value={formState.unstake_charge}
                   onChange={handleChange}
                 />
               </div>
               <SelectOptions
                 control={control}
                 options={options}
-                label="Status"
+                label="Staking Status"
                 name="status"
                 defaultValue={formState.status}
                 placeholder={'Select...'}
               />
-
-              {/* <div>
-                <p>status</p>
-                <input className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register("status", { required: true })}
-                  value={formState.status}
-                  onChange={handleChange}
-                />
-
-              </div> */}
-
               <div className="flex justify-center gap-4">
                 <div>
                   {lodaing ? (
