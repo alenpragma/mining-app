@@ -11,7 +11,7 @@ type selectType = {
   name: string;
   control: any;
   label: string;
-  defaultValue: number | string;
+  defaultValue?: number | string;
   placeholder: string;
   options: IOptions | any;
 };

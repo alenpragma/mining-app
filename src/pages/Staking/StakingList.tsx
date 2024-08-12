@@ -12,17 +12,18 @@ import ViewIcon from '../../assets/icon/ViewIcon';
 import EditIcon from '../../assets/icon/EditIcon';
 import TableHead from '../../components/TableHead';
 import axiosInstance from '../../utils/axiosConfig';
+import { IStaking } from '../../types/Staking';
 
 const StakingList = () => {
-  const [packages, setPackages] = useState<IPackage[]>([]);
+  const [packages, setPackages] = useState<IStaking[]>([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [packageItem, setPackageItem] = useState<IPackage>();
+  const [packageItem, setPackageItem] = useState<IStaking>();
 
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-  const [userDetail, setUserDetail] = useState<IPackage>();
+  const [userDetail, setUserDetail] = useState<IStaking>();
 
-  const openModal = (packageItem: IPackage) => {
+  const openModal = (packageItem: IStaking) => {
     setPackageItem(packageItem);
     setIsModalOpen(true);
     setIsViewModalOpen(false);
@@ -36,7 +37,7 @@ const StakingList = () => {
     setIsViewModalOpen(false);
   };
 
-  const openViewModal = (data: IPackage) => {
+  const openViewModal = (data: IStaking) => {
     setIsViewModalOpen(true);
     setUserDetail(data);
     closeModal();
@@ -44,8 +45,7 @@ const StakingList = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axiosInstance.get('/packages');
-
+      const response = await axiosInstance.get('/stakings');
       setPackages(response?.data[0]);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -77,21 +77,23 @@ const StakingList = () => {
                   <TableHead data="APY(%)" />
                   <TableHead data="Monthly RIO" />
                   <TableHead data="Cancel Stake" />
+                  <TableHead data="Charge" />
                   <TableHead data="Status" />
                   <TableHead data="Actions" />
                 </tr>
               </thead>
               <tbody>
-                {packages?.map((packageItem: IPackage, key: number) => (
+                {packages?.map((packageItem: IStaking, key: number) => (
                   <tr key={key}>
                     <TableRow data={key + 1} />
-                    <TableRow data={packageItem?.package_name} />
-                    <TableRow data={packageItem?.package_price} />
-                    <TableRow data={packageItem?.daily_token} />
-                    <TableRow data={packageItem?.a2i_token} />
-                    <TableRow data={packageItem?.a2i_token} />
-                    <TableRow data={packageItem?.duration + ' ' + 'd'} />
-                    <TableRow data="Yes" />
+                    <TableRow data={packageItem?.staking_name} />
+                    <TableRow data={packageItem?.min_staking} />
+                    <TableRow data={packageItem?.max_staking} />
+                    <TableRow data={packageItem?.duration} />
+                    <TableRow data={packageItem?.apy} />
+                    <TableRow data={packageItem?.monthly_roi} />
+                    <TableRow data={packageItem?.status ? 'Yes' : 'No'} />
+                    <TableRow data={packageItem?.unstake_charge} />
                     <TableRow
                       data={packageItem?.status == '1' ? 'Active' : 'Inactive'}
                     />

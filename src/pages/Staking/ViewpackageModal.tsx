@@ -31,42 +31,56 @@ const ViewpackageModal = ({ closeModal, details }: IPackageDetails) => {
               <p>
                 {' '}
                 <span className="font-semibold">Name:</span>{' '}
-                {details?.package_name}
+                {details?.staking_name}
               </p>
               <p>
                 {' '}
-                <span className="font-semibold">Package Price:</span>{' '}
-                {details?.package_price}
+                <span className="font-semibold">Min Staking:</span>{' '}
+                {details?.min_staking}
               </p>
               <p>
                 {' '}
-                <span className="font-semibold">Daily Token:</span>{' '}
-                {details?.daily_token}
+                <span className="font-semibold">Max Staking:</span>{' '}
+                {details?.max_staking}
               </p>
               <p>
                 {' '}
-                <span className="font-semibold">A2i Token: </span>{' '}
-                {details?.a2i_token}
-              </p>
-              <p>
-                {' '}
-                <span className="font-semibold">Duration:</span>{' '}
+                <span className="font-semibold">Duration: </span>{' '}
                 {details?.duration}
               </p>
               <p>
                 {' '}
-                <span className="font-semibold">Hashpower:</span>{' '}
-                {details?.hashpower}
+                <span className="font-semibold">APY:</span> {details?.apy}
               </p>
               <p>
                 {' '}
-                <span className="font-semibold">Last Updated:</span>{' '}
-                {formatToLocalDate(details?.updated_at)}
+                <span className="font-semibold">Monthly RIO:</span>{' '}
+                {details?.monthly_roi}
+              </p>
+              <p>
+                {' '}
+                <span className="font-semibold">Cancel Status:</span>{' '}
+                {details?.status === 1 ? 'Yes' : 'No'}
+              </p>
+              <p>
+                {' '}
+                <span className="font-semibold">Charge:</span>{' '}
+                {details?.unstake_charge}
               </p>
               <p>
                 {' '}
                 <span className="font-semibold">Status:</span>{' '}
                 {details.status == '0' ? 'Inactive' : 'Active'}
+              </p>
+              <p>
+                {' '}
+                <span className="font-semibold">Create Status:</span>{' '}
+                {formatToLocalDate(details?.created_at)}
+              </p>
+              <p>
+                {' '}
+                <span className="font-semibold">Updated Status:</span>{' '}
+                {formatToLocalDate(details?.updated_at)}
               </p>
               <button
                 onClick={() => closeModal()}
