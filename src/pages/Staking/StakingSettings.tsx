@@ -18,7 +18,7 @@ type TCreateStaking = {
   unstake_status: string | any;
 };
 
-const durationOptions = [
+export const durationOptions = [
   { value: '1', label: '1 month' },
   { value: '3', label: '3 month' },
   { value: '6', label: '6 month' },

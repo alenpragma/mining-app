@@ -6,7 +6,7 @@ const DarkModeSwitcher = () => {
   const [colorMode, setColorMode] = useColorMode();
   const { theme, setTheme } = useContext(MyContext);
 
-  console.log(theme);
+  // console.log(theme);
 
   return (
     <li>
