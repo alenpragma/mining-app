@@ -20,6 +20,7 @@ export const UpdateStakingModal = ({
   const [lodaing, setLoading] = useState(false);
   const [formState, setFormState] = useState({ ...packageItem });
   const { register, handleSubmit, control } = useForm<IStaking>();
+  console.log(packageItem);
 
   const options = [
     { value: '0', label: 'Inactive' },
@@ -34,6 +35,11 @@ export const UpdateStakingModal = ({
     { value: '18', label: '18 month' },
     { value: '24', label: '24 month' },
   ];
+
+  const defatDurationIndex = durationOptions.findIndex(
+    (option) => option.value == packageItem.duration,
+  );
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
@@ -148,7 +154,7 @@ export const UpdateStakingModal = ({
                   options={durationOptions}
                   label="Monthly Duration"
                   name="duration"
-                  defaultValue={'4'}
+                  defaultValue={defatDurationIndex}
                   placeholder={'Select...'}
                 />
               </div>
