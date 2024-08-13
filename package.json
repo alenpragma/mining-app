@@ -12,6 +12,7 @@
     "name": "Edulife"
   },
   "dependencies": {
+    "@hookform/error-message": "^2.0.1",
     "apexcharts": "^3.41.0",
     "axios": "^1.6.8",
     "flatpickr": "^4.6.13",

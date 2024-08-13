@@ -613,7 +613,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 }}
               </SidebarLinkGroup>
 
-
               <SidebarLinkGroup
                 activeCondition={
                   pathname === '/shopping' || pathname.includes('shopping')
@@ -987,6 +986,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 >
                   <MdOutlineSettingsSuggest className="text-xl dark:bg-meta-4" />
                   Pop Up
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/notification"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('notification') &&
+                    'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  <MdOutlineSettingsSuggest className="text-xl dark:bg-meta-4" />
+                  Notification
                 </NavLink>
               </li>
 

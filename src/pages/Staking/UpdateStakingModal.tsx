@@ -25,6 +25,15 @@ export const UpdateStakingModal = ({
     { value: '0', label: 'Inactive' },
     { value: '1', label: 'Active' },
   ];
+  const durationOptions = [
+    { value: '1', label: '1 month' },
+    { value: '3', label: '3 month' },
+    { value: '6', label: '6 month' },
+    { value: '8', label: '8 month' },
+    { value: '12', label: '12 month' },
+    { value: '18', label: '18 month' },
+    { value: '24', label: '24 month' },
+  ];
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
@@ -134,12 +143,13 @@ export const UpdateStakingModal = ({
                 />
               </div>
               <div>
-                <p>Duration Days</p>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('duration', { required: true })}
-                  value={parseFloat(formState.duration)}
-                  onChange={handleChange}
+                <SelectOptions
+                  control={control}
+                  options={durationOptions}
+                  label="Monthly Duration"
+                  name="duration"
+                  defaultValue={'4'}
+                  placeholder={'Select...'}
                 />
               </div>
               <div>
@@ -148,15 +158,6 @@ export const UpdateStakingModal = ({
                   className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                   {...register('apy', { required: true })}
                   value={formState.apy}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <p>Monthly RIO</p>
-                <input
-                  className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                  {...register('monthly_roi', { required: true })}
-                  value={formState.monthly_roi}
                   onChange={handleChange}
                 />
               </div>

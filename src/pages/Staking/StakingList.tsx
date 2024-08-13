@@ -73,9 +73,8 @@ const StakingList = () => {
                   <TableHead data="Package Name" />
                   <TableHead data="Minimum" />
                   <TableHead data="Maximum" />
-                  <TableHead data="Duration" />
+                  <TableHead data="Monthly Duration" />
                   <TableHead data="APY(%)" />
-                  <TableHead data="Monthly RIO" />
                   <TableHead data="Cancel Stake" />
                   <TableHead data="Charge" />
                   <TableHead data="Status" />
@@ -91,7 +90,6 @@ const StakingList = () => {
                     <TableRow data={packageItem?.max_staking} />
                     <TableRow data={packageItem?.duration} />
                     <TableRow data={packageItem?.apy} />
-                    <TableRow data={packageItem?.monthly_roi} />
                     <TableRow data={packageItem?.status ? 'Yes' : 'No'} />
                     <TableRow data={packageItem?.unstake_charge} />
                     <TableRow

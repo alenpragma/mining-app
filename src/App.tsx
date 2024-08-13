@@ -40,6 +40,7 @@ import VoucherPurchesHistory from './pages/ShoppingCart/VoucherPurchesHistory';
 import PopUp from './pages/PopUp';
 import StakingList from './pages/Staking/StakingList';
 import StakingSettings from './pages/Staking/StakingSettings';
+import Notification from './pages/Notification/Notification';
 
 function App() {
   const { pathname } = useLocation();
@@ -405,6 +406,17 @@ function App() {
                   <PageTitle title="pop up" />
                   <ProtectedRoute>
                     <PopUp />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/notification"
+              element={
+                <>
+                  <PageTitle title="Notification" />
+                  <ProtectedRoute>
+                    <Notification />
                   </ProtectedRoute>
                 </>
               }
