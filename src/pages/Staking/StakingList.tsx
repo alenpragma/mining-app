@@ -1,12 +1,9 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { UpdatePackageModal, UpdateStakingModal } from './UpdateStakingModal';
+import { UpdateStakingModal } from './UpdateStakingModal';
 import Skeleton from 'react-loading-skeleton';
 import ViewpackageModal from './ViewpackageModal';
-import { IPackage } from '../../types/packages';
-import { userToken } from '../../hooks/getTokenFromstorage';
 import TableRow from '../../components/TableRow';
 import ViewIcon from '../../assets/icon/ViewIcon';
 import EditIcon from '../../assets/icon/EditIcon';
@@ -28,15 +25,12 @@ const StakingList = () => {
     setIsModalOpen(true);
     setIsViewModalOpen(false);
   };
-
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
   const closeViewModal = () => {
     setIsViewModalOpen(false);
   };
-
   const openViewModal = (data: IStaking) => {
     setIsViewModalOpen(true);
     setUserDetail(data);
@@ -127,6 +121,7 @@ const StakingList = () => {
           <UpdateStakingModal
             closeModal={closeModal}
             packageItem={packageItem}
+            setPackages={setPackages}
             fetchData={fetchData}
           />
         )}

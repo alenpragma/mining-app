@@ -12,7 +12,7 @@ export type IStaking = {
   duration: string;
   apy: string;
   monthly_roi: string;
-  unstake_status: string;
+  unstake_status: string | any;
   unstake_charge: string;
   package_price: string;
   status: string | IStatus;
