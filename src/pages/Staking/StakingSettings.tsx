@@ -6,17 +6,27 @@ import SelectOptions from '../../Ui/SelectOptions';
 import axiosInstance from '../../utils/axiosConfig';
 import { PuffLoader } from 'react-spinners';
 import { useState } from 'react';
+import { ErrorMessage } from '@hookform/error-message';
 
 type TCreateStaking = {
   staking_name: string;
   max_staking: string;
   min_staking: string;
-  duration: string;
+  duration: string | any;
   apy: string;
-  monthly_roi: string;
   unstake_charge: string;
-  unstake_status: string;
+  unstake_status: string | any;
 };
+
+const durationOptions = [
+  { value: '1', label: '1 month' },
+  { value: '3', label: '3 month' },
+  { value: '6', label: '6 month' },
+  { value: '8', label: '8 month' },
+  { value: '12', label: '12 month' },
+  { value: '18', label: '18 month' },
+  { value: '24', label: '24 month' },
+];
 
 const stacOptions = [
   { value: '0', label: 'Yes' },
@@ -35,25 +45,33 @@ const StakingSettings = () => {
   const onSubmit: SubmitHandler<TCreateStaking> = async (
     data: TCreateStaking,
   ) => {
+    setLoading(true);
     const { unstake_status, ...rest } = data;
-    const newPackage = { ...rest, unstake_status: data?.unstake_status.value };
-    console.log(newPackage);
+    const newPackage = {
+      ...rest,
+      unstake_status: data?.unstake_status?.value,
+      duration: data?.duration?.value,
+    };
     try {
       const response = await axiosInstance.post('/staking/store', newPackage);
-      // console.log('Response:', response.data);
-      Swal.fire({
-        title: 'Success',
-        text: 'Successfully added new package',
-        icon: 'success',
-      });
-      // setLoading(false);
+      if (response) {
+        Swal.fire({
+          title: 'Success',
+          text: 'Successfully added new package',
+          icon: 'success',
+        });
+        setLoading(false);
+      }
     } catch (error) {
-      console.error('Error updating:', error);
-      Swal.fire({
-        title: 'Failed',
-        text: 'Failed to added package',
-        icon: 'error',
-      });
+      if (error) {
+        console.error('Error updating:', error);
+        Swal.fire({
+          title: 'Failed',
+          text: 'Failed to added package',
+          icon: 'error',
+        });
+        setLoading(false);
+      }
     }
   };
 
@@ -70,48 +88,92 @@ const StakingSettings = () => {
               <p>Staking Name</p>
               <input
                 className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                {...register('staking_name', { required: true })}
+                {...register('staking_name', {
+                  required: 'This Field is Required',
+                })}
                 placeholder="Staking Name"
+              />
+              <ErrorMessage
+                errors={errors}
+                name="staking_name"
+                render={({ message }) => (
+                  <p className="text-red-500 text-[12px]">{message}</p>
+                )}
               />
             </div>
             <div>
               <p>Min Staking</p>
               <input
                 className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                {...register('max_staking', { required: true })}
+                {...register('max_staking', {
+                  required: 'This Field is Required',
+                })}
                 placeholder="Min Staking"
+              />
+              <ErrorMessage
+                errors={errors}
+                name="max_staking"
+                render={({ message }) => (
+                  <p className="text-red-500 text-[12px]">{message}</p>
+                )}
               />
             </div>
             <div>
               <p>Max Staking</p>
               <input
                 className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                {...register('min_staking', { required: true })}
+                {...register('min_staking', {
+                  required: 'This Field is Required',
+                })}
                 placeholder="Max Staking"
+              />
+              <ErrorMessage
+                errors={errors}
+                name="min_staking"
+                render={({ message }) => (
+                  <p className="text-red-500 text-[12px]">{message}</p>
+                )}
               />
             </div>
             <div>
-              <p>Duration Days</p>
-              <input
+              <div>
+                <SelectOptions
+                  control={control}
+                  options={durationOptions}
+                  label="Monthly Duration"
+                  name="duration"
+                  defaultValue=""
+                  placeholder={'Select...'}
+                />
+              </div>
+              {/* <input
                 className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                {...register('duration', { required: true })}
+                {...register('duration', {
+                  required: 'This Field is Required',
+                })}
                 placeholder="Duration Days"
+              /> */}
+              <ErrorMessage
+                errors={errors}
+                name="duration"
+                render={({ message }) => (
+                  <p className="text-red-500 text-[12px]">{message}</p>
+                )}
               />
             </div>
             <div>
               <p>APY(%)</p>
               <input
                 className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                {...register('apy', { required: true })}
+                {...register('apy', { required: 'This Field is Required' })}
                 placeholder="APY"
               />
-            </div>
-            <div>
-              <p>Monthly RIO</p>
-              <input
-                className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                {...register('monthly_roi', { required: true })}
-                placeholder="Monthly RIO"
+              <ErrorMessage
+                errors={errors}
+                name="apy"
+                render={({ message }) => (
+                  <p className="text-red-500 text-[12px]">{message}</p>
+                )}
               />
             </div>
             <SelectOptions
@@ -119,6 +181,7 @@ const StakingSettings = () => {
               options={stacOptions}
               label="Unstake Status"
               name="unstake_status"
+              defaultValue=""
               placeholder={'Select An Option'}
             />
             {/* <div>
@@ -132,8 +195,17 @@ const StakingSettings = () => {
               <p>Cancel Charge(%)</p>
               <input
                 className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                {...register('unstake_charge', { required: true })}
+                {...register('unstake_charge', {
+                  required: 'This Field is Required',
+                })}
                 placeholder="Cancel Charge"
+              />
+              <ErrorMessage
+                errors={errors}
+                name="unstake_charge"
+                render={({ message }) => (
+                  <p className="text-red-500 text-[12px]">{message}</p>
+                )}
               />
             </div>
             <div className="flex justify-center gap-4">
@@ -158,16 +230,6 @@ const StakingSettings = () => {
 };
 
 export default StakingSettings;
-
-
-
-
-
-
-
-
-
-
 
 // import DefaultLayout from '../../layout/DefaultLayout';
 // import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
