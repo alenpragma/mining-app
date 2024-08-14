@@ -21,7 +21,7 @@ import PurchaseHistory from './pages/Purchase/PurchaseHistory';
 import ProtectedRoute from './hooks/ProtectedRoute';
 
 const Profile = lazy(() => import('./pages/Profile'));
-const GeneralSettings = lazy(() => import('./pages/GeneralSettings'));
+const GeneralSettings = lazy(() => import('./pages/GeneralSetting/GeneralSettings'));
 
 const AllDeposits = lazy(() => import('./pages/Deposits/AllDeposits'));
 const PackageSettings = lazy(() => import('./pages/Package/PackageSettings'));
