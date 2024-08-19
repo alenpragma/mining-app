@@ -35,6 +35,8 @@ const ViewDepositDetailsModal = ({ closeModal, details }: any) => {
               <p>Type: {details.type}</p>
               <p>Wallet name: {details.wallet_name}</p>
               <p>Wallet no: {details.wallet_no}</p>
+              <p>Description: {details.description}</p>
+
               <p>Status: {details.status}</p>
               <button
                 onClick={() => closeModal()}
