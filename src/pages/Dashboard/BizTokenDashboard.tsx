@@ -200,6 +200,34 @@ const BizTokenDashboard: React.FC = () => {
         >
           <MdToday className="lg:text-2xl text-xl dark:text-white text-primary " />
         </CardDataStats>
+
+        <CardDataStats
+          title="7 days Deposit"
+          total={counts?.['7days_total_deposits_amount']}
+        >
+          <MdToday className="lg:text-2xl text-xl dark:text-white text-primary " />
+        </CardDataStats>
+
+        <CardDataStats
+          title="7 days Deposit Count"
+          total={counts?.['7days_total_deposits_count']}
+        >
+          <MdToday className="lg:text-2xl text-xl dark:text-white text-primary " />
+        </CardDataStats>
+
+        <CardDataStats
+          title="Month Total Deposit"
+          total={counts?.month_total_deposits_amount}
+        >
+          <MdToday className="lg:text-2xl text-xl dark:text-white text-primary " />
+        </CardDataStats>
+
+        <CardDataStats
+          title="Monthly Deposit"
+          total={counts?.month_total_deposits_count}
+        >
+          <MdToday className="lg:text-2xl text-xl dark:text-white text-primary " />
+        </CardDataStats>
       </div>
 
       <div className="mt-5">

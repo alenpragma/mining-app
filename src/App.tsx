@@ -21,7 +21,9 @@ import PurchaseHistory from './pages/Purchase/PurchaseHistory';
 import ProtectedRoute from './hooks/ProtectedRoute';
 
 const Profile = lazy(() => import('./pages/Profile'));
-const GeneralSettings = lazy(() => import('./pages/GeneralSetting/GeneralSettings'));
+const GeneralSettings = lazy(
+  () => import('./pages/GeneralSetting/GeneralSettings'),
+);
 
 const AllDeposits = lazy(() => import('./pages/Deposits/AllDeposits'));
 const PackageSettings = lazy(() => import('./pages/Package/PackageSettings'));
@@ -41,6 +43,7 @@ import PopUp from './pages/PopUp';
 import StakingList from './pages/Staking/StakingList';
 import StakingSettings from './pages/Staking/StakingSettings';
 import Notification from './pages/Notification/Notification';
+import Wallets from './pages/Wallets/Wallets';
 
 function App() {
   const { pathname } = useLocation();
@@ -129,6 +132,18 @@ function App() {
             />
 
             {/* user end */}
+
+            <Route
+              path="/user-wallets"
+              element={
+                <>
+                  <PageTitle title="inactive Users" />
+                  <ProtectedRoute>
+                    <Wallets />
+                  </ProtectedRoute>
+                </>
+              }
+            />
 
             {/* Packages */}
             <Route
