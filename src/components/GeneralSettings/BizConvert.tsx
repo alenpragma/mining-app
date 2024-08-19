@@ -1,22 +1,42 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../../Ui/Button';
 import InputField from '../Forms/InputField';
+import { useState } from 'react';
+import axiosInstance from '../../utils/axiosConfig';
+import Swal from 'sweetalert2';
+import { PuffLoader } from 'react-spinners';
 
 interface IInput {
-  id: string;
-  minimum_convert: string;
-  maximum_convert: string;
-  charge: string;
-  duration: string;
-  created_at: string;
-  updated_at: string;
+  conversion_ratio: string | number;
 }
 
 const BizConvert = () => {
   const { register, handleSubmit } = useForm<IInput>();
+  const [lodaing, setLoading] = useState(false);
 
   const onSubmit: SubmitHandler<IInput> = async (data: IInput) => {
-    console.log(data);
+    setLoading(true);
+    try {
+      const response = await axiosInstance.post('/convert-biz-to-bizt', data);
+      if (response) {
+        Swal.fire({
+          title: 'Successfully Convert',
+          text: 'Successfully convert BIZ to BIZT',
+          icon: 'success',
+        });
+        setLoading(false);
+      }
+    } catch (error) {
+      if (error) {
+        console.error('Error updating:', error);
+        Swal.fire({
+          title: 'Failed',
+          text: 'Failed to added package',
+          icon: 'error',
+        });
+        setLoading(false);
+      }
+    }
   };
 
   return (
@@ -31,13 +51,23 @@ const BizConvert = () => {
         >
           <InputField
             label="Conversion Ratio (%)"
-            name="conversion ratio"
+            name="conversion_ratio"
             register={register}
-            placeholder="Minimum"
-            defaultValue={'100'}
+            placeholder="Conversion Ratio"
+            defaultValue=""
           />
-
-          <Button cs="px-10 w-fit my-5 bg-primary" btnName="Convert BIZ"></Button>
+          <div>
+            {lodaing ? (
+              <PuffLoader className="mx-auto" color="#36d7b7" size={40} />
+            ) : (
+              <button
+                className="btn flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
+                type="submit"
+              >
+                Convert Biz
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </>

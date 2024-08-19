@@ -18,13 +18,11 @@ type TCreateStaking = {
   unstake_status: string | any;
 };
 
-const durationOptions = [
+export const durationOptions = [
   { value: '1', label: '1 month' },
   { value: '3', label: '3 month' },
   { value: '6', label: '6 month' },
-  { value: '8', label: '8 month' },
   { value: '12', label: '12 month' },
-  { value: '18', label: '18 month' },
   { value: '24', label: '24 month' },
 ];
 

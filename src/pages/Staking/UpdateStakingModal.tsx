@@ -3,38 +3,39 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import SelectOptions from '../../Ui/SelectOptions';
 import { PuffLoader } from 'react-spinners';
-import Button from '../../Ui/Button';
-import { IStaking } from '../../types/Staking';
+import axiosInstance from '../../utils/axiosConfig';
+import { durationOptions } from './StakingSettings';
 
+interface IInput {
+  staking_name: string;
+  min_staking: string | number;
+  max_staking: string | number;
+  duration: string | any;
+  apy: string | number;
+  // monthly_roi: string | number;
+  unstake_charge: string | number;
+  unstake_status: string | any;
+  status: string | any;
+}
 interface IUpdatePackage {
   fetchData: () => void;
   closeModal: () => void;
-  packageItem: IStaking | any;
+  packageItem: IInput | any;
+  setPackages: any;
 }
+const options = [
+  { value: '0', label: 'Inactive' },
+  { value: '1', label: 'Active' },
+];
 
 export const UpdateStakingModal = ({
-  fetchData,
   closeModal,
   packageItem,
+  setPackages,
 }: IUpdatePackage) => {
   const [lodaing, setLoading] = useState(false);
   const [formState, setFormState] = useState({ ...packageItem });
-  const { register, handleSubmit, control } = useForm<IStaking>();
-  console.log(packageItem);
-
-  const options = [
-    { value: '0', label: 'Inactive' },
-    { value: '1', label: 'Active' },
-  ];
-  const durationOptions = [
-    { value: '1', label: '1 month' },
-    { value: '3', label: '3 month' },
-    { value: '6', label: '6 month' },
-    { value: '8', label: '8 month' },
-    { value: '12', label: '12 month' },
-    { value: '18', label: '18 month' },
-    { value: '24', label: '24 month' },
-  ];
+  const { register, handleSubmit, control } = useForm<IInput>();
 
   const defatDurationIndex = durationOptions.findIndex(
     (option) => option.value == packageItem.duration,
@@ -44,52 +45,43 @@ export const UpdateStakingModal = ({
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
   };
-  const onSubmit: SubmitHandler<IStaking> = async (data: IStaking) => {
-    setLoading(true);
 
+  const onSubmit: SubmitHandler<IInput> = async (data: IInput) => {
+    setLoading(true);
     const newData = {
       ...data,
-      id: packageItem?.id,
+      id: packageItem.id,
+      duration: data?.duration?.value,
       status: data?.status?.value,
+      unstake_status: data?.unstake_status?.value,
     };
-
-    console.log(newData);
-
     try {
-      const token = localStorage.getItem('biztoken');
-      const response = await fetch(
-        'https://mining.bizex.io/api/staking/update',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(newData),
-        },
-      );
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const responseData = await response.json();
-      if (responseData.success) {
-        setLoading(false);
-        fetchData();
+      const response = await axiosInstance.post('/staking/update', newData);
+      if (response) {
         Swal.fire({
-          title: 'success',
-          text: 'Successfully updated package',
+          title: 'Success',
+          text: 'Successfully Updated',
           icon: 'success',
-        }).then(() => {
-          closeModal();
         });
+
+        // Update the table data
+        setPackages((prevData: any) =>
+          prevData.map((item: any) =>
+            item.id === packageItem.id ? { ...item, ...newData } : item,
+          ),
+        );
+        setLoading(false);
+        closeModal();
       }
     } catch (error) {
-      console.log(error);
-      Swal.fire({
-        title: 'error',
-        text: 'Something wrong',
-        icon: 'error',
-      });
+      if (error) {
+        Swal.fire({
+          title: 'Failed',
+          text: 'Failed to update',
+          icon: 'error',
+        });
+        setLoading(false);
+      }
     }
   };
 
@@ -167,6 +159,15 @@ export const UpdateStakingModal = ({
                   onChange={handleChange}
                 />
               </div>
+              {/* <div>
+                <p>Monthly RIO</p>
+                <input
+                  className="w-full rounded border border-stroke bg-gray py-3 pl-3 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                  {...register('monthly_roi', { required: true })}
+                  value={formState.monthly_roi}
+                  onChange={handleChange}
+                />
+              </div> */}
               <SelectOptions
                 control={control}
                 options={options}
