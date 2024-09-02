@@ -44,6 +44,7 @@ import StakingList from './pages/Staking/StakingList';
 import StakingSettings from './pages/Staking/StakingSettings';
 import Notification from './pages/Notification/Notification';
 import Wallets from './pages/Wallets/Wallets';
+import BizTWallet from './pages/Wallet/BizTWallet';
 
 function App() {
   const { pathname } = useLocation();
@@ -137,9 +138,21 @@ function App() {
               path="/user-wallets"
               element={
                 <>
-                  <PageTitle title="inactive Users" />
+                  <PageTitle title="Users Wallet" />
                   <ProtectedRoute>
                     <Wallets />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/wallets/bizt"
+              element={
+                <>
+                  <PageTitle title="Bizt" />
+                  <ProtectedRoute>
+                    <BizTWallet />
                   </ProtectedRoute>
                 </>
               }
