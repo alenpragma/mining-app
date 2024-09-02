@@ -52,7 +52,7 @@ const BizTWallet = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Staking List" />
+      <Breadcrumb pageName="BizT History" />
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
           {bizt?.data?.length == 0 ? (
@@ -96,9 +96,8 @@ const BizTWallet = () => {
                     <TableRow data={packageItem?.description} />
                     <TableRow data={packageItem?.status} />
 
-                    <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
+                    {/* <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
-                        {/* details btn */}
                         <button
                           onClick={() => openViewModal(packageItem)}
                           className="hover:text-primary"
@@ -106,7 +105,6 @@ const BizTWallet = () => {
                           <ViewIcon />
                         </button>
 
-                        {/* edit btn */}
                         <button
                           onClick={() => openModal(packageItem)}
                           className="hover:text-primary"
@@ -114,7 +112,7 @@ const BizTWallet = () => {
                           <EditIcon />
                         </button>
                       </div>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>

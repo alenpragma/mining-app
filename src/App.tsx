@@ -45,6 +45,8 @@ import StakingSettings from './pages/Staking/StakingSettings';
 import Notification from './pages/Notification/Notification';
 import Wallets from './pages/Wallets/Wallets';
 import BizTWallet from './pages/Wallet/BizTWallet';
+import AllKyc from './pages/Kyc/AllKyc';
+import PendingKyc from './pages/Kyc/PendingKyc';
 
 function App() {
   const { pathname } = useLocation();
@@ -434,6 +436,29 @@ function App() {
                   <PageTitle title="pop up" />
                   <ProtectedRoute>
                     <PopUp />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/kyc/all-kyc"
+              element={
+                <>
+                  <PageTitle title="All Kyc" />
+                  <ProtectedRoute>
+                    <AllKyc />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+            <Route
+              path="/kyc/pending-kyc"
+              element={
+                <>
+                  <PageTitle title="Pending Kyc" />
+                  <ProtectedRoute>
+                    <PendingKyc />
                   </ProtectedRoute>
                 </>
               }

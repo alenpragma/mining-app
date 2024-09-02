@@ -12,6 +12,8 @@ import TableRow from '../../components/TableRow';
 import axiosInstance from '../../utils/axiosConfig';
 import ViewIcon from '../../assets/icon/ViewIcon';
 import SearchIcon from '../../assets/icon/SearchIcon';
+import EditIcon from '../../assets/icon/EditIcon';
+import BlockUnBlockModal from './BlockUnBlockModal';
 
 export type IUser = {
   id: number;
@@ -38,6 +40,9 @@ const AllUsers = () => {
   const [total, setTotal] = useState(0);
   const [search, setSearch] = useState('');
 
+  const [data, setData] = useState();
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
   // searching
   // const [search, setSearch] = useState('');
 
@@ -48,6 +53,13 @@ const AllUsers = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const toggleUpdateModal = (status: boolean, data?: any) => {
+    setIsUpdateModalOpen(status);
+    if (data) {
+      setData(data);
+    }
   };
 
   // pagination calculate
@@ -130,6 +142,10 @@ const AllUsers = () => {
                     <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white">
                       Join date
                     </th>
+
+                    <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white">
+                      User Status
+                    </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                       Status
                     </th>
@@ -158,6 +174,8 @@ const AllUsers = () => {
                         />
                         <TableRow data={formatToLocalDate(user?.created_at)} />
 
+                        <TableRow data={'test'} />
+
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <p
                             className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
@@ -178,6 +196,12 @@ const AllUsers = () => {
                           <span className="flex items-center space-x-3.5">
                             <button onClick={() => openModal(user)}>
                               <ViewIcon />
+                            </button>
+
+                            <button
+                              onClick={() => toggleUpdateModal(true, user)}
+                            >
+                              <EditIcon />
                             </button>
                           </span>
                         </td>
@@ -207,11 +231,15 @@ const AllUsers = () => {
         )} */}
       </div>
 
-      <div>
-        {isModalOpen && (
-          <ViewuserModal closeModal={closeModal} userDetail={userDetail} />
-        )}
-      </div>
+      {isModalOpen && (
+        <ViewuserModal closeModal={closeModal} userDetail={userDetail} />
+      )}
+      {isUpdateModalOpen && (
+        <BlockUnBlockModal
+          toggleUpdateModal={toggleUpdateModal}
+          updateData={data}
+        />
+      )}
     </div>
   );
 };
