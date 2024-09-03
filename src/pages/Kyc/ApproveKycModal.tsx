@@ -11,7 +11,7 @@ type IKyc = {
   type: any;
 };
 
-const ApproveKycModal = ({ toggleUpdateModal, updateData }: any) => {
+const ApproveKycModal = ({ toggleUpdateModal, updateData, fetchData }: any) => {
   const [lodaing, setLoading] = useState(false);
   const { handleSubmit, control } = useForm<IKyc>();
 
@@ -35,11 +35,12 @@ const ApproveKycModal = ({ toggleUpdateModal, updateData }: any) => {
       const response = await axiosInstance.post('/admin/kyc-check', kycData);
       // console.log(response.data);
 
-      if (response.data.success === 200) {
+      if (response?.data?.success === 200) {
         setLoading(false);
+        fetchData();
         Swal.fire({
           title: 'success',
-          text: `${response?.data?.messgae}`,
+          text: `${response?.data?.message}`,
           icon: 'success',
         }).then(() => {
           toggleUpdateModal(false);
@@ -59,8 +60,8 @@ const ApproveKycModal = ({ toggleUpdateModal, updateData }: any) => {
   };
 
   const options = [
-    { value: 'approve', label: 'approve' },
-    { value: 'reject', label: 'reject' },
+    { value: 'approve', label: 'Approve' },
+    { value: 'reject', label: 'Reject' },
   ];
 
   return (
@@ -113,7 +114,7 @@ const ApproveKycModal = ({ toggleUpdateModal, updateData }: any) => {
                 <SelectOptions
                   name="type"
                   control={control}
-                  defaultValue={99}
+                  defaultValue={0}
                   label="Type"
                   options={options}
                   placeholder="Type"

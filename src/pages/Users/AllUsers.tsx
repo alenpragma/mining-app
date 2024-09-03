@@ -28,6 +28,7 @@ export type IUser = {
   updated_at: string;
 
   block: number;
+  kyc: number;
 
   is_verified: string;
   activation_status: string;
@@ -138,8 +139,8 @@ const AllUsers = () => {
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                       Sponsor
                     </th>
-                    <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      verified
+                    <th className="min-w-[140px] py-4 px-4 font-medium text-black dark:text-white">
+                      Email verified
                     </th>
                     <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white">
                       Join date
@@ -147,6 +148,10 @@ const AllUsers = () => {
 
                     <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white">
                       User Status
+                    </th>
+
+                    <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white">
+                      KYC Status
                     </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                       Status
@@ -171,10 +176,19 @@ const AllUsers = () => {
                         <TableRow data={user.email} />
                         <TableRow data={user.referral_code} />
                         <TableRow data={user.sponsor} />
-                        <TableRow
-                          data={user.is_verified == '1' ? 'verified' : ''}
-                        />
                         <TableRow data={formatToLocalDate(user?.created_at)} />
+
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <p
+                            className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                              user?.is_verified == '1'
+                                ? 'bg-success text-success'
+                                : 'bg-danger text-danger'
+                            }`}
+                          >
+                            {user?.is_verified == '1' ? 'Verified' : ' '}
+                          </p>
+                        </td>
 
                         {/* <TableRow data={user.block == '1' ? 'blocked' : ''} /> */}
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -185,7 +199,19 @@ const AllUsers = () => {
                                 : 'bg-danger text-danger'
                             }`}
                           >
-                            {user?.block === 1 ? 'Blocked' : ' '}
+                            {user?.block === 1 ? 'Blocked' : 'Safe'}
+                          </p>
+                        </td>
+
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <p
+                            className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                              user?.kyc === 1
+                                ? 'bg-success text-success'
+                                : 'bg-danger text-danger'
+                            }`}
+                          >
+                            {user?.kyc === 1 ? 'Verified' : 'Unverified'}
                           </p>
                         </td>
 
