@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PuffLoader } from 'react-spinners';
-import InputField from '../../components/Forms/InputField';
 import SelectOptions from '../../Ui/SelectOptions';
 import Swal from 'sweetalert2';
 import axiosInstance from '../../utils/axiosConfig';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { options } from '../options';
 
 type IKyc = {
   id: string;
@@ -15,8 +13,7 @@ type IKyc = {
 
 const ApproveKycModal = ({ toggleUpdateModal, updateData }: any) => {
   const [lodaing, setLoading] = useState(false);
-
-  const { register, handleSubmit, control } = useForm<IKyc>();
+  const { handleSubmit, control } = useForm<IKyc>();
 
   const onSubmit: SubmitHandler<IKyc> = async (data: IKyc) => {
     const kycData = {
@@ -33,17 +30,16 @@ const ApproveKycModal = ({ toggleUpdateModal, updateData }: any) => {
       });
       return;
     }
-
     try {
       setLoading(true);
-      const response = await axiosInstance.post('/user/submit-kyc', kycData);
-      console.log(response.data);
+      const response = await axiosInstance.post('/admin/kyc-check', kycData);
+      // console.log(response.data);
 
       if (response.data.success === 200) {
         setLoading(false);
         Swal.fire({
           title: 'success',
-          text: `${response.data.messgae}`,
+          text: `${response?.data?.messgae}`,
           icon: 'success',
         }).then(() => {
           toggleUpdateModal(false);
@@ -61,6 +57,11 @@ const ApproveKycModal = ({ toggleUpdateModal, updateData }: any) => {
       });
     }
   };
+
+  const options = [
+    { value: 'approve', label: 'approve' },
+    { value: 'reject', label: 'reject' },
+  ];
 
   return (
     <div className="fixed left-0 top-0 z-999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 py-5">
@@ -87,18 +88,36 @@ const ApproveKycModal = ({ toggleUpdateModal, updateData }: any) => {
               onSubmit={handleSubmit(onSubmit)}
               className="flex  flex-col w-full gap-5.5 p-6.5"
             >
-              <div className="lg:w-1/2">
-                <img className="w-52" src={updateData?.profile_image} alt="" />
-                <img className="w-52" src={updateData?.id_front} alt="" />
-                <img className="w-52" src={updateData?.id_back} alt="" />
+              <div className="">
+                <div className="flex gap-3 flex-wrap">
+                  <div className="">
+                    <p>Profile Image</p>
+                    <img
+                      className="w-52"
+                      src={updateData?.profile_image}
+                      alt=""
+                    />
+                  </div>
+
+                  <div className="">
+                    <p>Front Page</p>
+                    <img className="w-52" src={updateData?.id_front} alt=" " />
+                  </div>
+
+                  <div className="">
+                    <p>Back Page</p>
+                    <img className="w-52" src={updateData?.id_back} alt="" />
+                  </div>
+                </div>
 
                 <SelectOptions
                   name="type"
                   control={control}
-                  defaultValue={9}
+                  defaultValue={99}
                   label="Type"
                   options={options}
                   placeholder="Type"
+                  rules={{ required: 'This field is required' }} // Add a validation rule
                 />
               </div>
 

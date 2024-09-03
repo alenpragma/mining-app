@@ -11,19 +11,18 @@ type IBlock = {
   type: any;
 };
 
-const BlockUnBlockModal = ({ toggleUpdateModal, updateData }: any) => {
-  console.log(updateData);
-
+const BlockUnBlockModal = ({
+  toggleUpdateModal,
+  updateData,
+  fetchData,
+}: any) => {
   const [lodaing, setLoading] = useState(false);
-
-  const { register, handleSubmit, control } = useForm<IBlock>();
-
+  const { handleSubmit, control } = useForm<IBlock>();
   const onSubmit: SubmitHandler<IBlock> = async (data: IBlock) => {
     const updatedData = {
       user_id: updateData.id,
       type: data?.type?.value,
     };
-
     if (updatedData.type == undefined) {
       Swal.fire({
         title: 'warning',
@@ -32,22 +31,19 @@ const BlockUnBlockModal = ({ toggleUpdateModal, updateData }: any) => {
       });
       return;
     }
-
-    console.log(updatedData);
-
     try {
       setLoading(true);
       const response = await axiosInstance.post(
         '/admin/user-block-unblock',
         updatedData,
       );
-      console.log(response.data);
 
       if (response.data.success === 200) {
         setLoading(false);
+        fetchData();
         Swal.fire({
           title: 'success',
-          text: `${response.data.messgae}`,
+          text: `${response?.data?.message}`,
           icon: 'success',
         }).then(() => {
           toggleUpdateModal(false);
@@ -67,8 +63,8 @@ const BlockUnBlockModal = ({ toggleUpdateModal, updateData }: any) => {
   };
 
   const options = [
-    { value: 'block', label: 'block' },
-    { value: 'unblock', label: 'unblock' },
+    { value: 'block', label: 'Block' },
+    { value: 'unblock', label: 'Unblock' },
   ];
 
   return (

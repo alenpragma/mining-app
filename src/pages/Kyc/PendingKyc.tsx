@@ -36,10 +36,6 @@ const PendingKyc = () => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Pending kyc" />

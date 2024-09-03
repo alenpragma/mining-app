@@ -13,7 +13,7 @@ const AllKyc = () => {
   const [loading, setLoading] = useState(false);
   const [kyc, setKycs] = useState<any>([]);
 
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [data, setdata] = useState<any>();
 
   const toggleUpdateModal = (status: boolean, data?: any) => {
@@ -57,6 +57,10 @@ const AllKyc = () => {
                   <TableHead data="Email" />
                   <TableHead data="Identification No" />
 
+                  <TableHead data="Profile" />
+                  <TableHead data="NID Front" />
+                  <TableHead data="NID Back" />
+
                   <TableHead data="Status" />
                   <TableHead data="Actions" />
                 </tr>
@@ -71,32 +75,40 @@ const AllKyc = () => {
 
                     <TableRow data={''}>
                       <img
-                        className="w-30 h-32.5"
+                        className="w-25 h-28"
                         src={data.profile_image}
                         alt=""
                       />
                     </TableRow>
 
                     <TableRow data={''}>
-                      <img className="w-30 h-32.5" src={data.id_front} alt="" />
+                      <img
+                        className="w-25 h-28"
+                        src={`https://mining.bizex.io/${data.id_front}`}
+                        alt=""
+                      />
                     </TableRow>
 
                     <TableRow data={''}>
-                      <img className="w-30 h-32.5" src={data.id_back} alt="" />
+                      <img className="w-25 h-28" src={data.id_back} alt="" />
                     </TableRow>
 
-                    <TableRow data={data?.type} />
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <p
+                        className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                          data?.status === 'approved'
+                            ? 'bg-success text-success'
+                            : 'bg-warning text-warning'
+                        }`}
+                      >
+                        {data?.status === 'approved' ? 'Approved' : 'Pending'}
+                      </p>
+                    </td>
 
                     <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
                         <button
-                          // onClick={() => openViewModal(data)}
-                          className="hover:text-primary"
-                        >
-                          <ViewIcon />
-                        </button>
-
-                        <button
+                          disabled={data?.status == 'approved'}
                           onClick={() => toggleUpdateModal(true, data)}
                           className="hover:text-primary"
                         >
@@ -111,7 +123,12 @@ const AllKyc = () => {
           )}
         </div>
       </div>
-      {isModalOpen && <ApproveKycModal toggleUpdateModal={toggleUpdateModal} />}
+      {isModalOpen && (
+        <ApproveKycModal
+          toggleUpdateModal={toggleUpdateModal}
+          updateData={data}
+        />
+      )}
     </DefaultLayout>
   );
 };

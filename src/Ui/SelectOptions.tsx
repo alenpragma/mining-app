@@ -11,9 +11,10 @@ type selectType = {
   name: string;
   control: any;
   label: string;
-  defaultValue: number | string ;
+  defaultValue: number | string;
   placeholder: string;
   options: IOptions | any;
+  rules?: object;
 };
 
 const SelectOptions = ({
@@ -22,6 +23,7 @@ const SelectOptions = ({
   label,
   options,
   defaultValue,
+  rules = {},
   placeholder = 'Select...',
 }: selectType) => {
   const { theme } = useContext(MyContext);
@@ -58,6 +60,7 @@ const SelectOptions = ({
         name={name}
         control={control}
         defaultValue={options[defaultValue]}
+        rules={rules}
         render={({ field }) => (
           <Select
             {...field}

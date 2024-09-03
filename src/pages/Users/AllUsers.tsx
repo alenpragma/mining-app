@@ -27,6 +27,8 @@ export type IUser = {
   created_at: string;
   updated_at: string;
 
+  block: number;
+
   is_verified: string;
   activation_status: string;
   referral_code: string | null;
@@ -174,7 +176,18 @@ const AllUsers = () => {
                         />
                         <TableRow data={formatToLocalDate(user?.created_at)} />
 
-                        <TableRow data={'test'} />
+                        {/* <TableRow data={user.block == '1' ? 'blocked' : ''} /> */}
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <p
+                            className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                              user?.block === 0
+                                ? 'bg-success text-success'
+                                : 'bg-danger text-danger'
+                            }`}
+                          >
+                            {user?.block === 1 ? 'Blocked' : ' '}
+                          </p>
+                        </td>
 
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <p
@@ -238,6 +251,7 @@ const AllUsers = () => {
         <BlockUnBlockModal
           toggleUpdateModal={toggleUpdateModal}
           updateData={data}
+          fetchData={fetchData}
         />
       )}
     </div>
