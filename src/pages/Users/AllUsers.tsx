@@ -12,6 +12,8 @@ import TableRow from '../../components/TableRow';
 import axiosInstance from '../../utils/axiosConfig';
 import ViewIcon from '../../assets/icon/ViewIcon';
 import SearchIcon from '../../assets/icon/SearchIcon';
+import EditIcon from '../../assets/icon/EditIcon';
+import BlockUnBlockModal from './BlockUnBlockModal';
 
 export type IUser = {
   id: number;
@@ -24,6 +26,8 @@ export type IUser = {
 
   created_at: string;
   updated_at: string;
+
+  block: number;
 
   is_verified: string;
   activation_status: string;
@@ -38,6 +42,9 @@ const AllUsers = () => {
   const [total, setTotal] = useState(0);
   const [search, setSearch] = useState('');
 
+  const [data, setData] = useState();
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
   // searching
   // const [search, setSearch] = useState('');
 
@@ -48,6 +55,13 @@ const AllUsers = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const toggleUpdateModal = (status: boolean, data?: any) => {
+    setIsUpdateModalOpen(status);
+    if (data) {
+      setData(data);
+    }
   };
 
   // pagination calculate
@@ -130,6 +144,10 @@ const AllUsers = () => {
                     <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white">
                       Join date
                     </th>
+
+                    <th className="min-w-[130px] py-4 px-4 font-medium text-black dark:text-white">
+                      User Status
+                    </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                       Status
                     </th>
@@ -158,6 +176,19 @@ const AllUsers = () => {
                         />
                         <TableRow data={formatToLocalDate(user?.created_at)} />
 
+                        {/* <TableRow data={user.block == '1' ? 'blocked' : ''} /> */}
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <p
+                            className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                              user?.block === 0
+                                ? 'bg-success text-success'
+                                : 'bg-danger text-danger'
+                            }`}
+                          >
+                            {user?.block === 1 ? 'Blocked' : ' '}
+                          </p>
+                        </td>
+
                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <p
                             className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
@@ -178,6 +209,12 @@ const AllUsers = () => {
                           <span className="flex items-center space-x-3.5">
                             <button onClick={() => openModal(user)}>
                               <ViewIcon />
+                            </button>
+
+                            <button
+                              onClick={() => toggleUpdateModal(true, user)}
+                            >
+                              <EditIcon />
                             </button>
                           </span>
                         </td>
@@ -207,11 +244,16 @@ const AllUsers = () => {
         )} */}
       </div>
 
-      <div>
-        {isModalOpen && (
-          <ViewuserModal closeModal={closeModal} userDetail={userDetail} />
-        )}
-      </div>
+      {isModalOpen && (
+        <ViewuserModal closeModal={closeModal} userDetail={userDetail} />
+      )}
+      {isUpdateModalOpen && (
+        <BlockUnBlockModal
+          toggleUpdateModal={toggleUpdateModal}
+          updateData={data}
+          fetchData={fetchData}
+        />
+      )}
     </div>
   );
 };
