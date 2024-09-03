@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import { ErrorMessage } from '@hookform/error-message';
 import Skeleton from 'react-loading-skeleton';
 import { AiTwotoneDelete } from 'react-icons/ai';
-import axios from 'axios';
 
 type TNotification = {
   title: string;
@@ -163,7 +162,7 @@ const Notification = () => {
           {notifications.map((notification) => (
             <div
               key={notification.id}
-              className=" text-[18px] bg-slate-300 rounded text-black p-2 flex justify-between items-center"
+              className=" text-[18px] bg-slate-300 rounded text-black p-2 flex gap-3 justify-between items-center"
             >
               <div className="">
                 <h4 className="font-semibold">
@@ -177,10 +176,12 @@ const Notification = () => {
                   </span>
                 </p>
               </div>
-              <AiTwotoneDelete
-                className="size-6 cursor-pointer"
-                onClick={() => handleDelete(notification?.id)}
-              />
+              <div>
+                <AiTwotoneDelete
+                  className="size-6 cursor-pointer hover:bg-red-300 rounded-full p-2 w-10 h-10"
+                  onClick={() => handleDelete(notification?.id)}
+                />
+              </div>
             </div>
           ))}
         </div>

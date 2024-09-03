@@ -36,6 +36,7 @@ const AllKyc = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  console.log(kyc);
 
   return (
     <DefaultLayout>
@@ -57,9 +58,22 @@ const AllKyc = () => {
                   <TableHead data="Email" />
                   <TableHead data="Identification No" />
 
-                  <TableHead data="Profile" />
-                  <TableHead data="NID Front" />
-                  <TableHead data="NID Back" />
+                  <th className="py-4 px-4 min-w-40 font-medium text-black dark:text-white">
+                    Profile
+                  </th>
+                  <th className="py-4 px-4 min-w-40 font-medium text-black dark:text-white">
+                    NID Front
+                  </th>
+                  <th className="py-4 px-4 min-w-40 font-medium text-black dark:text-white">
+                    NID Back
+                  </th>
+
+                  {/* <TableHead data="Profile" />
+                  
+                  */}
+                  {/* <TableHead data="" />
+
+                  <TableHead data="" /> */}
 
                   <TableHead data="Status" />
                   <TableHead data="Actions" />
@@ -82,11 +96,7 @@ const AllKyc = () => {
                     </TableRow>
 
                     <TableRow data={''}>
-                      <img
-                        className="w-25 h-28"
-                        src={`https://mining.bizex.io/${data.id_front}`}
-                        alt=""
-                      />
+                      <img className="w-25 h-28" src={data.id_front} alt="" />
                     </TableRow>
 
                     <TableRow data={''}>
@@ -101,14 +111,14 @@ const AllKyc = () => {
                             : 'bg-warning text-warning'
                         }`}
                       >
-                        {data?.status === 'approved' ? 'Approved' : 'Pending'}
+                        {data?.status}
                       </p>
                     </td>
 
                     <td className="border-b border-[#eee] py-5 px-3 dark:border-strokedark">
                       <div className="flex items-center space-x-3.5">
                         <button
-                          disabled={data?.status == 'approved'}
+                          disabled={data?.status != 'pending'}
                           onClick={() => toggleUpdateModal(true, data)}
                           className="hover:text-primary"
                         >
@@ -127,6 +137,7 @@ const AllKyc = () => {
         <ApproveKycModal
           toggleUpdateModal={toggleUpdateModal}
           updateData={data}
+          fetchData={fetchData}
         />
       )}
     </DefaultLayout>
