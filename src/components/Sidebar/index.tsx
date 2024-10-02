@@ -783,7 +783,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           </li>
 
                           <li>
-                            package
                             <NavLink
                               to="/historys/paid-mining"
                               className={({ isActive }) =>
