@@ -52,22 +52,37 @@ const PackageMining = () => {
               <thead>
                 <tr className="bg-gray-2 text-left dark:bg-meta-4">
                   <TableHead cN="min-w-[100px]" data="SL NO" />
+                  <TableHead data="Id" />
                   <TableHead data="Date" />
                   <TableHead data="User" />
                   <TableHead data="Total amount" />
+                  <TableHead data="Phone" />
                   <TableHead data="Transaction count" />
+                  <TableHead
+                    data="Previous day minings count"
+                    cN="min-w-[150px]"
+                  />
+                  <TableHead
+                    data="previous day purchases count"
+                    cN="min-w-[160px]"
+                  />
                 </tr>
               </thead>
               <tbody>
                 {datas?.data?.map((data: IPackageMining, key: number) => (
                   <tr key={key}>
                     <TableRow data={key + 1} />
+                    <TableRow data={data.user_id} />
                     <TableRow data={formatToLocalDate(data?.date)} />
                     <TableRow data={data?.email}>
                       <span>{data.name}</span>
                     </TableRow>
+                    <TableRow data={data?.total_amount} />
 
+                    <TableRow data={data?.phone} />
                     <TableRow data={data?.transaction_count} />
+                    <TableRow data={data?.previous_day_minings_count} />
+                    <TableRow data={data?.previous_day_purchases_count} />
                   </tr>
                 ))}
               </tbody>

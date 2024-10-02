@@ -24,8 +24,12 @@ export type ITransaction = {
 
 export type IPackageMining = {
   date: string;
+  user_id: number;
   total_amount: number;
+  previous_day_minings_count: number;
+  previous_day_purchases_count: number;
   transaction_count: number;
   name: string;
+  phone: string;
   email: string;
 };

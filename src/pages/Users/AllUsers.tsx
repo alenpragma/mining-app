@@ -42,6 +42,7 @@ const AllUsers = () => {
   const [userDetail, setUserDetail] = useState<IUser>();
   const [total, setTotal] = useState(0);
   const [search, setSearch] = useState('');
+  const [laoding, setLoading] = useState(false);
 
   const [data, setData] = useState();
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
@@ -70,16 +71,19 @@ const AllUsers = () => {
   const [perPage, setparePage] = useState(50);
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await axiosInstance.get(
         `/user-lists?per_page=${perPage}&page=${
           currentPage + 1
         }&search=${search}`,
       );
+      setLoading(false);
 
       setAllUsers(response?.data?.data);
       setTotal(response?.data?.total);
     } catch (error) {
+      setLoading(false);
       console.error('Error fetching data:', error);
     }
   };
@@ -116,9 +120,9 @@ const AllUsers = () => {
             </div>
           </div>
           <div className="max-w-full overflow-x-auto">
-            {allUsers.length == 0 ? (
+            {laoding ? (
               <div>
-                <Skeleton height={45} count={8} />
+                <Skeleton height={45} count={15} />
               </div>
             ) : (
               <table className="w-full table-auto">
@@ -128,13 +132,13 @@ const AllUsers = () => {
                       SL NO
                     </th>
                     <th className="min-w-[160px] py-4 px-4 font-medium text-black dark:text-white">
-                      User-Phone
+                      User Phone
                     </th>
                     <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                       Email
                     </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                      Refarence
+                      Reference
                     </th>
                     <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                       Sponsor
