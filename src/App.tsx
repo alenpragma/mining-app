@@ -47,6 +47,11 @@ import Wallets from './pages/Wallets/Wallets';
 import BizTWallet from './pages/Wallet/BizTWallet';
 import AllKyc from './pages/Kyc/AllKyc';
 import PendingKyc from './pages/Kyc/PendingKyc';
+import FreeMining from './pages/Historys/FreeMining';
+import Leadership from './pages/Historys/Leadership';
+import PackageMining from './pages/Historys/PackageMining';
+import A2ITokenHistory from './pages/Historys/A2ITokenHistory';
+import MonthlyStakingHistory from './pages/Historys/MonthlyStakingHistory';
 
 function App() {
   const { pathname } = useLocation();
@@ -335,6 +340,70 @@ function App() {
                 </>
               }
             />
+
+            {/* Historys routes start  */}
+            <Route
+              path="/historys/free-mining"
+              element={
+                <>
+                  <PageTitle title="Free Mining" />
+                  <ProtectedRoute>
+                    <FreeMining />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/historys/leadership-bonus"
+              element={
+                <>
+                  <PageTitle title="Leadership Bonus" />
+                  <ProtectedRoute>
+                    <Leadership />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/historys/paid-mining"
+              element={
+                <>
+                  <PageTitle title="Package Mining" />
+                  <ProtectedRoute>
+                    <PackageMining />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/historys/a2i-token-history"
+              element={
+                <>
+                  <PageTitle title="A2I Token" />
+                  <ProtectedRoute>
+                    <A2ITokenHistory />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/historys/monthly-staking-history"
+              element={
+                <>
+                  <PageTitle title="Monthly Staking" />
+                  <ProtectedRoute>
+                    <MonthlyStakingHistory />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            {/* Historys routes start  */}
+
             <Route
               path="/shopping-cart"
               element={
