@@ -367,7 +367,7 @@ function App() {
             />
 
             <Route
-              path="/historys/package-mining"
+              path="/historys/paid-mining"
               element={
                 <>
                   <PageTitle title="Package Mining" />

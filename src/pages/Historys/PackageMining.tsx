@@ -53,7 +53,7 @@ const PackageMining = () => {
                 <tr className="bg-gray-2 text-left dark:bg-meta-4">
                   <TableHead cN="min-w-[100px]" data="SL NO" />
                   <TableHead data="Id" />
-                  <TableHead data="Date" />
+                  <TableHead data="Date" cN="min-w-[150px]" />
                   <TableHead data="User" />
                   <TableHead data="Total amount" />
                   <TableHead data="Phone" />
