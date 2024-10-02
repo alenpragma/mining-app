@@ -8,6 +8,8 @@ import axiosInstance from '../../utils/axiosConfig';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
 import { IPackageMining, IResponse, ITransaction } from '../../types/historys';
 import { formatToLocalDate } from '../../hooks/formatDate';
+import SearchInput from '../../components/SearchInput';
+import SearchIcon from '../../assets/icon/SearchIcon';
 
 const PackageMining = () => {
   const [datas, setDatas] = useState<IResponse<IPackageMining>>();
@@ -15,6 +17,7 @@ const PackageMining = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage] = useState(25);
+  const [search, setSearch] = useState('');
 
   const fetchData = async () => {
     setLoading(true);
@@ -22,7 +25,7 @@ const PackageMining = () => {
       const { data } = await axiosInstance.get(
         `/admin/package-mining-history?per_page=${perPage}&page=${
           currentPage + 1
-        }`,
+        }&search=${search}`,
       );
 
       setDatas(data.date_wise_totals);
@@ -35,12 +38,29 @@ const PackageMining = () => {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, search]);
 
+  const searchData = () => {
+    fetchData();
+    setCurrentPage(0);
+  };
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Package Mining" />
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div className="flex justify-between">
+          <div className="max-w-full w-100 mb-4 relative">
+            <SearchInput
+              placeholder="Search..."
+              search={search}
+              setSearch={setSearch}
+            />
+            <div onClick={() => searchData()}>
+              <SearchIcon />
+            </div>
+          </div>
+        </div>
+
         <div className="max-w-full overflow-x-auto">
           {loading ? (
             <div>
@@ -54,7 +74,7 @@ const PackageMining = () => {
                   <TableHead data="Id" />
                   <TableHead data="Date" cN="min-w-[150px]" />
                   <TableHead data="User" />
-                  <TableHead data="Total amount" />
+                  <TableHead data="Total amount" cN="min-w-[140px]" />
                   <TableHead data="Phone" />
                   <TableHead data="Transaction count" />
                   <TableHead
