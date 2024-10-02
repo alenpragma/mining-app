@@ -36,7 +36,6 @@ const PackageMining = () => {
   useEffect(() => {
     fetchData();
   }, [currentPage]);
-  console.log(datas);
 
   return (
     <DefaultLayout>
@@ -77,7 +76,7 @@ const PackageMining = () => {
                     <TableRow data={data?.email}>
                       <span>{data.name}</span>
                     </TableRow>
-                    <TableRow data={data?.total_amount} />
+                    <TableRow data={`${data?.total_amount} BIZ`} />
 
                     <TableRow data={data?.phone} />
                     <TableRow data={data?.transaction_count} />

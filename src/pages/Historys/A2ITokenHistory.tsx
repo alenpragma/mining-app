@@ -62,7 +62,7 @@ const A2ITokenHistory = () => {
                     <TableRow data={data?.email}>
                       <span>{data.name}</span>
                     </TableRow>
-                    <TableRow data={data?.amount} />
+                    <TableRow data={`${data?.amount} A2I`} />
                     <TableRow data={data?.method} />
                     <TableRow data={data?.description} />
                     <TableRow data={data?.status} className="capitalize" />

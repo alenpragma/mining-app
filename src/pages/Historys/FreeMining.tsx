@@ -64,7 +64,7 @@ const FreeMining = () => {
                     <TableRow data={data?.email}>
                       <span>{data.name}</span>
                     </TableRow>
-                    <TableRow data={data?.amount} />
+                    <TableRow data={`${data?.amount} BIZ`} />
                     <TableRow data={data?.method} />
                     <TableRow data={data?.description} />
                     <TableRow data={data?.status} className="capitalize" />
