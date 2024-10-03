@@ -10,15 +10,19 @@ import { IPackageMining, IResponse, ITransaction } from '../../types/historys';
 import { formatToLocalDate } from '../../hooks/formatDate';
 import SearchInput from '../../components/SearchInput';
 import SearchIcon from '../../assets/icon/SearchIcon';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
+type Inputs = {
+  search: string;
+};
 const PackageMining = () => {
   const [datas, setDatas] = useState<IResponse<IPackageMining>>();
 
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage] = useState(25);
-  const [search, setSearch] = useState('');
-
+  const [search, setSearch] = useState(' ');
+  const { register, handleSubmit } = useForm<Inputs>();
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -38,27 +42,40 @@ const PackageMining = () => {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage, search]);
+  }, [currentPage, search === '']);
 
-  const searchData = () => {
+  console.log(search);
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     fetchData();
     setCurrentPage(0);
   };
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Package Mining" />
-      <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+      <div className="rounded-sm border border-stroke bg-white px-5 pt-6   shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="flex justify-between">
-          <div className="max-w-full w-100 mb-4 relative">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="max-w-full w-100  relative"
+          >
             <SearchInput
               placeholder="Search..."
               search={search}
               setSearch={setSearch}
+              name="search"
+              register={register}
             />
-            <div onClick={() => searchData()}>
-              <SearchIcon />
+            <div>
+              <button
+                type="submit"
+                className="absolute top-0 right-0 py-2 px-3 cursor-pointer rounded-lg border border-primary bg-primary   text-white transition hover:bg-opacity-90"
+              >
+                Submit
+              </button>
             </div>
-          </div>
+          </form>
         </div>
 
         <div className="max-w-full overflow-x-auto">
@@ -82,7 +99,7 @@ const PackageMining = () => {
                     cN="min-w-[150px]"
                   />
                   <TableHead
-                    data="previous day purchases count"
+                    data="Previous day purchases count"
                     cN="min-w-[160px]"
                   />
                 </tr>
