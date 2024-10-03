@@ -29,6 +29,7 @@ export type IPackageMining = {
   previous_day_minings_count: number;
   previous_day_purchases_count: number;
   transaction_count: number;
+  packages_purchases_before_data_loss: number;
   name: string;
   phone: string;
   email: string;

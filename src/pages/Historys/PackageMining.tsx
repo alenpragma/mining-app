@@ -101,6 +101,10 @@ const PackageMining = () => {
                     data="Previous day purchases count"
                     cN="min-w-[160px]"
                   />
+                  <TableHead
+                    data="Packages purchases before data vloss"
+                    cN="min-w-[160px]"
+                  />
                 </tr>
               </thead>
               <tbody>
@@ -118,6 +122,9 @@ const PackageMining = () => {
                     <TableRow data={data?.transaction_count} />
                     <TableRow data={data?.previous_day_minings_count} />
                     <TableRow data={data?.previous_day_purchases_count} />
+                    <TableRow
+                      data={data?.packages_purchases_before_data_loss}
+                    />
                   </tr>
                 ))}
               </tbody>
