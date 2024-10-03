@@ -9,6 +9,7 @@ import Skeleton from 'react-loading-skeleton';
 import { IoIosCopy } from 'react-icons/io';
 // import { copyToClipboard } from '../../components/copyToClipboard ';
 import toast from 'react-hot-toast';
+import axiosInstance from '../../utils/axiosConfig';
 
 const AllWithdraws = () => {
   const token = localStorage.getItem('biztoken');
@@ -49,15 +50,7 @@ const AllWithdraws = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        'https://mining.bizex.io/api/biztoken-withdraw-request',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        },
-      );
+      const response = await axiosInstance.get('/biztoken-withdraw-request');
       setWithdrawsData(response?.data[0].reverse());
       setLoading(false);
     } catch (error) {

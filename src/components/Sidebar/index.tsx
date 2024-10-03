@@ -647,7 +647,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              ALl Kyc
+                              All KYC
                             </NavLink>
                           </li>
 
@@ -659,7 +659,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              Pending Kyc
+                              Pending KYC
                             </NavLink>
                           </li>
                         </ul>

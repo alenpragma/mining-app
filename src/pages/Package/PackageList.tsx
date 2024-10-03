@@ -1,12 +1,10 @@
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { UpdatePackageModal } from './UpdatePackageModal';
 import Skeleton from 'react-loading-skeleton';
 import ViewpackageModal from './ViewpackageModal';
 import { IPackage } from '../../types/packages';
-import { userToken } from '../../hooks/getTokenFromstorage';
 import TableRow from '../../components/TableRow';
 import ViewIcon from '../../assets/icon/ViewIcon';
 import EditIcon from '../../assets/icon/EditIcon';
@@ -73,7 +71,7 @@ const PackageList = () => {
                   <TableHead data="Package Name" />
                   <TableHead data="Price" />
                   <TableHead data="Daily Token" />
-                  <TableHead data="A2i Token" />
+                  <TableHead data="A2I Token" />
                   <TableHead data="Duration" />
                   <TableHead data="Hash Power" />
                   <TableHead data="Status" />

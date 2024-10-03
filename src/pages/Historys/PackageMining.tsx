@@ -11,10 +11,8 @@ import { formatToLocalDate } from '../../hooks/formatDate';
 import SearchInput from '../../components/SearchInput';
 import SearchIcon from '../../assets/icon/SearchIcon';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { ISearchField } from '../../types';
 
-type Inputs = {
-  search: string;
-};
 const PackageMining = () => {
   const [datas, setDatas] = useState<IResponse<IPackageMining>>();
 
@@ -22,7 +20,7 @@ const PackageMining = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage] = useState(25);
   const [search, setSearch] = useState(' ');
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { register, handleSubmit } = useForm<ISearchField>();
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -44,7 +42,7 @@ const PackageMining = () => {
     fetchData();
   }, [currentPage, search === '']);
 
-  const onSubmit: SubmitHandler<Inputs> = async () => {
+  const onSubmit: SubmitHandler<ISearchField> = async () => {
     if (search.trim() === '') return;
     fetchData();
     setCurrentPage(0);

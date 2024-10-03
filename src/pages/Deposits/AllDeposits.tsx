@@ -10,6 +10,10 @@ import { IDeposit } from '../../types/deposit';
 import SearchInput from '../../components/SearchInput';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
 import TableRow from '../../components/TableRow';
+import TableRowCopy from '../../components/TableRowCopy';
+import { PiCopyDuotone } from 'react-icons/pi';
+import { copyToClipboard } from '../../components/copyToClipboard ';
+import { sliceHash } from '../../common/Loader/slicehash';
 
 const AllDeposits = () => {
   const token = localStorage.getItem('biztoken');
@@ -99,13 +103,13 @@ const AllDeposits = () => {
             <table className="w-full table-auto">
               <thead>
                 <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                  <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                  <th className="min-w-[90px] py-4 px-4 font-medium text-black dark:text-white">
                     SL NO
                   </th>
-                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
                     Date
                   </th>
-                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white">
                     User
                   </th>
                   <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
@@ -154,8 +158,24 @@ const AllDeposits = () => {
                       <TableRow data={depositsItem?.network} />
                       <TableRow data={depositsItem?.wallet_name} />
 
-                      <TableRow data={depositsItem?.txn_id} />
-                      <TableRow data={depositsItem?.wallet_no} />
+                      {/* <TableRow data={depositsItem?.txn_id} /> */}
+
+                      <TableRowCopy data={sliceHash(depositsItem.txn_id)}>
+                        <PiCopyDuotone
+                          className="text-xl cursor-pointer"
+                          onClick={() => copyToClipboard(depositsItem.txn_id)}
+                        />
+                      </TableRowCopy>
+
+                      <TableRowCopy data={sliceHash(depositsItem.wallet_no)}>
+                        <PiCopyDuotone
+                          className="text-xl cursor-pointer"
+                          onClick={() =>
+                            copyToClipboard(depositsItem.wallet_no)
+                          }
+                        />
+                      </TableRowCopy>
+
                       <TableRow data={depositsItem?.amount} />
 
                       <td className="border-b  border-[#eee] py-5 px-4 dark:border-strokedark">

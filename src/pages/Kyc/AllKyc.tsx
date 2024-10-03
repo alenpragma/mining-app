@@ -5,7 +5,6 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import Skeleton from 'react-loading-skeleton';
 import TableHead from '../../components/TableHead';
 import TableRow from '../../components/TableRow';
-import ViewIcon from '../../assets/icon/ViewIcon';
 import EditIcon from '../../assets/icon/EditIcon';
 import ApproveKycModal from './ApproveKycModal';
 
@@ -36,11 +35,10 @@ const AllKyc = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(kyc);
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="All Kyc Users" />
+      <Breadcrumb pageName="All KYC Users" />
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
         <div className="max-w-full overflow-x-auto">
           {kyc?.length == 0 && loading ? (

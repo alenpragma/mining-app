@@ -97,7 +97,7 @@ const PackageSettings = () => {
 
             <div>
               <label className="mb-3 block text-black dark:text-white">
-                A2i Token <RequiredInput />
+                A2I Token <RequiredInput />
               </label>
               <input
                 type="text"
