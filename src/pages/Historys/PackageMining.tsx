@@ -87,7 +87,7 @@ const PackageMining = () => {
             <table className="w-full table-auto">
               <thead>
                 <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                  <TableHead cN="min-w-[100px]" data="SL NO" />
+                  <TableHead cN="min-w-[80px]" data="SL NO" />
                   <TableHead data="Id" />
                   <TableHead data="Date" cN="min-w-[150px]" />
                   <TableHead data="User" />
