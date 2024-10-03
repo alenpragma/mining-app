@@ -53,27 +53,27 @@ export const ViewuserModal = ({ closeModal, userDetail }: any) => {
                 <div>
                   <p>
                     <span className="font-semibold">Paid member: </span>
-                    {userDetail.paid_member}
+                    {userDetail.paid_member.toFixed(2)} USDT
                   </p>
                   <p>
                     <span className="font-semibold">
                       Paid affiliate bonus:{' '}
                     </span>
-                    {userDetail.paid_affiliate_bonus}
+                    {userDetail.paid_affiliate_bonus.toFixed(2)} BIZ
                   </p>
                   <p>
                     <span className="font-semibold">
                       Free affiliate bonus:{' '}
                     </span>
-                    {userDetail.free_affiliate_bonus}
+                    {userDetail.free_affiliate_bonus.toFixed(2)} BIZ
                   </p>
                   <p>
                     <span className="font-semibold">Free mining bonus: </span>
-                    {userDetail.free_mining_bonus}
+                    {userDetail.free_mining_bonus.toFixed(2)} BIZ
                   </p>
                   <p>
                     <span className="font-semibold">Hash power bonus: </span>
-                    {userDetail.hash_power_bonus}
+                    {userDetail.hash_power_bonus.toFixed(2)} BIZ
                   </p>
                 </div>
                 <div className=" ">
@@ -81,8 +81,8 @@ export const ViewuserModal = ({ closeModal, userDetail }: any) => {
                     return (
                       <div key={i}>
                         <p>
-                          <span className="font-semibold">{data?.name} </span>
-                          {data?.balance}
+                          <span className="font-semibold">{data?.name}: </span>
+                          {(data?.balance).toFixed(2)}
                         </p>
                       </div>
                     );
