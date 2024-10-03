@@ -102,7 +102,7 @@ const PackageMining = () => {
                     cN="min-w-[160px]"
                   />
                   <TableHead
-                    data="Packages purchases before data vloss"
+                    data="Packages purchases before data loss"
                     cN="min-w-[160px]"
                   />
                 </tr>
