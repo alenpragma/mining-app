@@ -44,9 +44,8 @@ const PackageMining = () => {
     fetchData();
   }, [currentPage, search === '']);
 
-  console.log(search);
-
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async () => {
+    if (search.trim() === '') return;
     fetchData();
     setCurrentPage(0);
   };
