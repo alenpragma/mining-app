@@ -21,12 +21,7 @@ type Inputs = {
 };
 
 const PackageSettings = () => {
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { register, control, handleSubmit } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<IPackage> = async (data: IPackage) => {
     const { status, ...rest } = data;

@@ -39,7 +39,6 @@ import ShoppingCart from './pages/ShoppingCart/ShoppingCart';
 import Stack from './pages/Stack/Stack';
 import LeadershipSetting from './pages/LeadershipSetting/LeadershipSetting';
 import VoucherPurchesHistory from './pages/ShoppingCart/VoucherPurchesHistory';
-import PopUp from './pages/PopUp';
 import StakingList from './pages/Staking/StakingList';
 import StakingSettings from './pages/Staking/StakingSettings';
 import Notification from './pages/Notification/Notification';
@@ -52,6 +51,7 @@ import Leadership from './pages/Historys/Leadership';
 import PackageMining from './pages/Historys/PackageMining';
 import A2ITokenHistory from './pages/Historys/A2ITokenHistory';
 import MonthlyStakingHistory from './pages/Historys/MonthlyStakingHistory';
+import PopUp from './pages/PopUp';
 
 function App() {
   const { pathname } = useLocation();

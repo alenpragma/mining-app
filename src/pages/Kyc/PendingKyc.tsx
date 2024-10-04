@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axiosInstance from '../../utils/axiosConfig';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
@@ -11,18 +11,6 @@ import EditIcon from '../../assets/icon/EditIcon';
 const PendingKyc = () => {
   const [loading, setLoading] = useState(false);
   const [kyc, setKycs] = useState<any>([]);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [data, setdata] = useState<any>();
-
-  const openModal = (data: any) => {
-    setdata(data);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   const fetchData = async () => {
     setLoading(true);
@@ -96,7 +84,7 @@ const PendingKyc = () => {
                         </button>
 
                         <button
-                          onClick={() => openModal(data)}
+                          // onClick={() => openModal(data)}
                           className="hover:text-primary"
                         >
                           <EditIcon />

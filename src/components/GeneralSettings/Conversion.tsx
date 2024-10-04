@@ -1,6 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../../Ui/Button';
-import { userToken } from '../../hooks/getTokenFromstorage';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import InputField from '../Forms/InputField';
@@ -17,7 +16,7 @@ interface IInput {
 }
 
 const Conversion = () => {
-  const [lodaing, setLoading] = useState(false);
+  // const [lodaing, setLoading] = useState(false);
   const [conversion, setConversion] = useState<any>([]);
   const { register, handleSubmit } = useForm<IInput>();
 

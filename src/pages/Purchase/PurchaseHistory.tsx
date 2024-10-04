@@ -114,14 +114,7 @@ const PurchaseHistory = () => {
                     <TableRow data={purchaseHistory?.package_name} />
                     <TableRow data={purchaseHistory?.package_price} />
                     <TableRow data={purchaseHistory?.daily_token} />
-                    <TableRowCopy data={sliceHash(purchaseHistory.trxId)}>
-                      <PiCopyDuotone
-                        className="text-lg cursor-pointer"
-                        onClick={() =>
-                          copyToClipboard(purchaseHistory.daily_token)
-                        }
-                      />
-                    </TableRowCopy>
+
                     <TableRow data={getPasDay(purchaseHistory?.date)} />
                     <TableRow
                       data={

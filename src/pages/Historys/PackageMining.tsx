@@ -6,10 +6,9 @@ import TableRow from '../../components/TableRow';
 import TableHead from '../../components/TableHead';
 import axiosInstance from '../../utils/axiosConfig';
 import PaginationButtons from '../../components/Pagination/PaginationButtons';
-import { IPackageMining, IResponse, ITransaction } from '../../types/historys';
+import { IPackageMining, IResponse } from '../../types/historys';
 import { formatToLocalDate } from '../../hooks/formatDate';
 import SearchInput from '../../components/SearchInput';
-import SearchIcon from '../../assets/icon/SearchIcon';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ISearchField } from '../../types';
 

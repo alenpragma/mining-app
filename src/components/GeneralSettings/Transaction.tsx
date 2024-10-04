@@ -23,7 +23,7 @@ interface IInput {
 const Transaction = () => {
   const [lodaing, setLoading] = useState(false);
   const [transaction, setTransaction] = useState<any>([]);
-  const { register, handleSubmit, reset, control } = useForm<IInput>();
+  const { register, handleSubmit, control } = useForm<IInput>();
   const options = [
     { value: '0', label: 'Disable' },
     { value: '1', label: 'Enable' },

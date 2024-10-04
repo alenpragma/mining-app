@@ -72,7 +72,9 @@ const PopUp = () => {
           const value = updatedData[key as keyof IPopUp];
           if (typeof value === 'string' || typeof value === 'number') {
             updatedData[key as keyof IPopUp] =
-              value === '' ? popup?.[key as keyof IPopUp] || '' : value;
+              value === ''
+                ? (popup[key as keyof IPopUp] as typeof value) || ''
+                : value;
           }
         }
       }

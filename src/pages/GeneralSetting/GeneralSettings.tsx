@@ -8,7 +8,7 @@ import Conversion from '../../components/GeneralSettings/Conversion';
 import BizConvert from '../../components/GeneralSettings/BizConvert';
 
 const GeneralSettings = () => {
-  const data = useContext(MyContext);
+  // const data = useContext(MyContext);
 
   return (
     <DefaultLayout>
@@ -47,8 +47,6 @@ const GeneralSettings = () => {
   );
 };
 export default GeneralSettings;
-
-
 
 // <div className="hidden">
 // <div className="fixed left-0 top-0 z-999999 flex h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5">
