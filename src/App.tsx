@@ -52,6 +52,9 @@ import PackageMining from './pages/Historys/PackageMining';
 import A2ITokenHistory from './pages/Historys/A2ITokenHistory';
 import MonthlyStakingHistory from './pages/Historys/MonthlyStakingHistory';
 import PopUp from './pages/PopUp';
+import ReferHistory from './pages/Historys/ReferHistory';
+import LevelHistory from './pages/Historys/LevelHistory';
+import BiztConversionHistory from './pages/Historys/BiztConversionHistory';
 
 function App() {
   const { pathname } = useLocation();
@@ -397,6 +400,42 @@ function App() {
                   <PageTitle title="Monthly Staking" />
                   <ProtectedRoute>
                     <MonthlyStakingHistory />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/historys/refer-history"
+              element={
+                <>
+                  <PageTitle title="Refer History" />
+                  <ProtectedRoute>
+                    <ReferHistory />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/historys/level-history"
+              element={
+                <>
+                  <PageTitle title="Refer History" />
+                  <ProtectedRoute>
+                    <LevelHistory />
+                  </ProtectedRoute>
+                </>
+              }
+            />
+
+            <Route
+              path="/historys/bizt-conversion-history"
+              element={
+                <>
+                  <PageTitle title="Refer History" />
+                  <ProtectedRoute>
+                    <BiztConversionHistory />
                   </ProtectedRoute>
                 </>
               }
